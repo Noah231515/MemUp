@@ -1,39 +1,27 @@
-﻿// using System;
-// using System.Collections.Generic;
-// using System.Linq;
-// using System.Threading.Tasks;
-// using Microsoft.AspNetCore.Mvc;
-// using Microsoft.Extensions.Logging;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
-// namespace MemUp.Controllers
-// {
-//     [ApiController]
-//     [Route("[controller]")]
-//     public class WeatherForecastController : ControllerBase
-//     {
-//         private static readonly string[] Summaries = new[]
-//         {
-//             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-//         };
+namespace MemUp.Controllers
+{
+    // Reference Controller
+    // Route at http//localhost:5000/Test/{MethodName}
+    public class TestController : ControllerBase
+    {
+        private readonly ILogger<TestController> _logger;
 
-//         private readonly ILogger<WeatherForecastController> _logger;
+        public TestController(ILogger<TestController> logger)
+        {
+            _logger = logger;
+        }
 
-//         public WeatherForecastController(ILogger<WeatherForecastController> logger)
-//         {
-//             _logger = logger;
-//         }
-
-//         [HttpGet]
-//         public IEnumerable<WeatherForecast> Get()
-//         {
-//             var rng = new Random();
-//             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-//             {
-//                 Date = DateTime.Now.AddDays(index),
-//                 TemperatureC = rng.Next(-20, 55),
-//                 Summary = Summaries[rng.Next(Summaries.Length)]
-//             })
-//             .ToArray();
-//         }
-//     }
-// }
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok("test");
+        }
+    }
+}

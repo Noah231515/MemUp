@@ -2,7 +2,6 @@
 /home/navi/Documents/Projects/MemUp/bin/Debug/netcoreapp3.1/appsettings.json
 /home/navi/Documents/Projects/MemUp/bin/Debug/netcoreapp3.1/Properties/launchSettings.json
 /home/navi/Documents/Projects/MemUp/bin/Debug/netcoreapp3.1/MemUp.StaticWebAssets.xml
-/home/navi/Documents/Projects/MemUp/bin/Debug/netcoreapp3.1/memUp.db
 /home/navi/Documents/Projects/MemUp/bin/Debug/netcoreapp3.1/MemUp
 /home/navi/Documents/Projects/MemUp/bin/Debug/netcoreapp3.1/MemUp.deps.json
 /home/navi/Documents/Projects/MemUp/bin/Debug/netcoreapp3.1/MemUp.runtimeconfig.json

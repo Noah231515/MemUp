@@ -34,7 +34,7 @@ namespace MemUp.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite("Data Source=memUp.db");
+                optionsBuilder.UseSqlite("Data Source=MemUp.db");
             }
         }
 

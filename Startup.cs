@@ -27,15 +27,15 @@ namespace MemUp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MemUpDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<MemUpIdentityDbContext>(options =>
                 options.UseSqlite(
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<MemUpIdentityDbContext>();
 
             services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+                .AddApiAuthorization<ApplicationUser, MemUpIdentityDbContext>();
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();

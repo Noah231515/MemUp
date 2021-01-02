@@ -109,3 +109,4 @@
 /home/navi/Documents/Projects/MemUp/obj/Debug/netcoreapp3.1/MemUp.dll
 /home/navi/Documents/Projects/MemUp/obj/Debug/netcoreapp3.1/MemUp.pdb
 /home/navi/Documents/Projects/MemUp/bin/Debug/netcoreapp3.1/package-lock.json
+/home/navi/Documents/Projects/MemUp/bin/Debug/netcoreapp3.1/MemUp.db

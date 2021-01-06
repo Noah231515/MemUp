@@ -20,6 +20,8 @@ namespace MemUp.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
+            // Course DB Model Builder
             modelBuilder.Entity<Course>()
                 .HasKey(x => x.Id);
 
@@ -29,6 +31,26 @@ namespace MemUp.Models
 
             modelBuilder.Entity<Course>()
                 .Property(x => x.Name).HasMaxLength(50);
+
+            modelBuilder.Entity<Course>()
+                .Property(x => x.Description).HasMaxLength(100);
+
+            // Word DB Model Builder
+            modelBuilder.Entity<Word>()
+                .HasKey(x => x.Id);
+
+            modelBuilder.Entity<Word>()
+                .Property(x => x.JapaneseVocab).HasMaxLength(20);
+            
+            modelBuilder.Entity<Word>()
+                .Property(x => x.KanaVocab).HasMaxLength(20);
+            
+            modelBuilder.Entity<Word>()
+                .Property(x => x.EnglishVocab).HasMaxLength(20);
+            
+            modelBuilder.Entity<Word>()
+                .Property(x => x.PartOfSpeech).HasMaxLength(20);
+                
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

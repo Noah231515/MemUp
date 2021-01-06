@@ -3,14 +3,16 @@ using System;
 using MemUp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MemUp.Migrations
 {
     [DbContext(typeof(MemUpDbContext))]
-    partial class MemUpDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210105185002_AddCourseDescription")]
+    partial class AddCourseDescription
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,33 +38,6 @@ namespace MemUp.Migrations
                         .IsUnique();
 
                     b.ToTable("Courses");
-                });
-
-            modelBuilder.Entity("MemUp.Models.Word", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("EnglishVocab")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(20);
-
-                    b.Property<string>("JapaneseVocab")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(20);
-
-                    b.Property<string>("KanaVocab")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(20);
-
-                    b.Property<string>("PartOfSpeech")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(20);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Word");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/navi/Documents/Projects/MemUp/MemUp.csproj": {}
+    "/home/andrewb/Documents/Web Dev Stuff/MemUp/MemUp/MemUp.csproj": {}
   },
   "projects": {
-    "/home/navi/Documents/Projects/MemUp/MemUp.csproj": {
+    "/home/andrewb/Documents/Web Dev Stuff/MemUp/MemUp/MemUp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/navi/Documents/Projects/MemUp/MemUp.csproj",
+        "projectUniqueName": "/home/andrewb/Documents/Web Dev Stuff/MemUp/MemUp/MemUp.csproj",
         "projectName": "MemUp",
-        "projectPath": "/home/navi/Documents/Projects/MemUp/MemUp.csproj",
-        "packagesPath": "/home/navi/.nuget/packages/",
-        "outputPath": "/home/navi/Documents/Projects/MemUp/obj/",
+        "projectPath": "/home/andrewb/Documents/Web Dev Stuff/MemUp/MemUp/MemUp.csproj",
+        "packagesPath": "/home/andrewb/.nuget/packages/",
+        "outputPath": "/home/andrewb/Documents/Web Dev Stuff/MemUp/MemUp/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/navi/.nuget/NuGet/NuGet.Config"
+          "/home/andrewb/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"

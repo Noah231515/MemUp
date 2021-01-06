@@ -57,7 +57,8 @@ namespace MemUp.Migrations
                         .HasMaxLength(20);
 
                     b.Property<string>("PartOfSpeech")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemUp.Migrations
 {
     [DbContext(typeof(MemUpDbContext))]
-    [Migration("20210105191016_AddWordTable")]
+    [Migration("20210106005211_AddWordTable")]
     partial class AddWordTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,7 +59,8 @@ namespace MemUp.Migrations
                         .HasMaxLength(20);
 
                     b.Property<string>("PartOfSpeech")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 

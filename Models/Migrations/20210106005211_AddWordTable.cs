@@ -15,7 +15,7 @@ namespace MemUp.Migrations
                     JapaneseVocab = table.Column<string>(maxLength: 20, nullable: true),
                     KanaVocab = table.Column<string>(maxLength: 20, nullable: true),
                     EnglishVocab = table.Column<string>(maxLength: 20, nullable: true),
-                    PartOfSpeech = table.Column<string>(nullable: true)
+                    PartOfSpeech = table.Column<string>(maxLength: 20, nullable: true)
                 },
                 constraints: table =>
                 {

@@ -9,6 +9,7 @@ namespace MemUp.Models
         public string EnglishVocab { get; set; }
         public string PartOfSpeech { get; set; }
 
+        /* Course and Word Relationship Setup */
         public ICollection<CourseWord> CourseWords { get; set; }
     }
 }

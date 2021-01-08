@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace MemUp.Models
 {
     public class Word : BaseModel
@@ -6,5 +8,8 @@ namespace MemUp.Models
         public string KanaVocab { get; set; }
         public string EnglishVocab { get; set; }
         public string PartOfSpeech { get; set; }
+
+        /* Course and Word Relationship Setup */
+        public ICollection<CourseWord> CourseWords { get; set; }
     }
 }

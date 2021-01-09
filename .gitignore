@@ -1,3 +1,5 @@
 /bin/Debug
 obj/
 *.db
+MemUp.db-shm
+MemUp.db-wal

@@ -50,6 +50,20 @@ namespace MemUp.Models
             
             modelBuilder.Entity<Word>()
                 .Property(x => x.PartOfSpeech).HasMaxLength(20);
+
+            modelBuilder.Entity<Word>()
+                .HasMany(w => w.Sentences)
+                .WithOne(s => s.Word);
+            
+            // Sentence DB Model Builder
+            modelBuilder.Entity<Sentence>()
+                .HasKey(x => x.Id);
+            
+            modelBuilder.Entity<Sentence>()
+                .Property(x => x.SentenceText).HasMaxLength(50);
+            
+            modelBuilder.Entity<Sentence>()
+                .Property(x => x.SentenceType).HasMaxLength(10);
             
             // CourseWord DB Model Builder
             modelBuilder.Entity<CourseWord>()

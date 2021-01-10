@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemUp.Migrations
 {
     [DbContext(typeof(MemUpDbContext))]
-    [Migration("20210109042118_AddSentenceTable")]
-    partial class AddSentenceTable
+    [Migration("20210110004451_AddSentenceTypeRelationship")]
+    partial class AddSentenceTypeRelationship
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -138,18 +138,34 @@ namespace MemUp.Migrations
                         .HasColumnType("TEXT")
                         .HasMaxLength(50);
 
-                    b.Property<string>("SentenceType")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(10);
+                    b.Property<Guid?>("SentenceTypeId")
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid?>("WordId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("SentenceTypeId");
+
                     b.HasIndex("WordId");
 
                     b.ToTable("Sentence");
+                });
+
+            modelBuilder.Entity("MemUp.Models.SentenceType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(10);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SentenceType");
                 });
 
             modelBuilder.Entity("MemUp.Models.Word", b =>
@@ -211,6 +227,10 @@ namespace MemUp.Migrations
 
             modelBuilder.Entity("MemUp.Models.Sentence", b =>
                 {
+                    b.HasOne("MemUp.Models.SentenceType", "SentenceType")
+                        .WithMany("Sentences")
+                        .HasForeignKey("SentenceTypeId");
+
                     b.HasOne("MemUp.Models.Word", "Word")
                         .WithMany("Sentences")
                         .HasForeignKey("WordId");

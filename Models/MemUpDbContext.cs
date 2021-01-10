@@ -50,6 +50,28 @@ namespace MemUp.Models
             
             modelBuilder.Entity<Word>()
                 .Property(x => x.PartOfSpeech).HasMaxLength(20);
+
+            modelBuilder.Entity<Word>()
+                .HasMany(w => w.Sentences)
+                .WithOne(s => s.Word);
+            
+            // Sentence DB Model Builder
+            modelBuilder.Entity<Sentence>()
+                .HasKey(x => x.Id);
+            
+            modelBuilder.Entity<Sentence>()
+                .Property(x => x.SentenceText).HasMaxLength(50);
+
+            // SentenceType DB Builder
+            modelBuilder.Entity<SentenceType>()
+                .HasKey(x => x.Id);
+            
+            modelBuilder.Entity<SentenceType>()
+                .Property(x => x.Type).HasMaxLength(10);
+            
+            modelBuilder.Entity<SentenceType>()
+                .HasMany(st => st.Sentences)
+                .WithOne(s => s.SentenceType);
             
             // CourseWord DB Model Builder
             modelBuilder.Entity<CourseWord>()
@@ -64,6 +86,20 @@ namespace MemUp.Models
                 .HasOne(cw => cw.Word)
                 .WithMany(w => w.CourseWords)
                 .HasForeignKey(cw => cw.WordId);
+            
+            // CourseUser DB Model Builder
+            modelBuilder.Entity<CourseUser>()
+                .HasKey(cu => new { cu.CourseId, cu.ApplicationUserId });
+
+            modelBuilder.Entity<CourseUser>()
+                .HasOne(cu => cu.Course)
+                .WithMany(c => c.CourseUsers)
+                .HasForeignKey(cu => cu.CourseId);
+
+            modelBuilder.Entity<CourseUser>()
+                .HasOne(cu => cu.ApplicationUser)
+                .WithMany(u => u.CourseUsers)
+                .HasForeignKey(cu => cu.ApplicationUserId);
             
                 
         }

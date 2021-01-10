@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace MemUp.Models
 {
     public class ApplicationUser : IdentityUser
-    {
+    {  
+         /* Relationships Setup */
+         public ICollection<CourseUser> CourseUsers { get; set; }
     }
 }

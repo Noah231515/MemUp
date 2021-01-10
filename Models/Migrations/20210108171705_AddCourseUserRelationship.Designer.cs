@@ -3,14 +3,16 @@ using System;
 using MemUp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MemUp.Migrations
 {
     [DbContext(typeof(MemUpDbContext))]
-    partial class MemUpDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210108171705_AddCourseUserRelationship")]
+    partial class AddCourseUserRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,46 +128,6 @@ namespace MemUp.Migrations
                     b.ToTable("CourseWord");
                 });
 
-            modelBuilder.Entity("MemUp.Models.Sentence", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SentenceText")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(50);
-
-                    b.Property<Guid?>("SentenceTypeId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("WordId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SentenceTypeId");
-
-                    b.HasIndex("WordId");
-
-                    b.ToTable("Sentence");
-                });
-
-            modelBuilder.Entity("MemUp.Models.SentenceType", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Type")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(10);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SentenceType");
-                });
-
             modelBuilder.Entity("MemUp.Models.Word", b =>
                 {
                     b.Property<Guid>("Id")
@@ -221,17 +183,6 @@ namespace MemUp.Migrations
                         .HasForeignKey("WordId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MemUp.Models.Sentence", b =>
-                {
-                    b.HasOne("MemUp.Models.SentenceType", "SentenceType")
-                        .WithMany("Sentences")
-                        .HasForeignKey("SentenceTypeId");
-
-                    b.HasOne("MemUp.Models.Word", "Word")
-                        .WithMany("Sentences")
-                        .HasForeignKey("WordId");
                 });
 #pragma warning restore 612, 618
         }

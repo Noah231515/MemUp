@@ -1,5 +1,6 @@
 from openpyxl import load_workbook
 import sqlite3
+import uuid
 
 conn = sqlite3.connect('./MemUp.db')
 cursor = conn.cursor()
@@ -14,8 +15,10 @@ courseWordIndex = 1
 
 for row in vocab_sheet.iter_rows(values_only=True):
     
+    wordId = str(uuid.uuid4())
+    
     wordData = {
-        "id": row[0],
+        "id": wordId,
         "vocab_japanese": row[1],
         "vocab_kana": row[2],
         "vocab_furigana": row[3],
@@ -35,7 +38,9 @@ for row in vocab_sheet.iter_rows(values_only=True):
     # and we use the sentenceIndex to ensure that our Primary Key index increments correctly
     # The sentence table is formatted like so: Id, Sentence, WordId, SentenceType 
     for sentence in sentenceData.values():
-        cursor.execute(f"INSERT INTO Sentence VALUES (?, ?, ?, NULL)", [sentenceIndex, sentence, row[0]])
+        sentenceId = uuid.uuid4()
+        print(sentenceId)
+        cursor.execute(f"INSERT INTO Sentence VALUES (?, ?, ?, NULL)", [str(sentenceId), sentence, wordId])
         sentenceIndex = sentenceIndex + 1
     
 for wordData in words:
@@ -43,8 +48,7 @@ for wordData in words:
     cursor.execute(f"INSERT INTO Word VALUES (?, ?, ?, ?, ?)", [wordData['id'], wordData['vocab_japanese'], wordData['vocab_kana'], wordData['vocab_english'], wordData['pos']])
     
     # Seed the CourseWord joint table, linking all of our words to the default Japanese Core Vocabulary Course
-    cursor.execute("INSERT INTO CourseWord VALUES (1, ?, ?)", [wordData['id'], courseWordIndex])
-    courseWordIndex = courseWordIndex + 1
+    cursor.execute("INSERT INTO CourseWord VALUES (1, ?, ?)", [wordData['id'], str(uuid.uuid4())])
 
 
 conn.commit()

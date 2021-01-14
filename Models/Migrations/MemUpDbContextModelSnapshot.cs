@@ -142,6 +142,9 @@ namespace MemUp.Migrations
                     b.Property<Guid?>("WordId")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("WordIndex")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SentenceTypeId");
@@ -175,6 +178,9 @@ namespace MemUp.Migrations
                     b.Property<string>("EnglishVocab")
                         .HasColumnType("TEXT")
                         .HasMaxLength(20);
+
+                    b.Property<int>("Index")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("JapaneseVocab")
                         .HasColumnType("TEXT")

@@ -8,6 +8,7 @@ namespace MemUp.Models
         public string KanaVocab { get; set; }
         public string EnglishVocab { get; set; }
         public string PartOfSpeech { get; set; }
+        public int Index { get; set; }
 
         /* Relationships Setup */
         public ICollection<CourseWord> CourseWords { get; set; }

@@ -4,6 +4,7 @@ namespace MemUp.Models
     public class Sentence : BaseModel
     {
         public string SentenceText { get; set; }
+        public int WordIndex { get; set; }
 
         /* Relationships Setup */
         public Word Word { get; set; }

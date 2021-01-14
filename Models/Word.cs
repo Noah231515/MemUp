@@ -4,6 +4,7 @@ namespace MemUp.Models
 {
     public class Word : BaseModel
     {
+        public int Index { get; set; }
         public string JapaneseVocab { get; set; }
         public string KanaVocab { get; set; }
         public string EnglishVocab { get; set; }

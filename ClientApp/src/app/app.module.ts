@@ -30,7 +30,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDatepickerModule } from "@angular/material/datepicker";
-import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -38,9 +37,7 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
-    FetchDataComponent,
-    UserDashboardComponent,
-    UserInfoCardComponent
+    FetchDataComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -70,7 +67,6 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
     { path: '', component: HomeComponent, pathMatch: 'full' },
     { path: 'counter', component: CounterComponent },
     { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
-    { path: 'dashboard', component: UserDashboardComponent },
 ], { relativeLinkResolution: 'legacy' })
   ],
   providers: [

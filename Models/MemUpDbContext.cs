@@ -38,6 +38,10 @@ namespace MemUp.Models
             modelBuilder.Entity<Course>()
                 .HasMany(x => x.Words)
                 .WithMany(x => x.Courses);
+            
+            modelBuilder.Entity<Course>()
+                .HasMany(x => x.Users)
+                .WithMany(x => x.Courses);
 
             // Word DB Model Builder
             modelBuilder.Entity<Word>()

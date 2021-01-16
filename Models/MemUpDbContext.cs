@@ -86,22 +86,6 @@ namespace MemUp.Models
                 .HasOne(cw => cw.Word)
                 .WithMany(w => w.CourseWords)
                 .HasForeignKey(cw => cw.WordId);
-            
-            // CourseUser DB Model Builder
-            modelBuilder.Entity<CourseUser>()
-                .HasKey(cu => new { cu.CourseId, cu.ApplicationUserId });
-
-            modelBuilder.Entity<CourseUser>()
-                .HasOne(cu => cu.Course)
-                .WithMany(c => c.CourseUsers)
-                .HasForeignKey(cu => cu.CourseId);
-
-            modelBuilder.Entity<CourseUser>()
-                .HasOne(cu => cu.ApplicationUser)
-                .WithMany(u => u.CourseUsers)
-                .HasForeignKey(cu => cu.ApplicationUserId);
-            
-                
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

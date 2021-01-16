@@ -9,6 +9,6 @@ namespace MemUp.Models
 
         /* Relationships Setup */
         public ICollection<CourseWord> CourseWords { get; set; }
-        public ICollection<CourseUser> CourseUsers { get; set; }
+        public ICollection<ApplicationUser> Users { get; set; }
     }
 }

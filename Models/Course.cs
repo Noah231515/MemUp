@@ -8,7 +8,7 @@ namespace MemUp.Models
         public string Description { get; set; }
 
         /* Relationships Setup */
-        public ICollection<CourseWord> CourseWords { get; set; }
+        public ICollection<Word> Words { get; set; }
         public ICollection<ApplicationUser> Users { get; set; }
     }
 }

@@ -72,20 +72,6 @@ namespace MemUp.Models
             modelBuilder.Entity<SentenceType>()
                 .HasMany(st => st.Sentences)
                 .WithOne(s => s.SentenceType);
-            
-            // CourseWord DB Model Builder
-            modelBuilder.Entity<CourseWord>()
-                .HasKey(cw => new { cw.CourseId, cw.WordId });
-
-            modelBuilder.Entity<CourseWord>()
-                .HasOne(cw => cw.Course)
-                .WithMany(c => c.CourseWords)
-                .HasForeignKey(cw => cw.CourseId);
-
-            modelBuilder.Entity<CourseWord>()
-                .HasOne(cw => cw.Word)
-                .WithMany(w => w.CourseWords)
-                .HasForeignKey(cw => cw.WordId);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

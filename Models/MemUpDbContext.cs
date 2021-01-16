@@ -34,6 +34,10 @@ namespace MemUp.Models
 
             modelBuilder.Entity<Course>()
                 .Property(x => x.Description).HasMaxLength(100);
+            
+            modelBuilder.Entity<Course>()
+                .HasMany(x => x.Words)
+                .WithMany(x => x.Courses);
 
             // Word DB Model Builder
             modelBuilder.Entity<Word>()

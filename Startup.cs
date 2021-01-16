@@ -54,7 +54,11 @@ namespace MemUp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                
+                /*
+                This function breaks the application with EF Core 5
                 app.UseDatabaseErrorPage();
+                */
             }
             else
             {

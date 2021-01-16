@@ -26,10 +26,12 @@ namespace MemUp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MemUpDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<MemUpDbContext>(options => 
+                options.UseLazyLoadingProxies().
+                UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<MemUpIdentityDbContext>(options =>
-                options.UseSqlite(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseLazyLoadingProxies()
+                .UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<MemUpIdentityDbContext>();

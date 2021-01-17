@@ -6,7 +6,7 @@ namespace MemUp.Models
         public string SentenceText { get; set; }
 
         /* Relationships Setup */
-        public Word Word { get; set; }
-        public SentenceType SentenceType { get; set; }
+        public virtual Word Word { get; set; }
+        public virtual SentenceType SentenceType { get; set; }
     }
 }

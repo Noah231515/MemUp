@@ -34,6 +34,14 @@ namespace MemUp.Models
 
             modelBuilder.Entity<Course>()
                 .Property(x => x.Description).HasMaxLength(100);
+            
+            modelBuilder.Entity<Course>()
+                .HasMany(x => x.Words)
+                .WithMany(x => x.Courses);
+            
+            modelBuilder.Entity<Course>()
+                .HasMany(x => x.Users)
+                .WithMany(x => x.Courses);
 
             // Word DB Model Builder
             modelBuilder.Entity<Word>()
@@ -72,36 +80,6 @@ namespace MemUp.Models
             modelBuilder.Entity<SentenceType>()
                 .HasMany(st => st.Sentences)
                 .WithOne(s => s.SentenceType);
-            
-            // CourseWord DB Model Builder
-            modelBuilder.Entity<CourseWord>()
-                .HasKey(cw => new { cw.CourseId, cw.WordId });
-
-            modelBuilder.Entity<CourseWord>()
-                .HasOne(cw => cw.Course)
-                .WithMany(c => c.CourseWords)
-                .HasForeignKey(cw => cw.CourseId);
-
-            modelBuilder.Entity<CourseWord>()
-                .HasOne(cw => cw.Word)
-                .WithMany(w => w.CourseWords)
-                .HasForeignKey(cw => cw.WordId);
-            
-            // CourseUser DB Model Builder
-            modelBuilder.Entity<CourseUser>()
-                .HasKey(cu => new { cu.CourseId, cu.ApplicationUserId });
-
-            modelBuilder.Entity<CourseUser>()
-                .HasOne(cu => cu.Course)
-                .WithMany(c => c.CourseUsers)
-                .HasForeignKey(cu => cu.CourseId);
-
-            modelBuilder.Entity<CourseUser>()
-                .HasOne(cu => cu.ApplicationUser)
-                .WithMany(u => u.CourseUsers)
-                .HasForeignKey(cu => cu.ApplicationUserId);
-            
-                
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

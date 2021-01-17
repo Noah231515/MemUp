@@ -32,6 +32,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { UserInfoCardComponent } from './user-dashboard/user-info-card/user-info-card.component';
+import { SubscribedCoursesCardComponent } from './user-dashboard/subscribed-courses-card/subscribed-courses-card.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { UserInfoCardComponent } from './user-dashboard/user-info-card/user-info
     CounterComponent,
     FetchDataComponent,
     UserDashboardComponent,
-    UserInfoCardComponent
+    UserInfoCardComponent,
+    SubscribedCoursesCardComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

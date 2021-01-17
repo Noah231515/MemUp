@@ -33,6 +33,8 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { UserInfoCardComponent } from './user-dashboard/user-info-card/user-info-card.component';
 import { SubscribedCoursesCardComponent } from './user-dashboard/subscribed-courses-card/subscribed-courses-card.component';
+import { CourseService } from './services/course.service';
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
@@ -47,6 +49,7 @@ import { SubscribedCoursesCardComponent } from './user-dashboard/subscribed-cour
     SubscribedCoursesCardComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
@@ -70,15 +73,10 @@ import { SubscribedCoursesCardComponent } from './user-dashboard/subscribed-cour
     MatDatepickerModule,
     FlexLayoutModule,
     ApiAuthorizationModule,
-    RouterModule.forRoot([
-    { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-    { path: 'dashboard', component: UserDashboardComponent, pathMatch: 'full' },
-    { path: 'counter', component: CounterComponent },
-    { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
-], { relativeLinkResolution: 'legacy' })
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }
+    CourseService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

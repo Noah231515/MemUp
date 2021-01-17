@@ -9,12 +9,14 @@ const routes: Routes = [
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',
-      resolve: CourseService
     },
     {
       path: 'dashboard',
       component: UserDashboardComponent,
-      pathMatch: 'full'
+      pathMatch: 'full',
+      resolve: {
+        subscribedCourses: CourseService
+      }
     },
     {
       path: 'counter',

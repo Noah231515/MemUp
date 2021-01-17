@@ -9,7 +9,7 @@ namespace MemUp.Controllers
 {
     // Reference Controller
     // Route at http//localhost:5000/Test/{MethodName}
-    public class CoursesController : ControllerBase
+    public class CoursesController : Controller
     {
         private readonly ILogger<CoursesController> _logger;
 
@@ -19,9 +19,9 @@ namespace MemUp.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetCoursesForUsers()
+        public IActionResult GetSubscribedCoursesForUsers()
         {
-            return Ok("test");
+            return Ok();
         }
     }
 }

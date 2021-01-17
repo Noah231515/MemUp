@@ -9,7 +9,7 @@ namespace MemUp.Controllers
 {
     // Reference Controller
     // Route at http//localhost:5000/Test/{MethodName}
-    public class TestController : ControllerBase
+    public class TestController : Controller
     {
         private readonly ILogger<TestController> _logger;
 

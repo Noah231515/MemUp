@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using MemUp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace MemUp.Controllers
 {
@@ -11,17 +10,19 @@ namespace MemUp.Controllers
     // Route at http//localhost:5000/Test/{MethodName}
     public class CoursesController : Controller
     {
-        private readonly ILogger<CoursesController> _logger;
+        private readonly ILogger<CoursesController> logger;
+        private readonly MemUpDbContext memUpDbContext;
 
-        public CoursesController(ILogger<CoursesController> logger)
+        public CoursesController(MemUpDbContext memUpDbContext, ILogger<CoursesController> logger)
         {
-            _logger = logger;
+            this.logger = logger;
+            this.memUpDbContext = memUpDbContext;
         }
 
         [HttpGet]
-        public IActionResult GetSubscribedCoursesForUsers()
+        public async Task<IActionResult> GetSubscribedCoursesForUsers()
         {
-            return Ok();
+            return Ok(await memUpDbContext.Courses.FirstOrDefaultAsync());
         }
     }
 }

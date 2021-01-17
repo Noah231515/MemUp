@@ -8,8 +8,6 @@ using System.Linq;
 
 namespace MemUp.Controllers
 {
-    // Reference Controller
-    // Route at http//localhost:5000/Test/{MethodName}
     public class CoursesController : Controller
     {
         private readonly ILogger<CoursesController> logger;

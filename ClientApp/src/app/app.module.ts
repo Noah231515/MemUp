@@ -33,6 +33,7 @@ import { UserInfoCardComponent } from './user-dashboard/user-info-card/user-info
 import { SubscribedCoursesCardComponent } from './user-dashboard/subscribed-courses-card/subscribed-courses-card.component';
 import { CourseService } from './services/course.service';
 import { AppRoutingModule } from './app-routing.module';
+import { UserDashboardResolver } from './user-dashboard/user-dashboard.resolver';
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   providers: [
     CourseService,
+    UserDashboardResolver,
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]

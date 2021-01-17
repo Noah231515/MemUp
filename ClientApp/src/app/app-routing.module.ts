@@ -3,6 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { CounterComponent } from "./counter/counter.component";
 import { CourseService } from "./services/course.service";
 import { UserDashboardComponent } from "./user-dashboard/user-dashboard.component";
+import { UserDashboardResolver } from "./user-dashboard/user-dashboard.resolver";
 
 const routes: Routes = [
     {
@@ -15,7 +16,7 @@ const routes: Routes = [
       component: UserDashboardComponent,
       pathMatch: 'full',
       resolve: {
-        subscribedCourses: CourseService
+        subscribedCourses: UserDashboardResolver
       }
     },
     {

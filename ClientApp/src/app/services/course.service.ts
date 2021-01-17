@@ -7,13 +7,9 @@ import { Course } from '../models/course.model';
 @Injectable({
   providedIn: 'root'
 })
-export class CourseService implements Resolve<Course> {
+export class CourseService {
 
   constructor(private http: HttpClient) { }
-
-  public resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Course> {
-    return this.getSubscribedCourses();
-  }
 
   /**
    * Get subscribed courses for currently logged in user

@@ -15,6 +15,9 @@ export class CourseService implements Resolve<Course> {
     return this.getSubscribedCourses();
   }
 
+  /**
+   * Get subscribed courses for currently logged in user
+   */
   public getSubscribedCourses(): Observable<any> {
     return this.http.get("/courses/getsubscribedcoursesforusers");
   }

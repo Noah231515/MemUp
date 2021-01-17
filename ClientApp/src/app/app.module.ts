@@ -39,9 +39,7 @@ import { UserInfoCardComponent } from './user-dashboard/user-info-card/user-info
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
-    FetchDataComponent,
-    UserDashboardComponent,
-    UserInfoCardComponent
+    FetchDataComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -71,7 +69,6 @@ import { UserInfoCardComponent } from './user-dashboard/user-info-card/user-info
     { path: '', component: HomeComponent, pathMatch: 'full' },
     { path: 'counter', component: CounterComponent },
     { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
-    { path: 'dashboard', component: UserDashboardComponent },
 ], { relativeLinkResolution: 'legacy' })
   ],
   providers: [

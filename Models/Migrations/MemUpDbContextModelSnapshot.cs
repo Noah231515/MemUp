@@ -14,7 +14,37 @@ namespace MemUp.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.10");
+                .HasAnnotation("ProductVersion", "5.0.2");
+
+            modelBuilder.Entity("ApplicationUserCourse", b =>
+                {
+                    b.Property<Guid>("CoursesId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UsersId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CoursesId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("ApplicationUserCourse");
+                });
+
+            modelBuilder.Entity("CourseWord", b =>
+                {
+                    b.Property<Guid>("CoursesId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("WordsId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CoursesId", "WordsId");
+
+                    b.HasIndex("WordsId");
+
+                    b.ToTable("CourseWord");
+                });
 
             modelBuilder.Entity("MemUp.Models.ApplicationUser", b =>
                 {
@@ -75,12 +105,12 @@ namespace MemUp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(100);
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -90,42 +120,6 @@ namespace MemUp.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("MemUp.Models.CourseUser", b =>
-                {
-                    b.Property<Guid>("CourseId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("CourseId", "ApplicationUserId");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("CourseUser");
-                });
-
-            modelBuilder.Entity("MemUp.Models.CourseWord", b =>
-                {
-                    b.Property<Guid>("CourseId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("WordId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("CourseId", "WordId");
-
-                    b.HasIndex("WordId");
-
-                    b.ToTable("CourseWord");
-                });
-
             modelBuilder.Entity("MemUp.Models.Sentence", b =>
                 {
                     b.Property<Guid>("Id")
@@ -133,8 +127,8 @@ namespace MemUp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SentenceText")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid?>("SentenceTypeId")
                         .HasColumnType("TEXT");
@@ -158,8 +152,8 @@ namespace MemUp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Type")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(10);
+                        .HasMaxLength(10)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -173,52 +167,52 @@ namespace MemUp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("EnglishVocab")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("JapaneseVocab")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("KanaVocab")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PartOfSpeech")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.ToTable("Word");
                 });
 
-            modelBuilder.Entity("MemUp.Models.CourseUser", b =>
+            modelBuilder.Entity("ApplicationUserCourse", b =>
                 {
-                    b.HasOne("MemUp.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("CourseUsers")
-                        .HasForeignKey("ApplicationUserId")
+                    b.HasOne("MemUp.Models.Course", null)
+                        .WithMany()
+                        .HasForeignKey("CoursesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MemUp.Models.Course", "Course")
-                        .WithMany("CourseUsers")
-                        .HasForeignKey("CourseId")
+                    b.HasOne("MemUp.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MemUp.Models.CourseWord", b =>
+            modelBuilder.Entity("CourseWord", b =>
                 {
-                    b.HasOne("MemUp.Models.Course", "Course")
-                        .WithMany("CourseWords")
-                        .HasForeignKey("CourseId")
+                    b.HasOne("MemUp.Models.Course", null)
+                        .WithMany()
+                        .HasForeignKey("CoursesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MemUp.Models.Word", "Word")
-                        .WithMany("CourseWords")
-                        .HasForeignKey("WordId")
+                    b.HasOne("MemUp.Models.Word", null)
+                        .WithMany()
+                        .HasForeignKey("WordsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -232,6 +226,20 @@ namespace MemUp.Migrations
                     b.HasOne("MemUp.Models.Word", "Word")
                         .WithMany("Sentences")
                         .HasForeignKey("WordId");
+
+                    b.Navigation("SentenceType");
+
+                    b.Navigation("Word");
+                });
+
+            modelBuilder.Entity("MemUp.Models.SentenceType", b =>
+                {
+                    b.Navigation("Sentences");
+                });
+
+            modelBuilder.Entity("MemUp.Models.Word", b =>
+                {
+                    b.Navigation("Sentences");
                 });
 #pragma warning restore 612, 618
         }

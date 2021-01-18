@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -10,7 +9,6 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.module';
-import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,6 +28,13 @@ import { MatListModule } from '@angular/material/list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDatepickerModule } from "@angular/material/datepicker";
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { UserInfoCardComponent } from './user-dashboard/user-info-card/user-info-card.component';
+import { SubscribedCoursesCardComponent } from './user-dashboard/subscribed-courses-card/subscribed-courses-card.component';
+import { CourseService } from './services/course.service';
+import { AppRoutingModule } from './app-routing.module';
+import { UserDashboardResolver } from './user-dashboard/user-dashboard.resolver';
+
 
 @NgModule({
   declarations: [
@@ -37,9 +42,13 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
-    FetchDataComponent
+    FetchDataComponent,
+    UserDashboardComponent,
+    UserInfoCardComponent,
+    SubscribedCoursesCardComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
@@ -63,14 +72,11 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
     MatDatepickerModule,
     FlexLayoutModule,
     ApiAuthorizationModule,
-    RouterModule.forRoot([
-    { path: '', component: HomeComponent, pathMatch: 'full' },
-    { path: 'counter', component: CounterComponent },
-    { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
-], { relativeLinkResolution: 'legacy' })
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }
+    CourseService,
+    UserDashboardResolver,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

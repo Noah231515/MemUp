@@ -33,7 +33,7 @@ import { UserInfoCardComponent } from './user-dashboard/user-info-card/user-info
 import { SubscribedCoursesCardComponent } from './user-dashboard/subscribed-courses-card/subscribed-courses-card.component';
 import { CourseService } from './services/course.service';
 import { AppRoutingModule } from './app-routing.module';
-import { SubscribedCoursesResolver } from './user-dashboard/user-dashboard.resolver';
+import { SubscribedCoursesResolver } from './user-dashboard/subscribed-courses.resolver';
 
 
 @NgModule({

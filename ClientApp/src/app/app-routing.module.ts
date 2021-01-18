@@ -4,7 +4,7 @@ import { CounterComponent } from "./counter/counter.component";
 import { HomeComponent } from "./home/home.component";
 import { CourseService } from "./services/course.service";
 import { UserDashboardComponent } from "./user-dashboard/user-dashboard.component";
-import { UserDashboardResolver } from "./user-dashboard/user-dashboard.resolver";
+import { SubscribedCoursesResolver } from "./user-dashboard/user-dashboard.resolver";
 
 const routes: Routes = [
     {
@@ -22,7 +22,7 @@ const routes: Routes = [
       component: UserDashboardComponent,
       pathMatch: 'full',
       resolve: {
-        subscribedCourses: UserDashboardResolver
+        subscribedCourses: SubscribedCoursesResolver
       }
     },
     {

@@ -7,6 +7,7 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using MemUp.Data;
 using MemUp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -24,17 +25,23 @@ namespace MemUp.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly MemUpDbContext _appContext;
+        private readonly MemUpIdentityDbContext _identityContext;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            MemUpDbContext appContext,
+            MemUpIdentityDbContext identityContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _appContext = appContext;
+            _identityContext = identityContext;
         }
 
         [BindProperty]
@@ -77,9 +84,22 @@ namespace MemUp.Areas.Identity.Pages.Account
             {
                 var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+
+                    // Access the new AspNetUsers entry created by CreateAsync()
+                    // and subscribe it to the default course as well as
+                    // copy it to the ApplicationUser table
+                    ApplicationUser userFromDb = _identityContext.Users.Single(u => u.Email == user.Email);
+                    Course defaultCourse = _appContext.Courses.Single(c => c.Id == new Guid("2AD17CA4-1894-490A-8C83-9733E952D8C7"));
+
+                    defaultCourse.Users.Add(userFromDb);
+                    _appContext.Update(defaultCourse);
+                    _appContext.ApplicationUser.Add(userFromDb);
+                    _appContext.SaveChanges();
+
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

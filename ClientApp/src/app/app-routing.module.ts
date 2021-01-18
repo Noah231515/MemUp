@@ -13,17 +13,17 @@ const routes: Routes = [
       pathMatch: 'full',
     },
     {
+      path: 'home',
+      component: HomeComponent,
+      pathMatch: 'full',
+    },
+    {
       path: 'dashboard',
       component: UserDashboardComponent,
       pathMatch: 'full',
       resolve: {
         subscribedCourses: UserDashboardResolver
       }
-    },
-    {
-      path: 'home',
-      component: HomeComponent,
-      pathMatch: 'full',
     },
     {
       path: 'counter',

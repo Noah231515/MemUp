@@ -11,6 +11,7 @@ using MemUp.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 
 namespace MemUp
 {
@@ -41,7 +42,15 @@ namespace MemUp
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
-            services.AddControllersWithViews();
+                
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options => 
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.MaxDepth = 1;
+                });
+
+
             services.AddRazorPages();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

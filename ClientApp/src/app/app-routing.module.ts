@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { CounterComponent } from "./counter/counter.component";
+import { HomeComponent } from "./home/home.component";
 import { CourseService } from "./services/course.service";
 import { UserDashboardComponent } from "./user-dashboard/user-dashboard.component";
 import { UserDashboardResolver } from "./user-dashboard/user-dashboard.resolver";
@@ -8,7 +9,7 @@ import { UserDashboardResolver } from "./user-dashboard/user-dashboard.resolver"
 const routes: Routes = [
     {
       path: '',
-      redirectTo: 'dashboard',
+      redirectTo: 'home',
       pathMatch: 'full',
     },
     {
@@ -18,6 +19,11 @@ const routes: Routes = [
       resolve: {
         subscribedCourses: UserDashboardResolver
       }
+    },
+    {
+      path: 'home',
+      component: HomeComponent,
+      pathMatch: 'full',
     },
     {
       path: 'counter',

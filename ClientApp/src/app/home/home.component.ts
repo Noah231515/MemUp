@@ -8,14 +8,8 @@ import { AuthorizeService } from 'src/api-authorization/authorize.service';
 })
 export class HomeComponent {
 
-  constructor(private authorize: AuthorizeService, private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.authorize.isAuthenticated()
-      .subscribe((isAuthenticated) => {
-        if (isAuthenticated){
-          this.router.navigate(['dashboard'])
-        }
-      } );
   }
 }

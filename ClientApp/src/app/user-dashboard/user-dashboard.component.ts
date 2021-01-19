@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-dashboard.component.css']
 })
 export class UserDashboardComponent implements OnInit {
-
-  constructor() { }
+  isAuthenticated: boolean;
+  
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.isAuthenticated = this.route.snapshot.data['isAuthenticated'];
   }
-
 }

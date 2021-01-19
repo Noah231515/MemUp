@@ -11,7 +11,8 @@ export class NavMenuComponent implements OnInit {
   isExpanded = false;
   homeLink: string = "/";
 
-  constructor(private authorize: AuthorizeService) {  }
+  constructor(private authorizeService: AuthorizeService) {  }
+
 
   collapse() {
     this.isExpanded = false;

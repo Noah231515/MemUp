@@ -1,4 +1,4 @@
-<div fxFlex>
+<div fxFlex *ngIf="isAuthenticated; else home">
     <div fxLayout="row" fxLayoutGap="24px">
         <mat-card fxFlex="25%">
             <app-user-info-card></app-user-info-card>
@@ -14,3 +14,6 @@
         </mat-card>
     </div>
 </div>
+<ng-template #home>
+    <app-home></app-home>
+</ng-template>

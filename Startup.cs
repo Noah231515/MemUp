@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace MemUp
 {
@@ -27,6 +28,8 @@ namespace MemUp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            
             services.AddDbContext<MemUpDbContext>(options => 
                 options.UseLazyLoadingProxies()
                     .UseSqlite(Configuration.GetConnectionString("DefaultConnection")));

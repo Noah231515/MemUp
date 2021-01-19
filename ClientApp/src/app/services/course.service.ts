@@ -15,6 +15,8 @@ export class CourseService {
    * Get subscribed courses for currently logged in user
    */
   public getSubscribedCourses(): Observable<any> {
-    return this.http.get("/courses/getsubscribedcoursesforusers");
+    var result = this.http.get("/courses/getsubscribedcoursesforusers");
+    console.log(result);
+    return result;
   }
 }

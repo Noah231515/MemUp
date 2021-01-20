@@ -28,6 +28,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { UserInfoCardComponent } from './user-dashboard/user-info-card/user-info-card.component';
 import { SubscribedCoursesCardComponent } from './user-dashboard/subscribed-courses-card/subscribed-courses-card.component';
@@ -72,6 +73,7 @@ import { CourseSummaryCardComponent } from './user-dashboard/course-summary-card
     ReactiveFormsModule,
     MatGridListModule,
     MatDatepickerModule,
+    MatMenuModule,
     FlexLayoutModule,
     ApiAuthorizationModule,
   ],

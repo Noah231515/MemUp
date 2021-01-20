@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Course } from 'src/app/models/course.model';
 
 @Component({
   selector: 'app-subscribed-courses-card',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./subscribed-courses-card.component.css'],
 })
 export class SubscribedCoursesCardComponent implements OnInit {
+  @Input() subscribedCourses: Course[];
 
   constructor() { }
 

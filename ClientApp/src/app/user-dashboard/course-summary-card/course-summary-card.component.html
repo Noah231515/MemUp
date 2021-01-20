@@ -1,3 +1,13 @@
-<mat-card>
-    
+<mat-card class="course-summary">
+    <div>
+        <mat-card-title>{{ course.name }}</mat-card-title>
+        <p>{{ course.description }}</p>
+        <button mat-icon-button class="menu-btn" aria-hidden="false" aria-label="course menu">
+            <mat-icon>more_horiz</mat-icon>
+        </button>
+        <hr/>
+    </div>
+    <mat-card-content>
+        <p>This course has {{ course.words.length }} words</p>
+    </mat-card-content>
 </mat-card>

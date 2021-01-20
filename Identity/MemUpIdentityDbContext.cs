@@ -13,5 +13,8 @@ namespace MemUp.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+
+        public DbSet<Course> Courses { get; set; }
+        
     }
 }

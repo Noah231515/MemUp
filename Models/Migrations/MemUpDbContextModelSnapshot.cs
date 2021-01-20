@@ -31,21 +31,6 @@ namespace MemUp.Migrations
                     b.ToTable("ApplicationUserCourse");
                 });
 
-            modelBuilder.Entity("CourseWord", b =>
-                {
-                    b.Property<Guid>("CoursesId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("WordsId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("CoursesId", "WordsId");
-
-                    b.HasIndex("WordsId");
-
-                    b.ToTable("CourseWord");
-                });
-
             modelBuilder.Entity("MemUp.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -166,6 +151,9 @@ namespace MemUp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("CourseId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("EnglishVocab")
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");
@@ -183,6 +171,8 @@ namespace MemUp.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
 
                     b.ToTable("Word");
                 });
@@ -202,21 +192,6 @@ namespace MemUp.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CourseWord", b =>
-                {
-                    b.HasOne("MemUp.Models.Course", null)
-                        .WithMany()
-                        .HasForeignKey("CoursesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MemUp.Models.Word", null)
-                        .WithMany()
-                        .HasForeignKey("WordsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("MemUp.Models.Sentence", b =>
                 {
                     b.HasOne("MemUp.Models.SentenceType", "SentenceType")
@@ -230,6 +205,20 @@ namespace MemUp.Migrations
                     b.Navigation("SentenceType");
 
                     b.Navigation("Word");
+                });
+
+            modelBuilder.Entity("MemUp.Models.Word", b =>
+                {
+                    b.HasOne("MemUp.Models.Course", "Course")
+                        .WithMany("Words")
+                        .HasForeignKey("CourseId");
+
+                    b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("MemUp.Models.Course", b =>
+                {
+                    b.Navigation("Words");
                 });
 
             modelBuilder.Entity("MemUp.Models.SentenceType", b =>

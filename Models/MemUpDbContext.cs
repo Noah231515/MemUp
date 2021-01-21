@@ -37,7 +37,7 @@ namespace MemUp.Models
             
             modelBuilder.Entity<Course>()
                 .HasMany(x => x.Words)
-                .WithMany(x => x.Courses);
+                .WithOne(x => x.Course);
             
             modelBuilder.Entity<Course>()
                 .HasMany(x => x.Users)

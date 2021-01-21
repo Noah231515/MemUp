@@ -10,7 +10,7 @@ namespace MemUp.Models
         public string PartOfSpeech { get; set; }
 
         /* Relationships Setup */
-        public virtual ICollection<Course> Courses { get; set; }
+        public virtual Course Course { get; set; }
         public virtual ICollection<Sentence> Sentences { get; set; }
     }
 }

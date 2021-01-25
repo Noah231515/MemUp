@@ -8,7 +8,5 @@ namespace MemUp.Models
 {
     public class ApplicationUser : IdentityUser
     {  
-         /* Relationships Setup */
-         public virtual ICollection<Course> Courses { get; set; }
     }
 }

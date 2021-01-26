@@ -29,16 +29,19 @@ namespace MemUp.Controllers
         public async Task<IActionResult> GetSubscribedCoursesForUsers()
         {
             var user = await userManager.GetUserAsync(this.User);
-            var userCourses = memUpDbContext.UserCourse.Where(uc => uc.UserId == new System.Guid(user.Id));
-
             List<Course> subscribedCourses = new List<Course>();
-
-            foreach (UserCourse userCourse in userCourses)
+            if (user != null)
             {
-                Course course = memUpDbContext.Courses.Find(userCourse.CourseId);
-                subscribedCourses.Add(course);
-            }
+                var userCourses = memUpDbContext.UserCourse.Where(uc => uc.UserId == new System.Guid(user.Id));
 
+
+                foreach (UserCourse userCourse in userCourses)
+                {
+                    Course course = memUpDbContext.Courses.Find(userCourse.CourseId);
+                    subscribedCourses.Add(course);
+                }
+
+            }
             return Ok(subscribedCourses);
         }
     }

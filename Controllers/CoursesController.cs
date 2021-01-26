@@ -26,6 +26,11 @@ namespace MemUp.Controllers
             this.courses = this.memUpDbContext.Courses;
         }
 
+        private Boolean UserCourseExists(Guid userId, Guid courseId)
+        {
+            return memUpDbContext.UserCourse.SingleOrDefault(uc => uc.UserId == userId && uc.CourseId == courseId) != null;
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetSubscribedCoursesForUsers()
         {
@@ -47,31 +52,44 @@ namespace MemUp.Controllers
         }
 
         [HttpPost]
-        [Route("/courses/subscribetocourse/{id}")]
-        public async Task<IActionResult> SubscribeToCourse(System.Guid id)
+        [Route("/courses/subscribetocourse/{courseId}")]
+        public async Task<IActionResult> SubscribeToCourse(Guid courseId)
         {
             var user = await userManager.GetUserAsync(this.User);
-            Course course = memUpDbContext.Courses.Find(id);
-            UserCourse userCourse = new UserCourse()
+            Course course = memUpDbContext.Courses.Find(courseId);
+
+            if (UserCourseExists(new Guid(user.Id), courseId) == false)
             {
-                Id = new System.Guid(),
-                UserId = new System.Guid(user.Id),
-                CourseId = course.Id
-            };
-            memUpDbContext.UserCourse.Add(userCourse);
-            memUpDbContext.SaveChanges();
-            return Ok(userCourse);
+                UserCourse userCourse = new UserCourse()
+                {
+                    Id = new Guid(),
+                    UserId = new Guid(user.Id),
+                    CourseId = course.Id
+                };
+
+                memUpDbContext.UserCourse.Add(userCourse);
+                memUpDbContext.SaveChanges();
+                return Ok(userCourse);
+            }
+            
+            return Ok();
         }
 
         [HttpDelete]
-        [Route("/courses/unsubscribefromcourse/{id}")]
-        public async Task<IActionResult> UnsubscribeFromCourse(System.Guid id)
+        [Route("/courses/unsubscribefromcourse/{courseId}")]
+        public async Task<IActionResult> UnsubscribeFromCourse(Guid courseId)
         {
             var user = await userManager.GetUserAsync(this.User);
-            UserCourse userCourse = memUpDbContext.UserCourse.Single(uc => uc.UserId == new Guid(user.Id) && uc.CourseId == id);
-            memUpDbContext.UserCourse.Remove(userCourse);
-            memUpDbContext.SaveChanges();
-            return Ok(userCourse);
+            
+            if (UserCourseExists(new Guid(user.Id), courseId) == true)
+            {
+                UserCourse userCourse = memUpDbContext.UserCourse.Single(uc => uc.UserId == new Guid(user.Id) && uc.CourseId == courseId);
+                memUpDbContext.UserCourse.Remove(userCourse);
+                memUpDbContext.SaveChanges();
+                return Ok(userCourse);
+            }
+
+            return Ok();
         } 
     }
 }

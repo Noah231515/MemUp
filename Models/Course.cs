@@ -9,6 +9,5 @@ namespace MemUp.Models
 
         /* Relationships Setup */
         public virtual ICollection<Word> Words { get; set; }
-        public virtual ICollection<ApplicationUser> Users { get; set; }
     }
 }

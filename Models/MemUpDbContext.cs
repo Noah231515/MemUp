@@ -38,10 +38,6 @@ namespace MemUp.Models
             modelBuilder.Entity<Course>()
                 .HasMany(x => x.Words)
                 .WithOne(x => x.Course);
-            
-            modelBuilder.Entity<Course>()
-                .HasMany(x => x.Users)
-                .WithMany(x => x.Courses);
 
             // Word DB Model Builder
             modelBuilder.Entity<Word>()
@@ -76,10 +72,7 @@ namespace MemUp.Models
             
             modelBuilder.Entity<SentenceType>()
                 .Property(x => x.Type).HasMaxLength(10);
-            
-            modelBuilder.Entity<SentenceType>()
-                .HasMany(st => st.Sentences)
-                .WithOne(s => s.SentenceType);
+
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -94,5 +87,6 @@ namespace MemUp.Models
         public DbSet<Word> Word { get; set; }
         public DbSet<Sentence> Sentence { get; set; }
         public DbSet<SentenceType> SentenceType { get; set; }
+        public DbSet<UserCourse> UserCourse { get; set; }
     }
 }

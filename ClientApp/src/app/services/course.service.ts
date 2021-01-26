@@ -17,4 +17,12 @@ export class CourseService {
   public getSubscribedCourses(): Observable<any> {
     return this.http.get("/courses/getsubscribedcoursesforusers");
   }
+
+  public subscribeToCourse(id: string): Observable<any> {
+    return this.http.post(`/courses/subscribetocourse/${id}`, null);
+  }
+
+  public unsubscribeFromcourse(id: string): Observable<any> {
+    return this.http.delete(`/courses/unsubscribefromcourse/${id}`);
+  }
 }

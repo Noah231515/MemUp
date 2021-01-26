@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Course } from 'src/app/models/course.model';
+import { CourseService } from 'src/app/services/course.service';
 
 @Component({
   selector: 'app-course-summary-card',
@@ -11,11 +12,18 @@ export class CourseSummaryCardComponent implements OnInit {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   @Input() course: Course;
 
-  constructor() { }
+  constructor(private courseService: CourseService) { }
 
   ngOnInit(): void {
   }
 
+  subscribeToCourse(){
+    this.courseService.subscribeToCourse(this.course.id).subscribe();
+  }
+
+  unsubscribeFromCourse(){
+    this.courseService.unsubscribeFromcourse(this.course.id).subscribe();
+  }
 
   toggleMenu() {
     this.trigger.toggleMenu();

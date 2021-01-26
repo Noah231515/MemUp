@@ -3,14 +3,16 @@ using System;
 using MemUp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MemUp.Migrations
 {
     [DbContext(typeof(MemUpDbContext))]
-    partial class MemUpDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210126000656_AddUserCourseTable")]
+    partial class AddUserCourseTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

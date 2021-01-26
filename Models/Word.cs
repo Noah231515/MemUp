@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace MemUp.Models
 {
@@ -10,7 +11,9 @@ namespace MemUp.Models
         public string PartOfSpeech { get; set; }
 
         /* Relationships Setup */
+        [JsonIgnore]
         public virtual Course Course { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Sentence> Sentences { get; set; }
     }
 }

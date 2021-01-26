@@ -3,14 +3,16 @@ using System;
 using MemUp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MemUp.Migrations
 {
     [DbContext(typeof(MemUpDbContext))]
-    partial class MemUpDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210125235107_RemoveUsersFromCourse")]
+    partial class RemoveUsersFromCourse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,23 +130,6 @@ namespace MemUp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SentenceType");
-                });
-
-            modelBuilder.Entity("MemUp.Models.UserCourse", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("CourseId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserCourse");
                 });
 
             modelBuilder.Entity("MemUp.Models.Word", b =>

@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace MemUp.Models
 
 {
@@ -6,6 +8,7 @@ namespace MemUp.Models
         public string SentenceText { get; set; }
 
         /* Relationships Setup */
+        [JsonIgnore]
         public virtual Word Word { get; set; }
         public virtual SentenceType SentenceType { get; set; }
     }

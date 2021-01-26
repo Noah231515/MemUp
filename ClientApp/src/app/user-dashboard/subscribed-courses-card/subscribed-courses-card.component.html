@@ -1,4 +1,6 @@
 <div>
     <mat-card-title class="subscribed-courses-title">Subscribed Courses</mat-card-title>
-    <app-course-summary-card [course]="subscribedCourses"></app-course-summary-card>
+    <app-course-summary-card 
+    *ngFor="let course of subscribedCourses"
+    [course]="course"></app-course-summary-card>
 </div>

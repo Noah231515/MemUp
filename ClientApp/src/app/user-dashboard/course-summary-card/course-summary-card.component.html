@@ -13,11 +13,15 @@
 </mat-card>
 
 <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="subscribeToCourse()">
+    <button mat-menu-item 
+    [disabled]="subscribedStatus"
+    (click)="subscribeToCourse()">
       <mat-icon>add</mat-icon>
       <span>Subscribe to course</span>
     </button>
-    <button mat-menu-item (click)="unsubscribeFromCourse()">
+    <button mat-menu-item
+    [disabled]="!subscribedStatus"
+    (click)="unsubscribeFromCourse()">
       <mat-icon>clear</mat-icon>
       <span>Unsubscribe from course</span>
     </button>

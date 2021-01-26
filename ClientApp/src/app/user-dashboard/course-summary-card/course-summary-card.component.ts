@@ -13,6 +13,7 @@ export class CourseSummaryCardComponent implements OnInit {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   @Input() course: Course;
   @Input() index: number;
+  @Input() subscribedStatus: boolean;
   @Output() unsubscribe = new EventEmitter<number>();
 
   constructor(private courseService: CourseService) { }

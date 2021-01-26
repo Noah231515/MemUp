@@ -4,5 +4,6 @@
     *ngFor="let course of subscribedCourses; index as index"
     [course]="course"
     [index]="index"
+    [subscribedStatus]="true"
     (unsubscribe)="emitUnsubscribe($event)"></app-course-summary-card>
 </div>

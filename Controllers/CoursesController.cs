@@ -27,8 +27,7 @@ namespace MemUp.Controllers
         [HttpGet]
         public async Task<IActionResult> GetSubscribedCoursesForUsers()
         {
-         //   var user = await userManager.GetUserAsync(this.User);
-            return Ok(courses.First());
+            return Ok(courses.Include(x => x.Words).First());
         }
     }
 }

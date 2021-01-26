@@ -72,6 +72,6 @@ namespace MemUp.Controllers
             memUpDbContext.UserCourse.Remove(userCourse);
             memUpDbContext.SaveChanges();
             return Ok(userCourse);
-        }
+        } 
     }
 }

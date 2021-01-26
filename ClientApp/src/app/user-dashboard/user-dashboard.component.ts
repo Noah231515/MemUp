@@ -16,4 +16,8 @@ export class UserDashboardComponent implements OnInit {
     this.isAuthenticated = this.route.snapshot.data['isAuthenticated'];
     this.subscribedCourses = this.route.snapshot.data['subscribedCourses'];
   }
+
+  onUnsubscribe(event){
+    this.subscribedCourses.splice(event, 1);
+  }
 }

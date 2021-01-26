@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { EventEmitter } from '@angular/core';
 import { Course } from 'src/app/models/course.model';
 import { CourseService } from 'src/app/services/course.service';
 
@@ -11,6 +12,8 @@ import { CourseService } from 'src/app/services/course.service';
 export class CourseSummaryCardComponent implements OnInit {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   @Input() course: Course;
+  @Input() index: number;
+  @Output() unsubscribe = new EventEmitter<number>();
 
   constructor(private courseService: CourseService) { }
 
@@ -23,6 +26,7 @@ export class CourseSummaryCardComponent implements OnInit {
 
   unsubscribeFromCourse(){
     this.courseService.unsubscribeFromcourse(this.course.id).subscribe();
+    this.unsubscribe.emit(this.index);
   }
 
   toggleMenu() {

@@ -1,6 +1,8 @@
 <div>
     <mat-card-title class="subscribed-courses-title">Subscribed Courses</mat-card-title>
     <app-course-summary-card 
-    *ngFor="let course of subscribedCourses"
-    [course]="course"></app-course-summary-card>
+    *ngFor="let course of subscribedCourses; index as index"
+    [course]="course"
+    [index]="index"
+    (unsubscribe)="emitUnsubscribe($event)"></app-course-summary-card>
 </div>

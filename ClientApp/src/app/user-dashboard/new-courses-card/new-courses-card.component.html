@@ -1,1 +1,9 @@
-<p>new-courses-card works!</p>
+<div class="new-courses">
+    <mat-card-title class="new-courses-title">New Courses</mat-card-title>
+    <app-course-summary-card 
+    *ngFor="let course of newCourses; index as index"
+    [course]="course"
+    [index]="index"
+    [subscribedStatus]="false"
+    (unsubscribe)="emitSubscribe($event)"></app-course-summary-card>
+</div>

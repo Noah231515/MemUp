@@ -59,6 +59,7 @@ namespace MemUp.Controllers
                 CourseId = course.Id
             };
             memUpDbContext.UserCourse.Add(userCourse);
+            memUpDbContext.SaveChanges();
             return Ok(userCourse);
         }
 

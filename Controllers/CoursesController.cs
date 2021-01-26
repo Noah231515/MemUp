@@ -28,7 +28,7 @@ namespace MemUp.Controllers
         public async Task<IActionResult> GetSubscribedCoursesForUsers()
         {
          //   var user = await userManager.GetUserAsync(this.User);
-            return Ok("test");
+            return Ok(courses.First());
         }
     }
 }

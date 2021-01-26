@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace MemUp.Controllers
 {
@@ -27,7 +28,18 @@ namespace MemUp.Controllers
         [HttpGet]
         public async Task<IActionResult> GetSubscribedCoursesForUsers()
         {
-            return Ok(courses.Include(x => x.Words).First());
+            var user = await userManager.GetUserAsync(this.User);
+            var userCourses = memUpDbContext.UserCourse.Where(uc => uc.UserId == new System.Guid(user.Id));
+
+            List<Course> subscribedCourses = new List<Course>();
+
+            foreach (UserCourse userCourse in userCourses)
+            {
+                Course course = memUpDbContext.Courses.Find(userCourse.CourseId);
+                subscribedCourses.Add(course);
+            }
+
+            return Ok(subscribedCourses);
         }
     }
 }

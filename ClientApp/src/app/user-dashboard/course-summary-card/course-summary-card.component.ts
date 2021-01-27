@@ -16,21 +16,21 @@ export class CourseSummaryCardComponent implements OnInit {
   @Input() subscribedStatus: boolean;
   @Output() unsubscribe = new EventEmitter<number>();
 
-  constructor(private courseService: CourseService) { }
+  public constructor(private courseService: CourseService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  subscribeToCourse(){
+  public subscribeToCourse(){
     this.courseService.subscribeToCourse(this.course.id).subscribe();
   }
 
-  unsubscribeFromCourse(){
+  public unsubscribeFromCourse(){
     this.courseService.unsubscribeFromcourse(this.course.id).subscribe();
     this.unsubscribe.emit(this.index);
   }
 
-  toggleMenu() {
+  public toggleMenu() {
     this.trigger.toggleMenu();
   }
 

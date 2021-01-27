@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -32,15 +33,12 @@ namespace MemUp.Controllers
             List<Course> subscribedCourses = new List<Course>();
             if (user != null)
             {
-                var userCourses = memUpDbContext.UserCourse.Where(uc => uc.UserId == new System.Guid(user.Id));
-
-
+                var userCourses = memUpDbContext.UserCourse.Where(uc => uc.UserId == new Guid(user.Id)).ToList();
                 foreach (UserCourse userCourse in userCourses)
                 {
                     Course course = memUpDbContext.Courses.Find(userCourse.CourseId);
                     subscribedCourses.Add(course);
                 }
-
             }
             return Ok(subscribedCourses);
         }

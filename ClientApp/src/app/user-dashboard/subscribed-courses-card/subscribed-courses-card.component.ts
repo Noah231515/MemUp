@@ -15,7 +15,7 @@ export class SubscribedCoursesCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  emitUnsubscribe(event){
-    this.unsubscribe.emit(event);
+  emitUnsubscribe(courseIndex) {
+    this.unsubscribe.emit(courseIndex);
   }
 }

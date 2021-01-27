@@ -13,10 +13,12 @@ namespace MemUp.Services
     public class CoursesService : ICoursesService
     {
         private readonly MemUpDbContext memUpDbContext;
+        private readonly DbSet<Course> courses;
 
         public CoursesService(MemUpDbContext memUpDbContext)
         {
             this.memUpDbContext = memUpDbContext;
+            this.courses = memUpDbContext.Courses;
         }
         
         public List<Course> GetSubscribedCoursesForUsers(ApplicationUser user)

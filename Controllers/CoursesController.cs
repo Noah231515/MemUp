@@ -11,18 +11,14 @@ namespace MemUp.Controllers
     public class CoursesController : Controller
     {
         private readonly ILogger<CoursesController> logger;
-        private readonly MemUpDbContext memUpDbContext;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly DbSet<Course> courses;
         private ICoursesService coursesService;
         
 
         public CoursesController(MemUpDbContext memUpDbContext, ILogger<CoursesController> logger, UserManager<ApplicationUser> userManager, ICoursesService coursesService)
         {
             this.logger = logger;
-            this.memUpDbContext = memUpDbContext;
             this.userManager = userManager;
-            this.courses = this.memUpDbContext.Courses;
             this.coursesService = coursesService;
         }
 

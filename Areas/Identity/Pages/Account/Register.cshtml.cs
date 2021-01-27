@@ -97,7 +97,8 @@ namespace MemUp.Areas.Identity.Pages.Account
 
                     UserCourse userCourse = new UserCourse()
                     {
-                        Id = new Guid(),
+                        Id = Guid.NewGuid(),
+
                         CourseId = defaultCourse.Id,
                         UserId = new Guid(userFromDb.Id),
                     };

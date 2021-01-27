@@ -8,10 +8,12 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using MemUp.Data;
 using MemUp.Models;
+using MemUp.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace MemUp
 {
@@ -27,6 +29,9 @@ namespace MemUp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Prevents incoming claim names from being transformed into legacy XML names by ASP Net
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
             services.AddDbContext<MemUpDbContext>(options => 
                 options.UseLazyLoadingProxies()
                     .UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
@@ -51,6 +56,8 @@ namespace MemUp
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddScoped<ICoursesService, CoursesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

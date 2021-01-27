@@ -8,14 +8,14 @@ import { Course } from 'src/app/models/course.model';
 })
 export class SubscribedCoursesCardComponent implements OnInit {
   @Input() public subscribedCourses: Course[];
-  @Output() unsubscribe = new EventEmitter<number>();
+  @Output() public unsubscribe = new EventEmitter<number>();
 
   public constructor() { }
 
   public ngOnInit(): void {
   }
 
-  emitUnsubscribe(courseIndex) {
+  public emitUnsubscribe(courseIndex) {
     this.unsubscribe.emit(courseIndex);
   }
 }

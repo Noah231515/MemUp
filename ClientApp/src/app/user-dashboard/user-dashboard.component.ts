@@ -10,7 +10,7 @@ import { Course } from '../models/course.model';
 export class UserDashboardComponent implements OnInit {
   public isAuthenticated: boolean;
   public subscribedCourses: any[];
-  newCourses: any[] = [];
+  public newCourses: any[] = [];
 
   public constructor(private route: ActivatedRoute) { }
 
@@ -19,11 +19,11 @@ export class UserDashboardComponent implements OnInit {
     this.subscribedCourses = this.route.snapshot.data['subscribedCourses'];
   }
 
-  onUnsubscribe(courseIndex: number) {
+  public onUnsubscribe(courseIndex: number) {
     this.subscribedCourses.splice(courseIndex, 1);
   }
 
-  onSubscribe(courseIndex: number) {
+  public onSubscribe(courseIndex: number) {
     this.subscribedCourses.push(this.newCourses[courseIndex]);
     this.newCourses.splice(courseIndex, 1);
   }

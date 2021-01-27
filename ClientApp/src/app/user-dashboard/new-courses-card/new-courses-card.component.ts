@@ -7,14 +7,14 @@ import { Course } from 'src/app/models/course.model';
   styleUrls: ['./new-courses-card.component.css']
 })
 export class NewCoursesCardComponent implements OnInit {
-  @Input() newCourses: Course[];
-  @Output() subscribe = new EventEmitter<number>();
+  @Input() public newCourses: Course[];
+  @Output() public subscribe = new EventEmitter<number>();
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  emitSubscribe(index){
+  public emitSubscribe(index) {
     this.subscribe.emit(index);
   }
 }

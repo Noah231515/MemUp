@@ -12,22 +12,22 @@ import { CourseService } from 'src/app/services/course.service';
 export class CourseSummaryCardComponent implements OnInit {
   @ViewChild(MatMenuTrigger) public trigger: MatMenuTrigger;
   @Input() public course: Course;
-  @Input() index: number;
-  @Input() subscribedStatus: boolean;
-  @Output() unsubscribe = new EventEmitter<number>();
-  @Output() subscribe = new EventEmitter<number>();
+  @Input() public index: number;
+  @Input() public subscribedStatus: boolean;
+  @Output() public unsubscribe = new EventEmitter<number>();
+  @Output() public subscribe = new EventEmitter<number>();
 
   public constructor(private courseService: CourseService) { }
 
   public ngOnInit(): void {
   }
 
-  public subscribeToCourse(){
+  public subscribeToCourse() {
     this.courseService.subscribeToCourse(this.course.id).subscribe();
     this.subscribe.emit(this.index);
   }
 
-  public unsubscribeFromCourse(){
+  public unsubscribeFromCourse() {
     this.courseService.unsubscribeFromcourse(this.course.id).subscribe();
     this.unsubscribe.emit(this.index);
   }

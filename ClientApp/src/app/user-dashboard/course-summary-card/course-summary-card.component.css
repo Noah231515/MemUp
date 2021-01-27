@@ -1,0 +1,10 @@
+.course-summary{
+    background-color: lightgrey;
+    color: black;
+}
+
+.menu-btn{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}

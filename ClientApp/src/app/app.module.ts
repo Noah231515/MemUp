@@ -28,12 +28,14 @@ import { MatListModule } from '@angular/material/list';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatMenu, MatMenuModule } from '@angular/material/menu';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { UserInfoCardComponent } from './user-dashboard/user-info-card/user-info-card.component';
 import { SubscribedCoursesCardComponent } from './user-dashboard/subscribed-courses-card/subscribed-courses-card.component';
 import { CourseService } from './services/course.service';
 import { AppRoutingModule } from './app-routing.module';
 import { SubscribedCoursesResolver } from './user-dashboard/subscribed-courses.resolver';
+import { CourseSummaryCardComponent } from './user-dashboard/course-summary-card/course-summary-card.component';
 
 
 @NgModule({
@@ -45,7 +47,8 @@ import { SubscribedCoursesResolver } from './user-dashboard/subscribed-courses.r
     FetchDataComponent,
     UserDashboardComponent,
     UserInfoCardComponent,
-    SubscribedCoursesCardComponent
+    SubscribedCoursesCardComponent,
+    CourseSummaryCardComponent
   ],
   imports: [
     AppRoutingModule,
@@ -70,6 +73,7 @@ import { SubscribedCoursesResolver } from './user-dashboard/subscribed-courses.r
     ReactiveFormsModule,
     MatGridListModule,
     MatDatepickerModule,
+    MatMenuModule,
     FlexLayoutModule,
     ApiAuthorizationModule,
   ],

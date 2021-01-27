@@ -1,0 +1,24 @@
+<mat-card class="course-summary">
+    <div>
+        <mat-card-title>{{ course.name }}</mat-card-title>
+        <p>{{ course.description }}</p>
+        <button mat-icon-button class="menu-btn" [matMenuTriggerFor]="menu" aria-hidden="false" aria-label="course menu">
+            <mat-icon>more_horiz</mat-icon>
+        </button>
+        <hr/>
+    </div>
+    <mat-card-content>
+        <p>This course has {{ course.words.length }} words</p>
+    </mat-card-content>
+</mat-card>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>add</mat-icon>
+      <span>Subscribe to course</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>clear</mat-icon>
+      <span>Unsubscribe from course</span>
+    </button>
+</mat-menu>

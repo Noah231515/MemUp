@@ -4,9 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Linq;
-using System.Collections.Generic;
+using MemUp.Services;
 
 namespace MemUp.Controllers
 {
@@ -16,31 +14,23 @@ namespace MemUp.Controllers
         private readonly MemUpDbContext memUpDbContext;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly DbSet<Course> courses;
+        private ICoursesService coursesService;
         
 
-        public CoursesController(MemUpDbContext memUpDbContext, ILogger<CoursesController> logger, UserManager<ApplicationUser> userManager)
+        public CoursesController(MemUpDbContext memUpDbContext, ILogger<CoursesController> logger, UserManager<ApplicationUser> userManager, ICoursesService coursesService)
         {
             this.logger = logger;
             this.memUpDbContext = memUpDbContext;
             this.userManager = userManager;
             this.courses = this.memUpDbContext.Courses;
+            this.coursesService = coursesService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetSubscribedCoursesForUsers()
         {
             var user = await userManager.GetUserAsync(this.User);
-            List<Course> subscribedCourses = new List<Course>();
-            if (user != null)
-            {
-                var userCourses = memUpDbContext.UserCourse.Where(uc => uc.UserId == new Guid(user.Id)).ToList();
-                foreach (UserCourse userCourse in userCourses)
-                {
-                    Course course = memUpDbContext.Courses.Find(userCourse.CourseId);
-                    subscribedCourses.Add(course);
-                }
-            }
-            return Ok(subscribedCourses);
+            return Ok(coursesService.GetSubscribedCoursesForUsers(user));
         }
     }
 }

@@ -95,6 +95,17 @@ namespace MemUp.Areas.Identity.Pages.Account
                     ApplicationUser userFromDb = _identityContext.Users.Single(u => u.Email == user.Email);
                     Course defaultCourse = _appContext.Courses.Single(c => c.Id == new Guid("2AD17CA4-1894-490A-8C83-9733E952D8C7"));
 
+                    UserCourse userCourse = new UserCourse()
+                    {
+                        Id = Guid.NewGuid(),
+
+                        CourseId = defaultCourse.Id,
+                        UserId = new Guid(userFromDb.Id),
+                    };
+
+                    _appContext.UserCourse.Add(userCourse);
+                    _appContext.SaveChanges();
+
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

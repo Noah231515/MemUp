@@ -4,30 +4,29 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using System.Linq;
+using MemUp.Services;
 
 namespace MemUp.Controllers
 {
     public class CoursesController : Controller
     {
         private readonly ILogger<CoursesController> logger;
-        private readonly MemUpDbContext memUpDbContext;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly DbSet<Course> courses;
+        private ICoursesService coursesService;
         
 
-        public CoursesController(MemUpDbContext memUpDbContext, ILogger<CoursesController> logger, UserManager<ApplicationUser> userManager)
+        public CoursesController(MemUpDbContext memUpDbContext, ILogger<CoursesController> logger, UserManager<ApplicationUser> userManager, ICoursesService coursesService)
         {
             this.logger = logger;
-            this.memUpDbContext = memUpDbContext;
             this.userManager = userManager;
-            this.courses = this.memUpDbContext.Courses;
+            this.coursesService = coursesService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetSubscribedCoursesForUsers()
         {
-            return Ok(courses.Include(x => x.Words).First());
+            var user = await userManager.GetUserAsync(this.User);
+            return Ok(coursesService.GetSubscribedCoursesForUsers(user));
         }
     }
 }

@@ -7,12 +7,12 @@ import { ActivatedRoute} from '@angular/router';
   styleUrls: ['./user-dashboard.component.css']
 })
 export class UserDashboardComponent implements OnInit {
-  isAuthenticated: boolean;
-  subscribedCourses: any[];
+  public isAuthenticated: boolean;
+  public subscribedCourses: any[];
 
-  constructor(private route: ActivatedRoute) { }
+  public constructor(private route: ActivatedRoute) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.isAuthenticated = this.route.snapshot.data['isAuthenticated'];
     this.subscribedCourses = this.route.snapshot.data['subscribedCourses'];
   }

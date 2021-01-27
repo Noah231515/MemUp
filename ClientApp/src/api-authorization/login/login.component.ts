@@ -16,12 +16,12 @@ import { LoginActions, QueryParameterNames, ApplicationPaths, ReturnUrlType } fr
 export class LoginComponent implements OnInit {
   public message = new BehaviorSubject<string>(null);
 
-  constructor(
+  public constructor(
     private authorizeService: AuthorizeService,
     private activatedRoute: ActivatedRoute,
     private router: Router) { }
 
-  async ngOnInit() {
+  public async ngOnInit() {
     const action = this.activatedRoute.snapshot.url[1];
     switch (action.path) {
       case LoginActions.Login:

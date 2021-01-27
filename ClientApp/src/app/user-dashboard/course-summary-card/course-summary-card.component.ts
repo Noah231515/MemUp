@@ -15,6 +15,7 @@ export class CourseSummaryCardComponent implements OnInit {
   @Input() index: number;
   @Input() subscribedStatus: boolean;
   @Output() unsubscribe = new EventEmitter<number>();
+  @Output() subscribe = new EventEmitter<number>();
 
   public constructor(private courseService: CourseService) { }
 
@@ -23,6 +24,7 @@ export class CourseSummaryCardComponent implements OnInit {
 
   public subscribeToCourse(){
     this.courseService.subscribeToCourse(this.course.id).subscribe();
+    this.subscribe.emit(this.index);
   }
 
   public unsubscribeFromCourse(){
@@ -33,5 +35,4 @@ export class CourseSummaryCardComponent implements OnInit {
   public toggleMenu() {
     this.trigger.toggleMenu();
   }
-
 }

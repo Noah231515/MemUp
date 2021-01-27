@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Course } from 'src/app/models/course.model';
 
 @Component({
@@ -8,13 +8,13 @@ import { Course } from 'src/app/models/course.model';
 })
 export class NewCoursesCardComponent implements OnInit {
   @Input() newCourses: Course[];
+  @Output() subscribe = new EventEmitter<number>();
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  emitSubscribe(){
-
+  emitSubscribe(index){
+    this.subscribe.emit(index);
   }
-
 }

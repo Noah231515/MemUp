@@ -1,11 +1,9 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { CounterComponent } from "./counter/counter.component";
-import { HomeComponent } from "./home/home.component";
-import { CourseService } from "./services/course.service";
-import { UserDashboardComponent } from "./user-dashboard/user-dashboard.component";
-import { SubscribedCoursesResolver } from "./user-dashboard/subscribed-courses.resolver";
-import { DashboardAuthenticationResolver } from "./user-dashboard/dashboard-authentication.resolver";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { CounterComponent } from './counter/counter.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { SubscribedCoursesResolver } from './user-dashboard/subscribed-courses.resolver';
+import { DashboardAuthenticationResolver } from './user-dashboard/dashboard-authentication.resolver';
 
 const routes: Routes = [
   {

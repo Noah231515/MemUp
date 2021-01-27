@@ -10,8 +10,8 @@ import { CourseService } from 'src/app/services/course.service';
   styleUrls: ['./course-summary-card.component.css']
 })
 export class CourseSummaryCardComponent implements OnInit {
-  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
-  @Input() course: Course;
+  @ViewChild(MatMenuTrigger) public trigger: MatMenuTrigger;
+  @Input() public course: Course;
   @Input() index: number;
   @Input() subscribedStatus: boolean;
   @Output() unsubscribe = new EventEmitter<number>();

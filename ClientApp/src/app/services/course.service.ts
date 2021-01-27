@@ -9,13 +9,13 @@ import { Course } from '../models/course.model';
 })
 export class CourseService {
 
-  constructor(private http: HttpClient) { }
+  public constructor(private http: HttpClient) { }
 
   /**
    * Get subscribed courses for currently logged in user
    */
   public getSubscribedCourses(): Observable<any> {
-    return this.http.get("/courses/getsubscribedcoursesforusers");
+    return this.http.get('/courses/getsubscribedcoursesforusers');
   }
 
   public subscribeToCourse(id: string): Observable<any> {

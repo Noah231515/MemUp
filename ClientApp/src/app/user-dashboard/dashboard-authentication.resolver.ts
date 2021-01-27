@@ -9,7 +9,7 @@ import { AuthorizeService } from 'src/api-authorization/authorize.service';
 })
 export class DashboardAuthenticationResolver implements Resolve<Boolean> {
 
-  constructor(private authorizeService: AuthorizeService) { }
+  public constructor(private authorizeService: AuthorizeService) { }
 
   /**
    * Gets the user's authentication status

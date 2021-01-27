@@ -9,7 +9,7 @@ import { ActivatedRoute} from '@angular/router';
 export class UserDashboardComponent implements OnInit {
   isAuthenticated: boolean;
   subscribedCourses: any[];
-  
+
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {

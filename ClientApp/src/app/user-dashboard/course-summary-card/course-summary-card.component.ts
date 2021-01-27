@@ -11,7 +11,7 @@ export class CourseSummaryCardComponent implements OnInit {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   @Input() course: Course;
 
-  constructor() { }
+  public constructor() { }
 
  public  ngOnInit(): void {
   }

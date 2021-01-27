@@ -17,7 +17,7 @@ export class CourseSummaryCardComponent implements OnInit {
   }
 
 
-  toggleMenu() {
+  public toggleMenu() {
     this.trigger.toggleMenu();
   }
 

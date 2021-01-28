@@ -37,7 +37,16 @@ namespace MemUp.Controllers
         public async Task<IActionResult> SubscribeToCourse(Guid courseId)
         {
             var user = await userManager.GetUserAsync(this.User);
-            return Ok(coursesService.SubscribeToCourse(user, courseId));
+            var result = coursesService.SubscribeToCourse(user, courseId);
+            switch (result)
+            {
+                case 1:
+                    return Ok(new { message = courseId });
+                case 0:
+                    return BadRequest(new { message = "Already subscribed to the selected course" });
+                default:
+                    return BadRequest(new { message = "An unknown error occurred." });
+            }
         }
 
         [HttpDelete]
@@ -45,7 +54,16 @@ namespace MemUp.Controllers
         public async Task<IActionResult> UnsubscribeFromCourse(Guid courseId)
         {
             var user = await userManager.GetUserAsync(this.User);
-            return Ok(coursesService.UnsubscribeFromCourse(user, courseId));
+            var result = coursesService.UnsubscribeFromCourse(user, courseId);
+            switch (result)
+            {
+                case 1:
+                    return Ok(new { message = courseId });
+                case 0:
+                    return BadRequest(new { message = "Not subscribed to the selected course." });
+                default:
+                    return BadRequest(new { message = "An unknown error occurred." });
+            }
         } 
     }
 }

@@ -39,41 +39,63 @@ namespace MemUp.Services
             }
             return subscribedCourses;
         }
-        public List<Course> SubscribeToCourse(ApplicationUser user, Guid courseId)
+        public int SubscribeToCourse(ApplicationUser user, Guid courseId)
         {
-            Course course = memUpDbContext.Courses.Find(courseId);
-            UserCourse userCourse = GetUserCourse(new Guid(user.Id), courseId);
-            if (userCourse == null)
+            try
             {
-                userCourse = new UserCourse()
+                Course course = memUpDbContext.Courses.Find(courseId);
+                UserCourse userCourse = GetUserCourse(new Guid(user.Id), courseId);
+                if (userCourse == null)
                 {
-                    Id = new Guid(),
-                    UserId = new Guid(user.Id),
-                    CourseId = course.Id
-                };
-                memUpDbContext.UserCourse.Add(userCourse);
-                memUpDbContext.SaveChanges();
+                    userCourse = new UserCourse()
+                    {
+                        Id = new Guid(),
+                        UserId = new Guid(user.Id),
+                        CourseId = course.Id
+                    };
+                    memUpDbContext.UserCourse.Add(userCourse);
+                    memUpDbContext.SaveChanges();
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
             }
-            return GetSubscribedCoursesForUsers(user);
+            catch
+            {
+                return -1;
+            }
         }
 
-        public List<Course> UnsubscribeFromCourse(ApplicationUser user, Guid courseId)
+        public int UnsubscribeFromCourse(ApplicationUser user, Guid courseId)
         {   
-            UserCourse userCourse = GetUserCourse(new Guid(user.Id), courseId);
-            if (userCourse != null)
+            try
             {
-                memUpDbContext.UserCourse.Remove(userCourse);
-                memUpDbContext.SaveChanges();
+                UserCourse userCourse = GetUserCourse(new Guid(user.Id), courseId);
+                if (userCourse != null)
+                {
+                    memUpDbContext.UserCourse.Remove(userCourse);
+                    memUpDbContext.SaveChanges();
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
             }
-
-            return GetSubscribedCoursesForUsers(user);
+            catch
+            {
+                return -1;
+            }
+            
         }
     }
 
     public interface ICoursesService
     {
         List<Course> GetSubscribedCoursesForUsers(ApplicationUser user);
-        List<Course> SubscribeToCourse(ApplicationUser user, Guid courseId);
-        List<Course> UnsubscribeFromCourse(ApplicationUser user, Guid courseId);
+        int SubscribeToCourse(ApplicationUser user, Guid courseId);
+        int UnsubscribeFromCourse(ApplicationUser user, Guid courseId);
     }
 }

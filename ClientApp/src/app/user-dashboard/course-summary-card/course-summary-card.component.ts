@@ -3,6 +3,8 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { EventEmitter } from '@angular/core';
 import { Course } from 'src/app/models/course.model';
 import { CourseService } from 'src/app/services/course.service';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-course-summary-card',
@@ -23,16 +25,26 @@ export class CourseSummaryCardComponent implements OnInit {
   }
 
   public subscribeToCourse() {
-    this.courseService.subscribeToCourse(this.course.id).subscribe();
-    this.subscribe.emit(this.index);
+    this.courseService.subscribeToCourse(this.course.id).pipe(
+      catchError((err) => of(this.handleError(err))))
+        .subscribe(() => {
+          this.subscribe.emit(this.index);
+        });
   }
 
   public unsubscribeFromCourse() {
-    this.courseService.unsubscribeFromcourse(this.course.id).subscribe();
-    this.unsubscribe.emit(this.index);
+    this.courseService.unsubscribeFromcourse(this.course.id).pipe(
+      catchError((err) => of(this.handleError(err))))
+        .subscribe(() => {
+          this.unsubscribe.emit(this.index);
+        });
   }
 
   public toggleMenu() {
     this.trigger.toggleMenu();
+  }
+
+  public handleError(err) {
+    console.log(err.error.message);
   }
 }

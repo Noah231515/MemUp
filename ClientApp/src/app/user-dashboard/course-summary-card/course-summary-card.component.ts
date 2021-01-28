@@ -8,14 +8,13 @@ import { Course } from 'src/app/models/course.model';
   styleUrls: ['./course-summary-card.component.css']
 })
 export class CourseSummaryCardComponent implements OnInit {
-  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
-  @Input() course: Course;
+  @ViewChild(MatMenuTrigger) public trigger: MatMenuTrigger;
+  @Input() public course: Course;
 
   public constructor() { }
 
- public  ngOnInit(): void {
+  public  ngOnInit(): void {
   }
-
 
   public toggleMenu() {
     this.trigger.toggleMenu();

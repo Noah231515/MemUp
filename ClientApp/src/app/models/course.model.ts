@@ -1,4 +1,4 @@
-import { Word } from "./word.model";
+import { Word } from './word.model';
 
 export class Course {
   public name: string;

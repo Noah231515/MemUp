@@ -1,5 +1,5 @@
-import { SentenceType } from "./sentence-type.model";
-import { Word } from "./word.model";
+import { SentenceType } from './sentence-type.model';
+import { Word } from './word.model';
 
 export class Sentence {
   public sentenceText: string;

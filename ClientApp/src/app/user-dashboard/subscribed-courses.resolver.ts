@@ -10,7 +10,7 @@ import { CourseService } from '../services/course.service';
 })
 export class SubscribedCoursesResolver implements Resolve<Course> {
 
-  constructor(private courseService: CourseService) { }
+  public constructor(private courseService: CourseService) { }
 
   /**
    * Gets the user's subscribed courses

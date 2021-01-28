@@ -7,11 +7,11 @@ import { Course } from 'src/app/models/course.model';
   styleUrls: ['./subscribed-courses-card.component.css'],
 })
 export class SubscribedCoursesCardComponent implements OnInit {
-  @Input() subscribedCourses: Course[];
+  @Input() public subscribedCourses: Course[];
 
-  constructor() { }
+  public constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
 }

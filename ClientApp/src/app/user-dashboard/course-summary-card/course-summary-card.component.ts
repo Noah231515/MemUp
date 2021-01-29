@@ -5,6 +5,7 @@ import { Course } from 'src/app/models/course.model';
 import { CourseService } from 'src/app/services/course.service';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { of } from 'rxjs';
+import { SnackBarService } from 'src/app/services/snack-bar.service';
 
 @Component({
   selector: 'app-course-summary-card',
@@ -19,7 +20,7 @@ export class CourseSummaryCardComponent implements OnInit {
   @Output() public unsubscribe = new EventEmitter<number>();
   @Output() public subscribe = new EventEmitter<number>();
 
-  public constructor(private courseService: CourseService) { }
+  public constructor(private courseService: CourseService, private snackBarService: SnackBarService) { }
 
   public ngOnInit(): void {
   }
@@ -29,6 +30,7 @@ export class CourseSummaryCardComponent implements OnInit {
       catchError((err) => of(this.handleError(err))))
         .subscribe(() => {
           this.subscribe.emit(this.index);
+          this.snackBarService.openSnackBar(`Subscribed to ${this.course.name}.`);
         });
   }
 
@@ -36,8 +38,9 @@ export class CourseSummaryCardComponent implements OnInit {
     this.courseService.unsubscribeFromcourse(this.course.id).pipe(
       catchError((err) => of(this.handleError(err))))
         .subscribe((res) => {
-          if (res != null) {
+          if (res) {
             this.unsubscribe.emit(this.index);
+            this.snackBarService.openSnackBar(`Successfully unsubscribed from ${this.course.name}.`);
           }
         });
   }
@@ -47,6 +50,7 @@ export class CourseSummaryCardComponent implements OnInit {
   }
 
   public handleError(err) {
-    console.log(err.error);
+    this.snackBarService.openSnackBar(`An error occurred. (Error Code ${err.status})`);
+
   }
 }

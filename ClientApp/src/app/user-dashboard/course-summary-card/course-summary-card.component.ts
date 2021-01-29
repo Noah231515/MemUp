@@ -35,8 +35,10 @@ export class CourseSummaryCardComponent implements OnInit {
   public unsubscribeFromCourse() {
     this.courseService.unsubscribeFromcourse(this.course.id).pipe(
       catchError((err) => of(this.handleError(err))))
-        .subscribe(() => {
-          this.unsubscribe.emit(this.index);
+        .subscribe((res) => {
+          if (res != null) {
+            this.unsubscribe.emit(this.index);
+          }
         });
   }
 
@@ -45,6 +47,6 @@ export class CourseSummaryCardComponent implements OnInit {
   }
 
   public handleError(err) {
-    console.log(err.error.message);
+    console.log(err.error);
   }
 }

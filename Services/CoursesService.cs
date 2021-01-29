@@ -39,36 +39,27 @@ namespace MemUp.Services
             }
             return subscribedCourses;
         }
-        public int SubscribeToCourse(ApplicationUser user, Guid courseId)
+        public UserCourse SubscribeToCourse(ApplicationUser user, Guid courseId)
         {
             try
             {
-                Course course = memUpDbContext.Courses.Find(courseId);
-                UserCourse userCourse = GetUserCourse(new Guid(user.Id), courseId);
-                if (userCourse == null)
+                UserCourse userCourse = new UserCourse()
                 {
-                    userCourse = new UserCourse()
-                    {
-                        Id = new Guid(),
-                        UserId = new Guid(user.Id),
-                        CourseId = course.Id
-                    };
-                    memUpDbContext.UserCourse.Add(userCourse);
-                    memUpDbContext.SaveChanges();
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
+                    Id = new Guid(),
+                    UserId = new Guid(user.Id),
+                    CourseId = courseId
+                };
+                memUpDbContext.UserCourse.Add(userCourse);
+                memUpDbContext.SaveChanges();
+                return userCourse;
             }
-            catch
+            catch (Exception e)
             {
-                return -1;
+                throw e;
             }
         }
 
-        public int UnsubscribeFromCourse(ApplicationUser user, Guid courseId)
+        public UserCourse UnsubscribeFromCourse(ApplicationUser user, Guid courseId)
         {   
             try
             {
@@ -77,25 +68,21 @@ namespace MemUp.Services
                 {
                     memUpDbContext.UserCourse.Remove(userCourse);
                     memUpDbContext.SaveChanges();
-                    return 1;
+                    return userCourse;
                 }
-                else
-                {
-                    return 0;
-                }
+                return null;
             }
-            catch
+            catch (Exception e)
             {
-                return -1;
+                throw (e);
             }
-            
         }
     }
 
     public interface ICoursesService
     {
         List<Course> GetSubscribedCoursesForUsers(ApplicationUser user);
-        int SubscribeToCourse(ApplicationUser user, Guid courseId);
-        int UnsubscribeFromCourse(ApplicationUser user, Guid courseId);
+        UserCourse SubscribeToCourse(ApplicationUser user, Guid courseId);
+        UserCourse UnsubscribeFromCourse(ApplicationUser user, Guid courseId);
     }
 }

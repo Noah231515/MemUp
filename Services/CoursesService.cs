@@ -74,7 +74,7 @@ namespace MemUp.Services
             }
             catch (Exception e)
             {
-                throw (e);
+                throw e;
             }
         }
     }

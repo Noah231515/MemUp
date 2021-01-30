@@ -4,7 +4,12 @@
             <app-user-info-card></app-user-info-card>
         </mat-card>
         <mat-card fxFlex="50%">
-            <app-subscribed-courses-card [subscribedCourses]="subscribedCourses"></app-subscribed-courses-card>
+            <app-subscribed-courses-card 
+            [subscribedCourses]="subscribedCourses"
+            (unsubscribe)="onUnsubscribe($event)"></app-subscribed-courses-card>
+            <app-new-courses-card 
+            [newCourses]="newCourses"
+            (subscribe)="onSubscribe($event)"></app-new-courses-card>
         </mat-card>
         <mat-card fxFlex="25%">
             <mat-card-title>Study Statistics</mat-card-title>

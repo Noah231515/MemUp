@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using MemUp.Services;
+using System;
 
 namespace MemUp.Controllers
 {
@@ -22,11 +23,29 @@ namespace MemUp.Controllers
             this.coursesService = coursesService;
         }
 
+        
+
         [HttpGet]
         public async Task<IActionResult> GetSubscribedCoursesForUsers()
         {
             var user = await userManager.GetUserAsync(this.User);
             return Ok(coursesService.GetSubscribedCoursesForUsers(user));
         }
+
+        [HttpPost]
+        [Route("/courses/subscribetocourse/{courseId}")]
+        public async Task<IActionResult> SubscribeToCourse(Guid courseId)
+        {
+            var user = await userManager.GetUserAsync(this.User);
+            return Ok(coursesService.SubscribeToCourse(user, courseId));
+        }
+
+        [HttpDelete]
+        [Route("/courses/unsubscribefromcourse/{courseId}")]
+        public async Task<IActionResult> UnsubscribeFromCourse(Guid courseId)
+        {
+            var user = await userManager.GetUserAsync(this.User);
+            return Ok(coursesService.UnsubscribeFromCourse(user, courseId));  
+        } 
     }
 }

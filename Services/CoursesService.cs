@@ -21,6 +21,10 @@ namespace MemUp.Services
             this.courses = memUpDbContext.Courses;
         }
         
+        private UserCourse GetUserCourse(Guid userId, Guid courseId)
+        {
+            return memUpDbContext.UserCourse.SingleOrDefault(uc => uc.UserId == userId && uc.CourseId == courseId);
+        }
         public List<Course> GetSubscribedCoursesForUsers(ApplicationUser user)
         {
             List<Course> subscribedCourses = new List<Course>();
@@ -35,10 +39,50 @@ namespace MemUp.Services
             }
             return subscribedCourses;
         }
+        public UserCourse SubscribeToCourse(ApplicationUser user, Guid courseId)
+        {
+            try
+            {
+                UserCourse userCourse = new UserCourse()
+                {
+                    Id = new Guid(),
+                    UserId = new Guid(user.Id),
+                    CourseId = courseId
+                };
+                memUpDbContext.UserCourse.Add(userCourse);
+                memUpDbContext.SaveChanges();
+                return userCourse;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public UserCourse UnsubscribeFromCourse(ApplicationUser user, Guid courseId)
+        {   
+            try
+            {
+                UserCourse userCourse = GetUserCourse(new Guid(user.Id), courseId);
+                if (userCourse != null)
+                {
+                    memUpDbContext.UserCourse.Remove(userCourse);
+                    memUpDbContext.SaveChanges();
+                    return userCourse;
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 
     public interface ICoursesService
     {
         List<Course> GetSubscribedCoursesForUsers(ApplicationUser user);
+        UserCourse SubscribeToCourse(ApplicationUser user, Guid courseId);
+        UserCourse UnsubscribeFromCourse(ApplicationUser user, Guid courseId);
     }
 }

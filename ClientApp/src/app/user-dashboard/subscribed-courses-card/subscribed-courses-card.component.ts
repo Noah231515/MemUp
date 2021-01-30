@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Course } from 'src/app/models/course.model';
 
 @Component({
@@ -8,10 +8,14 @@ import { Course } from 'src/app/models/course.model';
 })
 export class SubscribedCoursesCardComponent implements OnInit {
   @Input() public subscribedCourses: Course[];
+  @Output() public unsubscribe = new EventEmitter<number>();
 
   public constructor() { }
 
   public ngOnInit(): void {
   }
 
+  public emitUnsubscribe(courseIndex) {
+    this.unsubscribe.emit(courseIndex);
+  }
 }

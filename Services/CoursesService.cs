@@ -39,6 +39,22 @@ namespace MemUp.Services
             }
             return subscribedCourses;
         }
+
+        public List<Course> GetNewCoursesForUsers(ApplicationUser user)
+        {            
+            List<Course> newCourses = new List<Course>();
+            if (user != null)
+            {
+                foreach (Course course in memUpDbContext.Courses)
+                {
+                    if (GetUserCourse(new Guid(user.Id), course.Id) == null)
+                    {
+                        newCourses.Add(memUpDbContext.Courses.Find(course.Id));
+                    }
+                }
+            }
+            return newCourses;
+        }
         public UserCourse SubscribeToCourse(ApplicationUser user, Guid courseId)
         {
             try
@@ -82,6 +98,7 @@ namespace MemUp.Services
     public interface ICoursesService
     {
         List<Course> GetSubscribedCoursesForUsers(ApplicationUser user);
+        List<Course> GetNewCoursesForUsers(ApplicationUser user);
         UserCourse SubscribeToCourse(ApplicationUser user, Guid courseId);
         UserCourse UnsubscribeFromCourse(ApplicationUser user, Guid courseId);
     }

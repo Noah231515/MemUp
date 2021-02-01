@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Course } from '../models/course.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +14,10 @@ export class CourseService {
    */
   public getSubscribedCourses(): Observable<any> {
     return this.http.get('/courses/getsubscribedcoursesforusers');
+  }
+
+  public getNewCourses(): Observable<any> {
+    return this.http.get('/courses/getnewcoursesforusers');
   }
 
   public subscribeToCourse(id: string): Observable<any> {

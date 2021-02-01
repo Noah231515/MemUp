@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
-import { Course } from '../models/course.model';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -10,13 +9,14 @@ import { Course } from '../models/course.model';
 export class UserDashboardComponent implements OnInit {
   public isAuthenticated: boolean;
   public subscribedCourses: any[];
-  public newCourses: any[] = [];
+  public newCourses: any[];
 
   public constructor(private route: ActivatedRoute) { }
 
   public ngOnInit(): void {
     this.isAuthenticated = this.route.snapshot.data['isAuthenticated'];
     this.subscribedCourses = this.route.snapshot.data['subscribedCourses'];
+    this.newCourses = this.route.snapshot.data['newCourses'];
   }
 
   public onUnsubscribe(courseIndex: number) {

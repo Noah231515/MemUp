@@ -39,6 +39,11 @@ namespace MemUp.Services
             }
             return subscribedCourses;
         }
+
+        public Course GetCourse(Guid id)
+        {
+            return memUpDbContext.Courses.Find(id);
+        }
         public UserCourse SubscribeToCourse(ApplicationUser user, Guid courseId)
         {
             try
@@ -82,6 +87,7 @@ namespace MemUp.Services
     public interface ICoursesService
     {
         List<Course> GetSubscribedCoursesForUsers(ApplicationUser user);
+        Course GetCourse(Guid id);
         UserCourse SubscribeToCourse(ApplicationUser user, Guid courseId);
         UserCourse UnsubscribeFromCourse(ApplicationUser user, Guid courseId);
     }

@@ -32,6 +32,12 @@ namespace MemUp.Controllers
             return Ok(coursesService.GetSubscribedCoursesForUsers(user));
         }
 
+        [HttpGet]
+        public IActionResult GetCourse(Guid id)
+        {
+            return Ok(coursesService.GetCourse(id));
+        }
+
         [HttpPost]
         [Route("/courses/subscribetocourse/{courseId}")]
         public async Task<IActionResult> SubscribeToCourse(Guid courseId)

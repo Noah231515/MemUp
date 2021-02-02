@@ -5,6 +5,7 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 import { SubscribedCoursesResolver } from './user-dashboard/subscribed-courses.resolver';
 import { DashboardAuthenticationResolver } from './user-dashboard/dashboard-authentication.resolver';
 import { CourseDetailsComponent } from './course-details/course-details.component';
+import { CourseDetailsResolver } from './course-details/course-details.resolver';
 
 const routes: Routes = [
   {
@@ -27,7 +28,10 @@ const routes: Routes = [
   },
   {
     path: 'course-details/:id',
-    component: CourseDetailsComponent
+    component: CourseDetailsComponent,
+    resolve: {
+      course: CourseDetailsResolver
+    }
   }
 ];
 

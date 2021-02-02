@@ -4,6 +4,7 @@ import { CounterComponent } from './counter/counter.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { SubscribedCoursesResolver } from './user-dashboard/subscribed-courses.resolver';
 import { DashboardAuthenticationResolver } from './user-dashboard/dashboard-authentication.resolver';
+import { CourseDetailsComponent } from './course-details/course-details.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
     path: 'counter',
     component: CounterComponent
   },
+  {
+    path: 'course-details/:id',
+    component: CourseDetailsComponent
+  }
 ];
 
 @NgModule({

@@ -18,6 +18,10 @@ export class CourseService {
     return this.http.get('/courses/getsubscribedcoursesforusers');
   }
 
+  public getCourse(id: string): Observable<any> {
+    return this.http.get(`/courses/getcourse/${id}`);
+  }
+
   public subscribeToCourse(id: string): Observable<any> {
     return this.http.post(`/courses/subscribetocourse/${id}`, null);
   }

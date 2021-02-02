@@ -12,8 +12,6 @@ export class CourseDetailsResolver implements Resolve<Course> {
   public constructor(private courseService: CourseService) { }
 
   public resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Course> {
-    return route.queryParams.subscribe(params => {
-        this.courseService.getCourse(params['id']);
-    });
+    return this.courseService.getCourse(route.params['id']);
   }
 }

@@ -7,7 +7,7 @@ import { CourseService } from '../services/course.service';
 @Injectable({
   providedIn: 'root'
 })
-export class NewCoursesResolver implements Resolve<Course> {
+export class NewCoursesResolver implements Resolve<Course[]> {
 
   public constructor(private courseService: CourseService) { }
 
@@ -16,7 +16,7 @@ export class NewCoursesResolver implements Resolve<Course> {
    * @param route
    * @param state
    */
-  public resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Course> {
+  public resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Course[]> {
     return this.courseService.getNewCourses();
   }
 

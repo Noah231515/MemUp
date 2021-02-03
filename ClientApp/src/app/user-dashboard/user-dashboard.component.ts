@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
+import { Course } from '../models/course.model';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -8,8 +9,8 @@ import { ActivatedRoute} from '@angular/router';
 })
 export class UserDashboardComponent implements OnInit {
   public isAuthenticated: boolean;
-  public subscribedCourses: any[];
-  public newCourses: any[];
+  public subscribedCourses: Course[];
+  public newCourses: Course[];
 
   public constructor(private route: ActivatedRoute) { }
 

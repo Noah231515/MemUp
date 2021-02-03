@@ -45,13 +45,13 @@ namespace MemUp.Services
             List<Course> newCourses = new List<Course>();
             if (user != null)
             {
-                foreach (Course course in memUpDbContext.Courses)
-                {
-                    if (GetUserCourse(new Guid(user.Id), course.Id) == null)
-                    {
-                        newCourses.Add(memUpDbContext.Courses.Find(course.Id));
-                    }
-                }
+                 var subscribedCourses = memUpDbContext.UserCourse
+                    .Where(x => x.UserId == new Guid(user.Id))
+                    .Select(x => x.CourseId)
+                    .Distinct()
+                    .ToList();
+
+                newCourses = memUpDbContext.Courses.Where(x => !subscribedCourses.Contains(x.Id)).ToList(); 
             }
             return newCourses;
         }

@@ -32,6 +32,8 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
 
   public checkForAdditionalTableData(pageEvent: PageEvent) {
     if (!this.paginator.hasNextPage()) {
+      // Check if we have reached the end of our word list, expand by the data chunk size if not
+      // or expand until the end of the word list if so.
       if (pageEvent.length + this.DATA_CHUNK_SIZE < this.course.words.length) {
         this.dataSource = new MatTableDataSource<Word>(this.course.words.slice(0, pageEvent.length + this.DATA_CHUNK_SIZE));
       } else {

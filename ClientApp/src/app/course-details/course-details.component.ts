@@ -24,7 +24,6 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
   public ngOnInit(): void {
     this.course = this.route.snapshot.data['course'];
     this.dataSource = new MatTableDataSource<Word>(this.course.words.slice(0, this.DATA_CHUNK_SIZE));
-    console.log(this.course);
   }
 
   public ngAfterViewInit() {

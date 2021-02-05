@@ -36,6 +36,7 @@ namespace MemUp.Services
                     Course course = memUpDbContext.Courses
                         .Include(c => c.Words)
                         .ThenInclude(w => w.Sentences)
+                        .ThenInclude(s => s.SentenceType)
                         .SingleOrDefault(c => c.Id == userCourse.CourseId);
                     subscribedCourses.Add(course);
                 }

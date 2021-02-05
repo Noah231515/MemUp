@@ -17,7 +17,7 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
   public displayedColumns: string[] = ['Japanese Word', 'English', 'Sentence'];
   public dataSource: MatTableDataSource<Word>;
   @ViewChild(MatPaginator) public paginator: MatPaginator;
-  public DATA_CHUNK_SIZE = 500;
+  private DATA_CHUNK_SIZE = 500;
 
   public constructor(private route: ActivatedRoute) { }
 

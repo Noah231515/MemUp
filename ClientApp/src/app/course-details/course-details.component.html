@@ -20,7 +20,9 @@
             <th mat-header-cell *matHeaderCellDef> Sentence </th>
             <td mat-cell *matCellDef="let word"> 
                 <p *ngFor="let sentence of word.sentences">
-                    <span *ngIf="sentence.sentenceText != null">{{sentence.sentenceText}}</span>
+                    <span 
+                    *ngIf="sentence.sentenceText != null &&
+                    sentence.sentenceType.type != 'Furigana'">{{sentence.sentenceText}}</span>
                 </p>
             </td>
         </ng-container>
@@ -29,6 +31,6 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     
-        <mat-paginator (page)="checkForAdditionalTableData($event)" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        <mat-paginator (page)="checkForAdditionalTableData($event)" [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
     </div>
 </div>

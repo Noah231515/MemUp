@@ -34,9 +34,9 @@ namespace MemUp.Services
                 foreach (UserCourse userCourse in userCourses)
                 {
                     Course course = memUpDbContext.Courses
-                        .Include(Course => Course.Words)
-                        .ThenInclude(Word => Word.Sentences)
-                        .SingleOrDefault(x => x.Id == userCourse.CourseId);
+                        .Include(c => c.Words)
+                        .ThenInclude(w => w.Sentences)
+                        .SingleOrDefault(c => c.Id == userCourse.CourseId);
                     subscribedCourses.Add(course);
                 }
             }

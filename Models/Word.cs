@@ -13,7 +13,6 @@ namespace MemUp.Models
         /* Relationships Setup */
         [JsonIgnore]
         public virtual Course Course { get; set; }
-        [JsonIgnore]
         public virtual ICollection<Sentence> Sentences { get; set; }
     }
 }

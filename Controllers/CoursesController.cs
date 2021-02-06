@@ -23,8 +23,6 @@ namespace MemUp.Controllers
             this.coursesService = coursesService;
         }
 
-        
-
         [HttpGet]
         public async Task<IActionResult> GetSubscribedCoursesForUsers()
         {
@@ -36,6 +34,12 @@ namespace MemUp.Controllers
         public IActionResult GetCourse(Guid id)
         {
             return Ok(coursesService.GetCourse(id));
+        }
+        
+        public async Task<IActionResult> GetNewCoursesForUsers()
+        {
+            var user = await userManager.GetUserAsync(this.User);
+            return Ok(coursesService.GetNewCoursesForUsers(user));
         }
 
         [HttpPost]

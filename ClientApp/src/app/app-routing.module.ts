@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CounterComponent } from './counter/counter.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { SubscribedCoursesResolver } from './user-dashboard/subscribed-courses.resolver';
+import { NewCoursesResolver } from './user-dashboard/new-courses.resolver';
 import { DashboardAuthenticationResolver } from './user-dashboard/dashboard-authentication.resolver';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CourseDetailsResolver } from './course-details/course-details.resolver';
@@ -19,7 +20,8 @@ const routes: Routes = [
     pathMatch: 'full',
     resolve: {
       subscribedCourses: SubscribedCoursesResolver,
-      isAuthenticated: DashboardAuthenticationResolver
+      newCourses: NewCoursesResolver,
+      isAuthenticated: DashboardAuthenticationResolver,
     }
   },
   {

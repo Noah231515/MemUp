@@ -52,6 +52,21 @@ namespace MemUp.Services
                 .ThenInclude(s => s.SentenceType)
                 .SingleOrDefault(x => x.Id == id);
         }
+        public List<Course> GetNewCoursesForUsers(ApplicationUser user)
+        {            
+            List<Course> newCourses = new List<Course>();
+            if (user != null)
+            {
+                 var subscribedCourses = memUpDbContext.UserCourse
+                    .Where(x => x.UserId == new Guid(user.Id))
+                    .Select(x => x.CourseId)
+                    .Distinct()
+                    .ToList();
+
+                newCourses = memUpDbContext.Courses.Where(x => !subscribedCourses.Contains(x.Id)).ToList(); 
+            }
+            return newCourses;
+        }
         public UserCourse SubscribeToCourse(ApplicationUser user, Guid courseId)
         {
             try
@@ -96,6 +111,7 @@ namespace MemUp.Services
     {
         List<Course> GetSubscribedCoursesForUsers(ApplicationUser user);
         Course GetCourse(Guid id);
+        List<Course> GetNewCoursesForUsers(ApplicationUser user);
         UserCourse SubscribeToCourse(ApplicationUser user, Guid courseId);
         UserCourse UnsubscribeFromCourse(ApplicationUser user, Guid courseId);
     }

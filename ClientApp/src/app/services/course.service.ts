@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Course } from '../models/course.model';
+import { UserCourse } from '../models/usercourse.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +14,19 @@ export class CourseService {
   /**
    * Get subscribed courses for currently logged in user
    */
-  public getSubscribedCourses(): Observable<any> {
-    return this.http.get('/courses/getsubscribedcoursesforusers');
+  public getSubscribedCourses(): Observable<Course[]> {
+    return this.http.get<Course[]>('/courses/getsubscribedcoursesforusers');
   }
 
-  public subscribeToCourse(id: string): Observable<any> {
-    return this.http.post(`/courses/subscribetocourse/${id}`, null);
+  public getNewCourses(): Observable<Course[]> {
+    return this.http.get<Course[]>('/courses/getnewcoursesforusers');
   }
 
-  public unsubscribeFromcourse(id: string): Observable<any> {
-    return this.http.delete(`/courses/unsubscribefromcourse/${id}`);
+  public subscribeToCourse(id: string): Observable<UserCourse> {
+    return this.http.post<UserCourse>(`/courses/subscribetocourse/${id}`, null);
+  }
+
+  public unsubscribeFromcourse(id: string): Observable<UserCourse> {
+    return this.http.delete<UserCourse>(`/courses/unsubscribefromcourse/${id}`);
   }
 }

@@ -23,13 +23,18 @@ namespace MemUp.Controllers
             this.coursesService = coursesService;
         }
 
-        
-
         [HttpGet]
         public async Task<IActionResult> GetSubscribedCoursesForUsers()
         {
             var user = await userManager.GetUserAsync(this.User);
             return Ok(coursesService.GetSubscribedCoursesForUsers(user));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetNewCoursesForUsers()
+        {
+            var user = await userManager.GetUserAsync(this.User);
+            return Ok(coursesService.GetNewCoursesForUsers(user));
         }
 
         [HttpPost]

@@ -52,6 +52,7 @@ namespace MemUp.Services
                 .ThenInclude(s => s.SentenceType)
                 .SingleOrDefault(x => x.Id == id);
         }
+        
         public List<Course> GetNewCoursesForUsers(ApplicationUser user)
         {            
             List<Course> newCourses = new List<Course>();

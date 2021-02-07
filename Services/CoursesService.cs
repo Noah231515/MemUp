@@ -34,15 +34,23 @@ namespace MemUp.Services
                 foreach (UserCourse userCourse in userCourses)
                 {
                     Course course = memUpDbContext.Courses
+<<<<<<< HEAD
                         .Include(Course => Course.Words)
                         .ThenInclude(Word => Word.Sentences)
                         .ThenInclude(s => s.SentenceType)
                         .SingleOrDefault(x => x.Id == userCourse.CourseId);
+=======
+                        .Include(c => c.Words)
+                        .ThenInclude(w => w.Sentences)
+                        .ThenInclude(s => s.SentenceType)
+                        .SingleOrDefault(c => c.Id == userCourse.CourseId);
+>>>>>>> 01f244217e45c76fd74c443669aa52c01cf7e9ad
                     subscribedCourses.Add(course);
                 }
             }
             return subscribedCourses;
         }
+<<<<<<< HEAD
 
         public Course GetCourse(Guid id)
         {
@@ -52,6 +60,9 @@ namespace MemUp.Services
                 .ThenInclude(s => s.SentenceType)
                 .SingleOrDefault(x => x.Id == id);
         }
+=======
+        
+>>>>>>> 01f244217e45c76fd74c443669aa52c01cf7e9ad
         public List<Course> GetNewCoursesForUsers(ApplicationUser user)
         {            
             List<Course> newCourses = new List<Course>();

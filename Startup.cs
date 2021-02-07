@@ -33,11 +33,10 @@ namespace MemUp
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
             services.AddDbContext<MemUpDbContext>(options => 
-                options.UseLazyLoadingProxies()
-                    .UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+                
             services.AddDbContext<MemUpIdentityDbContext>(options =>
-                options.UseLazyLoadingProxies()
-                    .UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<MemUpIdentityDbContext>();

@@ -33,13 +33,17 @@ namespace MemUp.Services
                 var userCourses = memUpDbContext.UserCourse.Where(uc => uc.UserId == new Guid(user.Id)).ToList();
                 foreach (UserCourse userCourse in userCourses)
                 {
-                    Course course = memUpDbContext.Courses.Find(userCourse.CourseId);
+                    Course course = memUpDbContext.Courses
+                        .Include(c => c.Words)
+                        .ThenInclude(w => w.Sentences)
+                        .ThenInclude(s => s.SentenceType)
+                        .SingleOrDefault(c => c.Id == userCourse.CourseId);
                     subscribedCourses.Add(course);
                 }
             }
             return subscribedCourses;
         }
-
+        
         public List<Course> GetNewCoursesForUsers(ApplicationUser user)
         {            
             List<Course> newCourses = new List<Course>();

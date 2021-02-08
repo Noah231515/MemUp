@@ -1,6 +1,6 @@
 <mat-card class="course-summary">
     <div>
-        <mat-card-title>{{ course.name }}</mat-card-title>
+        <mat-card-title><a [routerLink]="['/course-details', course.id]">{{ course.name }}</a></mat-card-title>
         <p>{{ course.description }}</p>
         <button mat-icon-button class="menu-btn" [matMenuTriggerFor]="menu" aria-hidden="false" aria-label="course menu">
             <mat-icon>more_horiz</mat-icon>

@@ -31,6 +31,11 @@ namespace MemUp.Controllers
         }
 
         [HttpGet]
+        public IActionResult GetCourse(Guid id)
+        {
+            return Ok(coursesService.GetCourse(id));
+        }
+        
         public async Task<IActionResult> GetNewCoursesForUsers()
         {
             var user = await userManager.GetUserAsync(this.User);

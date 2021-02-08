@@ -18,6 +18,10 @@ export class CourseService {
     return this.http.get<Course[]>('/courses/getsubscribedcoursesforusers');
   }
 
+  public getCourse(id: string): Observable<Course> {
+    return this.http.get<Course>(`/courses/getcourse/${id}`);
+  }
+
   public getNewCourses(): Observable<Course[]> {
     return this.http.get<Course[]>('/courses/getnewcoursesforusers');
   }

@@ -1,0 +1,36 @@
+<div class="course-details">
+<app-course-summary-card [course]="course"></app-course-summary-card>
+    <div class="mat-elevation-z8 word-table">
+        <table mat-table [dataSource]="dataSource">
+    
+        <!-- Japanese Vocab Column -->
+        <ng-container matColumnDef="Japanese Word">
+            <th mat-header-cell *matHeaderCellDef> Japanese Vocab </th>
+            <td mat-cell *matCellDef="let word"> {{word.japaneseVocab}} [{{word.kanaVocab}}]</td>
+        </ng-container>
+    
+        <!-- English Vocab Column -->
+        <ng-container matColumnDef="English">
+            <th mat-header-cell *matHeaderCellDef> English </th>
+            <td mat-cell *matCellDef="let word"> {{word.englishVocab}} </td>
+        </ng-container>
+    
+        <!-- Sentence Column -->
+        <ng-container matColumnDef="Sentence">
+            <th mat-header-cell *matHeaderCellDef> Sentence </th>
+            <td mat-cell *matCellDef="let word"> 
+                <p *ngFor="let sentence of word.sentences">
+                    <span 
+                    *ngIf="sentence.sentenceText != null &&
+                    sentence.sentenceType.type != 'Furigana'">{{sentence.sentenceText}}</span>
+                </p>
+            </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    
+        <mat-paginator (page)="checkForAdditionalTableData($event)" [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

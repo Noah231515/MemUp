@@ -38,6 +38,7 @@ namespace MemUp.Services
                         .ThenInclude(w => w.Sentences)
                         .ThenInclude(s => s.SentenceType)
                         .SingleOrDefault(c => c.Id == userCourse.CourseId);
+                    course.Words = course.Words.OrderBy(w => w.DifficultyIndex).ToList();
                     subscribedCourses.Add(course);
                 }
             }
@@ -46,11 +47,14 @@ namespace MemUp.Services
 
         public Course GetCourse(Guid id)
         {
-            return memUpDbContext.Courses
-                .Include(Course => Course.Words)
-                .ThenInclude(Word => Word.Sentences)
+            Course course = memUpDbContext.Courses
+                .Include(c => c.Words)
+                .ThenInclude(w => w.Sentences)
                 .ThenInclude(s => s.SentenceType)
-                .SingleOrDefault(x => x.Id == id);
+                .SingleOrDefault(c => c.Id == id);
+            
+            course.Words = course.Words.OrderBy(w => w.DifficultyIndex).ToList();
+            return course;
         }
         
         public List<Course> GetNewCoursesForUsers(ApplicationUser user)

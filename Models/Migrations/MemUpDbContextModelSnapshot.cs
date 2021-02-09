@@ -156,6 +156,10 @@ namespace MemUp.Migrations
                     b.Property<Guid?>("CourseId")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("DifficultyIndex")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("EnglishVocab")
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");

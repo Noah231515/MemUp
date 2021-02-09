@@ -4,7 +4,7 @@
         <table mat-table [dataSource]="dataSource">
     
         <!-- Japanese Vocab Column -->
-        <ng-container matColumnDef="Japanese Word">
+        <ng-container matColumnDef="Japanese">
             <th mat-header-cell *matHeaderCellDef> Japanese Vocab </th>
             <td mat-cell *matCellDef="let word"> {{word.japaneseVocab}} [{{word.kanaVocab}}]</td>
         </ng-container>

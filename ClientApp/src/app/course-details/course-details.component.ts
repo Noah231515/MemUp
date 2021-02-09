@@ -14,7 +14,7 @@ import { Word } from '../models/word.model';
 })
 export class CourseDetailsComponent implements OnInit, AfterViewInit {
   public course: Course;
-  public displayedColumns: string[] = ['Japanese Word', 'English', 'Sentence'];
+  public displayedColumns: string[] = ['Japanese', 'English', 'Sentence'];
   public dataSource: MatTableDataSource<Word>;
   @ViewChild(MatPaginator) public paginator: MatPaginator;
   private DATA_CHUNK_SIZE = 500;

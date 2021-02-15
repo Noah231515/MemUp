@@ -7,6 +7,8 @@ namespace MemUp.Models
         public string Name { get; set; }
         public string Description { get; set; }
 
+        public string DescriptionFull {get; set; }
+
         /* Relationships Setup */
         public virtual ICollection<Word> Words { get; set; }
     }

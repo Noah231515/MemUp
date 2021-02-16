@@ -17,6 +17,7 @@
     width: 200px;
     font-size: 1.3em;
     border-radius: 10px;
+    padding: 5px;
 }
 
 .table-control-submit {

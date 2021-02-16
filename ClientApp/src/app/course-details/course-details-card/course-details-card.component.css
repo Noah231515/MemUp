@@ -35,6 +35,15 @@
     text-decoration: underline;
 }
 
+.inactive-link {
+    cursor: default;
+    opacity: 0.7;
+}
+
+.inactive-link:hover {
+    text-decoration: none;
+}
+
 .subscribe-divider {
     background-color: grey;
     width: 2px;

@@ -4,7 +4,6 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from '../models/course.model';
-import { Sentence } from '../models/sentence.model';
 import { Word } from '../models/word.model';
 
 @Component({
@@ -14,6 +13,7 @@ import { Word } from '../models/word.model';
 })
 export class CourseDetailsComponent implements OnInit, AfterViewInit {
   public course: Course;
+  public subscribed: string;
   public displayedColumns: string[] = ['Japanese', 'English', 'Sentence'];
   public dataSource: MatTableDataSource<Word>;
   @ViewChild(MatPaginator) public paginator: MatPaginator;
@@ -23,6 +23,7 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
 
   public ngOnInit(): void {
     this.course = this.route.snapshot.data['course'];
+    this.subscribed = this.route.snapshot.queryParams['subscribed'];
     this.dataSource = new MatTableDataSource<Word>(this.course.words.slice(0, this.DATA_CHUNK_SIZE));
   }
 

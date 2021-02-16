@@ -8,6 +8,7 @@ import { Course } from 'src/app/models/course.model';
 })
 export class CourseDetailsCardComponent implements OnInit {
   @Input() public course: Course;
+  @Input() public subscribed: string;
 
 
   public constructor() { }

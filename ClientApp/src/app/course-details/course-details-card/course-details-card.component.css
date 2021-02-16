@@ -68,16 +68,16 @@
 }
 
 .study-button {
-    width: 40%;
-    border: solid 1px black;
-    border-radius: 10px;
-    grid-row: 1;
-    grid-column: 3;
-    margin: 0 auto;
-    font-weight: bold;
-    font-size: 1.2em;
     background-color: darkorange;
     color: white;
+    border: solid 2px black;
+    border-radius: 10px;
+    margin: 0 auto;
+    width: 40%;
+    grid-row: 1;
+    grid-column: 3;
+    font-weight: bold;
+    font-size: 1.2em;
 }
 
 .study-statistics {

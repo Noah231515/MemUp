@@ -1,10 +1,46 @@
+.table-control-container {
+    background-color: #424242;
+    width: 400px;
+    height: 100px;
+    margin-top: 25px;
+    position: relative;
+    box-shadow: none;
+    display: grid;
+    place-items: center;
+    grid-template-columns: 70% 30%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.table-control-select {
+    height: 40%;
+    width: 200px;
+    font-size: 1.3em;
+    border-radius: 10px;
+}
+
+.table-control-submit {
+    height: 40%;
+    width: 90%;
+    margin-right: 10%;
+    font-size: 1.3em;
+    border-radius: 10px;
+    border: solid 2px black;
+    background-color: darkorange;
+    color: white;
+    font-weight: bold;
+}
+
 .word-table {
     width: 1300px;
-    margin-top: 25px;
 }
 
 table {
     width: 100%;
+}
+
+th {
+    font-size: 1.5em;
 }
 
 tr.mat-row {
@@ -21,4 +57,8 @@ td {
 
 .mat-column-English {
     width: 275px;
+}
+
+.word-checkbox {
+    margin-right: 10px;
 }

@@ -14,7 +14,6 @@ export class CourseDetailsCardComponent implements OnInit {
   @Input() public course: Course;
   @Input() public subscribed: string;
 
-
   public constructor(private courseService: CourseService, private snackBarService: SnackBarService) { }
 
   public ngOnInit(): void {
@@ -29,10 +28,6 @@ export class CourseDetailsCardComponent implements OnInit {
         });
   }
 
-  public handleError(err) {
-    this.snackBarService.openSnackBar(`An error occurred. (Error Code ${err.status})`);
-  }
-
   public unsubscribeFromCourse() {
     this.courseService.unsubscribeFromcourse(this.course.id).pipe(
       catchError((err) => of(this.handleError(err))))
@@ -42,5 +37,9 @@ export class CourseDetailsCardComponent implements OnInit {
             this.subscribed = 'false';
           }
         });
+  }
+
+  public handleError(err) {
+    this.snackBarService.openSnackBar(`An error occurred. (Error Code ${err.status})`);
   }
 }

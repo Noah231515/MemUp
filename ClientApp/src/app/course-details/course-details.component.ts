@@ -12,11 +12,12 @@ import { Word } from '../models/word.model';
   styleUrls: ['./course-details.component.css']
 })
 export class CourseDetailsComponent implements OnInit, AfterViewInit {
+  @ViewChild(MatPaginator) public paginator: MatPaginator;
+  public dataSource: MatTableDataSource<Word>;
+  public displayedColumns: string[] = ['Japanese', 'English', 'Sentence'];
   public course: Course;
   public subscribed: string;
-  public displayedColumns: string[] = ['Japanese', 'English', 'Sentence'];
-  public dataSource: MatTableDataSource<Word>;
-  @ViewChild(MatPaginator) public paginator: MatPaginator;
+  public selectedWords: Word[];
   private DATA_CHUNK_SIZE = 500;
 
   public constructor(private route: ActivatedRoute) { }
@@ -25,6 +26,7 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
     this.course = this.route.snapshot.data['course'];
     this.subscribed = this.route.snapshot.queryParams['subscribed'];
     this.dataSource = new MatTableDataSource<Word>(this.course.words.slice(0, this.DATA_CHUNK_SIZE));
+    this.selectedWords = [];
   }
 
   public ngAfterViewInit() {
@@ -41,6 +43,15 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
         this.dataSource = new MatTableDataSource<Word>(this.course.words);
       }
       this.dataSource.paginator = this.paginator;
+    }
+  }
+
+  public toggleWordStatus(word: Word) {
+    const wordIndex = this.selectedWords.findIndex(element => element.id === word.id);
+    if (wordIndex === -1) {
+      this.selectedWords.push(word);
+    } else {
+      this.selectedWords.splice(wordIndex, 1);
     }
   }
 }

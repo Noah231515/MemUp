@@ -18,6 +18,7 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
   public course: Course;
   public subscribed: string;
   public selectedWords: Word[];
+  public selectedTableAction: string;
   private DATA_CHUNK_SIZE = 500;
 
   public constructor(private route: ActivatedRoute) { }
@@ -52,6 +53,29 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
       this.selectedWords.push(word);
     } else {
       this.selectedWords.splice(wordIndex, 1);
+    }
+  }
+
+  public changeSelectedTableAction(event: any) {
+    this.selectedTableAction = event.target.value;
+  }
+
+  public executeTableAction() {
+    switch (this.selectedTableAction) {
+      case null:
+        break;
+      case 'suspend':
+          console.log('suspend');
+          break;
+      case 'restore':
+        console.log('restore');
+        break;
+      case 'edit':
+        console.log('edit');
+        break;
+      case 'reset':
+        console.log('reset');
+        break;
     }
   }
 }

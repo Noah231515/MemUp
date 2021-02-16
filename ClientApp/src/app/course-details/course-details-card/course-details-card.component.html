@@ -4,7 +4,7 @@
         <div class="manage-subscription-links" *ngIf="subscribed == 'true'; else notSubscribed">
             <span class="manage-link inactive-link">Subscribe to Course</span>
             <span class="subscribe-divider"></span>
-            <span class="manage-link">Unsubscribe from Course</span>
+            <span class="manage-link" (click)="unsubscribeFromCourse()">Unsubscribe from Course</span>
         </div>
     </div>
     <hr/>
@@ -23,7 +23,7 @@
 
 <ng-template #notSubscribed>
     <div class="manage-subscription-links">
-        <span class="manage-link">Subscribe to Course</span>
+        <span class="manage-link" (click)="subscribeToCourse()">Subscribe to Course</span>
         <span class="subscribe-divider"></span>
         <span class="manage-link inactive-link">Unsubscribe from Course</span>
     </div>

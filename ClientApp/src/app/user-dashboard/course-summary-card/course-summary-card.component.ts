@@ -51,6 +51,5 @@ export class CourseSummaryCardComponent implements OnInit {
 
   public handleError(err) {
     this.snackBarService.openSnackBar(`An error occurred. (Error Code ${err.status})`);
-
   }
 }

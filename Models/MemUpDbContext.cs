@@ -59,6 +59,9 @@ namespace MemUp.Models
                 .Property(x => x.PartOfSpeech).HasMaxLength(20);
 
             modelBuilder.Entity<Word>()
+                .Property(x => x.DifficultyIndex).ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Word>()
                 .HasMany(w => w.Sentences)
                 .WithOne(s => s.Word);
             

@@ -10,6 +10,8 @@ namespace MemUp.Models
         public string EnglishVocab { get; set; }
         public string PartOfSpeech { get; set; }
 
+        public int DifficultyIndex { get; set; }
+
         /* Relationships Setup */
         [JsonIgnore]
         public virtual Course Course { get; set; }

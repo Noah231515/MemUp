@@ -61,6 +61,8 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
   }
 
   public executeTableAction() {
+    // Placeholder switch statement to be implemented after
+    // database work for per user course management is done
     switch (this.selectedTableAction) {
       case null:
         break;

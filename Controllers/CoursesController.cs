@@ -57,5 +57,12 @@ namespace MemUp.Controllers
             var user = await userManager.GetUserAsync(this.User);
             return Ok(coursesService.UnsubscribeFromCourse(user, courseId));  
         } 
+
+        [HttpGet]
+        [Route("/courses/getnumberofusers/{courseId}")]
+        public IActionResult GetNumberOfUsers(Guid courseId)
+        {
+            return Ok(coursesService.GetNumberOfUsers(courseId));
+        }
     }
 }

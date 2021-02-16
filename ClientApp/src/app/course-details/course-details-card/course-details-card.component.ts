@@ -13,10 +13,16 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
 export class CourseDetailsCardComponent implements OnInit {
   @Input() public course: Course;
   @Input() public subscribed: string;
+  public numberOfSentences: number;
+  public numberOfUsers: number;
 
   public constructor(private courseService: CourseService, private snackBarService: SnackBarService) { }
 
   public ngOnInit(): void {
+    this.numberOfSentences = this.courseService.getNumberOfSentences(this.course);
+    this.courseService.getNumberOfUsers(this.course.id).subscribe((res) => {
+      this.numberOfUsers = res;
+    });
   }
 
   public subscribeToCourse() {

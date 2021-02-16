@@ -115,6 +115,11 @@ namespace MemUp.Services
                 throw e;
             }
         }
+
+        public int GetNumberOfUsers(Guid courseId)
+        {
+            return memUpDbContext.UserCourse.Where(x => x.CourseId == courseId).Count();
+        }
     }
 
     public interface ICoursesService
@@ -124,5 +129,6 @@ namespace MemUp.Services
         List<Course> GetNewCoursesForUsers(ApplicationUser user);
         UserCourse SubscribeToCourse(ApplicationUser user, Guid courseId);
         UserCourse UnsubscribeFromCourse(ApplicationUser user, Guid courseId);
+        int GetNumberOfUsers(Guid courseId);
     }
 }

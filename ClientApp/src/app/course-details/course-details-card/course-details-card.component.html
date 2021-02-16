@@ -11,8 +11,8 @@
     <mat-card-content>
         <p class="course-description">{{ course.descriptionFull }}</p>
         <p class="course-statistic">Words: <span class="stat-count">{{ course.words.length }}</span></p>
-        <p class="course-statistic">Sentences: <span class="stat-count">__SENTENCES_COUNT__</span></p>
-        <p class="course-statistic">Users: <span class="stat-count">__USERS_COUNT__</span></p>
+        <p class="course-statistic">Sentences: <span class="stat-count">{{ numberOfSentences }}</span></p>
+        <p class="course-statistic">Users: <span class="stat-count">{{ numberOfUsers }}</span></p>
         <button class="study-button">Study Now</button>
         <div class="study-statistics">
             <hr>

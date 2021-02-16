@@ -68,7 +68,12 @@ namespace MemUp.Services
                     .Distinct()
                     .ToList();
 
-                newCourses = memUpDbContext.Courses.Where(x => !subscribedCourses.Contains(x.Id)).ToList(); 
+                newCourses = memUpDbContext.Courses
+                .Include(x => x.Words)
+                .ThenInclude(x => x.Sentences)
+                .ThenInclude(x => x.SentenceType)
+                .Where(x => !subscribedCourses.Contains(x.Id))
+                .ToList(); 
             }
             return newCourses;
         }

@@ -37,11 +37,7 @@ export class CourseService {
   public getNumberOfSentences(course: Course): number {
     let sentenceCount = 0;
     course.words.forEach((word) => {
-      word.sentences.forEach((sentence) => {
-        if (sentence != null) {
-          sentenceCount++;
-        }
-      });
+      sentenceCount += word.sentences.length;
     });
     return sentenceCount;
   }

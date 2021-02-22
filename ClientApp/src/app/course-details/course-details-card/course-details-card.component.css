@@ -5,8 +5,6 @@
 }
 
 .card-header {
-    display: flex;
-    align-items: center;
     background-color: lightgrey;
     border: none;
     padding-bottom: 0;

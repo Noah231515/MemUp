@@ -1,7 +1,9 @@
 <mat-card class="course-details">
-    <div class="card-header">
-        <mat-card-title><a [routerLink]="['/course-details', course.id]">{{ course.name }}</a></mat-card-title>
-        <div class="manage-subscription-links" *ngIf="subscribed == 'true'; else notSubscribed">
+    <div fxLayout="row" class="card-header">
+        <mat-card-title fxFlexAlign="center">
+            <a [routerLink]="['/course-details', course.id]">{{ course.name }}</a>
+        </mat-card-title>
+        <div fxFlexAlign="center" class="manage-subscription-links" *ngIf="subscribed == 'true'; else notSubscribed">
             <span class="manage-link inactive-link">Subscribe to Course</span>
             <span class="subscribe-divider"></span>
             <span class="manage-link" (click)="unsubscribeFromCourse()">Unsubscribe from Course</span>
@@ -22,7 +24,7 @@
 </mat-card>
 
 <ng-template #notSubscribed>
-    <div class="manage-subscription-links">
+    <div fxFlexAlign="center" class="manage-subscription-links">
         <span class="manage-link" (click)="subscribeToCourse()">Subscribe to Course</span>
         <span class="subscribe-divider"></span>
         <span class="manage-link inactive-link">Unsubscribe from Course</span>

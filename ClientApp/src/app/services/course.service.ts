@@ -33,4 +33,16 @@ export class CourseService {
   public unsubscribeFromcourse(id: string): Observable<UserCourse> {
     return this.http.delete<UserCourse>(`/courses/unsubscribefromcourse/${id}`);
   }
+
+  public getNumberOfSentences(course: Course): number {
+    let sentenceCount = 0;
+    course.words.forEach((word) => {
+      sentenceCount += word.sentences.length;
+    });
+    return sentenceCount;
+  }
+
+  public getNumberOfUsers(id: string): Observable<number> {
+    return this.http.get<number>(`/courses/getnumberofusers/${id}`);
+  }
 }

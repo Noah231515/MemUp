@@ -68,7 +68,12 @@ namespace MemUp.Services
                     .Distinct()
                     .ToList();
 
-                newCourses = memUpDbContext.Courses.Where(x => !subscribedCourses.Contains(x.Id)).ToList(); 
+                newCourses = memUpDbContext.Courses
+                .Include(x => x.Words)
+                .ThenInclude(x => x.Sentences)
+                .ThenInclude(x => x.SentenceType)
+                .Where(x => !subscribedCourses.Contains(x.Id))
+                .ToList(); 
             }
             return newCourses;
         }
@@ -110,6 +115,11 @@ namespace MemUp.Services
                 throw e;
             }
         }
+
+        public int GetNumberOfUsers(Guid courseId)
+        {
+            return memUpDbContext.UserCourse.Where(x => x.CourseId == courseId).Count();
+        }
     }
 
     public interface ICoursesService
@@ -119,5 +129,6 @@ namespace MemUp.Services
         List<Course> GetNewCoursesForUsers(ApplicationUser user);
         UserCourse SubscribeToCourse(ApplicationUser user, Guid courseId);
         UserCourse UnsubscribeFromCourse(ApplicationUser user, Guid courseId);
+        int GetNumberOfUsers(Guid courseId);
     }
 }

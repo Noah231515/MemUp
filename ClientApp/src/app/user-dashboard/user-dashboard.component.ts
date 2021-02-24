@@ -21,6 +21,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
   public onUnsubscribe(courseIndex: number) {
+    this.newCourses.push(this.subscribedCourses[courseIndex]);
     this.subscribedCourses.splice(courseIndex, 1);
   }
 

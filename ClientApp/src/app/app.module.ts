@@ -39,6 +39,7 @@ import { CourseSummaryCardComponent } from './user-dashboard/course-summary-card
 import { NewCoursesCardComponent } from './user-dashboard/new-courses-card/new-courses-card.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CourseDetailsCardComponent } from './course-details/course-details-card/course-details-card.component';
+import { CoursesComponent } from './courses/courses.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { CourseDetailsCardComponent } from './course-details/course-details-card
     CourseSummaryCardComponent,
     NewCoursesCardComponent,
     CourseDetailsComponent,
-    CourseDetailsCardComponent
+    CourseDetailsCardComponent,
+    CoursesComponent
   ],
   imports: [
     AppRoutingModule,

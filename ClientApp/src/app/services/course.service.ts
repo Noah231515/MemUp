@@ -22,6 +22,10 @@ export class CourseService {
     return this.http.get<Course>(`/courses/getcourse/${id}`);
   }
 
+  public getAllCourses(): Observable<Course[]> {
+    return this.http.get<Course[]>('/courses/getallcourses');
+  }
+
   public getNewCourses(): Observable<Course[]> {
     return this.http.get<Course[]>('/courses/getnewcoursesforusers');
   }

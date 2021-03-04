@@ -56,6 +56,15 @@ namespace MemUp.Services
             course.Words = course.Words.OrderBy(w => w.DifficultyIndex).ToList();
             return course;
         }
+
+        public List<Course> GetAllCourses()
+        {
+            return memUpDbContext.Courses
+                .Include(c => c.Words)
+                .ThenInclude(w => w.Sentences)
+                .ThenInclude(s => s.SentenceType)
+                .ToList();
+        }
         
         public List<Course> GetNewCoursesForUsers(ApplicationUser user)
         {            
@@ -126,6 +135,7 @@ namespace MemUp.Services
     {
         List<Course> GetSubscribedCoursesForUsers(ApplicationUser user);
         Course GetCourse(Guid id);
+        List<Course> GetAllCourses();
         List<Course> GetNewCoursesForUsers(ApplicationUser user);
         UserCourse SubscribeToCourse(ApplicationUser user, Guid courseId);
         UserCourse UnsubscribeFromCourse(ApplicationUser user, Guid courseId);

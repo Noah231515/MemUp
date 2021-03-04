@@ -1,1 +1,3 @@
-<p>courses works!</p>
+<ul *ngFor="let course of courses">
+    <app-course-details-card [course]="course"></app-course-details-card>
+</ul>

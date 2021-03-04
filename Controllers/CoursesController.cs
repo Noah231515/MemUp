@@ -35,6 +35,12 @@ namespace MemUp.Controllers
         {
             return Ok(coursesService.GetCourse(id));
         }
+
+        [HttpGet]
+        public IActionResult GetAllCourses()
+        {
+            return Ok(coursesService.GetAllCourses());
+        }
         
         public async Task<IActionResult> GetNewCoursesForUsers()
         {

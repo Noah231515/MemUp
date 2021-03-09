@@ -1,0 +1,56 @@
+<div class="course-manager" *ngIf="contentToEdit === 'details'; else content">
+    <div class="manage-course-header">
+        <h2 class="edit-header-link">Edit Course Details</h2>
+        <span class="subscribe-divider"></span>
+        <h2 
+        class="edit-header-link inactive-link"
+        (click)="changeEditSection('content')">Edit Course Content</h2>
+    </div>
+    <form class="manage-form" [formGroup]="manageCourseForm">
+        <mat-form-field>
+            <mat-label>Course Name</mat-label>
+            <input matInput
+                placeholder="{{course.name}}" 
+                value="{{manageCourseForm.courseName}}" 
+                formControlName="courseName" 
+            >
+        </mat-form-field>
+        <div class="form-group">
+            <mat-form-field>
+                <mat-label>Course Summary</mat-label>
+                <textarea matInput                    
+                    placeholder="{{course.description}}"
+                    value="{{manageCourseForm.courseDescShort}}"
+                    formControlName="courseDescShort"
+                ></textarea>
+            </mat-form-field>
+        </div>
+        <div class="form-group">
+            <mat-form-field>
+                <mat-label>Full Course Description</mat-label>
+                <textarea matInput                    
+                    placeholder="{{course.descriptionFull}}"
+                    value="{{manageCourseForm.courseDescFull}}"
+                    formControlName="courseDescFull"
+                ></textarea>
+            </mat-form-field>
+        </div>
+    </form>
+    <app-word-search [words]="course.words"></app-word-search>
+</div>
+
+
+<ng-template #content>
+    <div class="course-manager">
+        <div class="manage-course-header">
+            <h2 
+            class="edit-header-link inactive-link"
+            (click)="changeEditSection('details')">Edit Course Details</h2>
+            <span class="subscribe-divider"></span>
+            <h2 class="edit-header-link">Edit Course Content</h2>
+        </div>
+        <form class="manage-form">
+            <h1>COMING SOON</h1>
+        </form>
+    </div>
+</ng-template>

@@ -1,13 +1,18 @@
 <mat-card class="course-details">
     <div fxLayout="row" class="card-header">
         <mat-card-title fxFlexAlign="center">
-            <a [routerLink]="['/course-details', course.id]">{{ course.name }}</a>
+            <a 
+            [routerLink]="['/course-details', course.id]"
+            [queryParams]="{subscribed: subscribed, editMode: false}">{{ course.name }}</a>
         </mat-card-title>
         <div fxFlexAlign="center" class="manage-subscription-links" *ngIf="subscribed == 'true'; else notSubscribed">
             <span class="manage-link inactive-link">Subscribe to Course</span>
             <span class="subscribe-divider"></span>
             <span class="manage-link" (click)="unsubscribeFromCourse()">Unsubscribe from Course</span>
         </div>
+        <button mat-icon-button class="menu-btn" [matMenuTriggerFor]="menu" aria-hidden="false" aria-label="course menu">
+            <mat-icon>more_horiz</mat-icon>
+        </button>
     </div>
     <hr/>
     <mat-card-content>
@@ -30,3 +35,12 @@
         <span class="manage-link inactive-link">Unsubscribe from Course</span>
     </div>
 </ng-template>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item 
+    [routerLink]="['/course-details', course.id]"
+    [queryParams]="{subscribed: subscribed, editMode: true}">
+      <mat-icon>edit</mat-icon>
+      <span>Manage course</span>
+    </button>
+</mat-menu>

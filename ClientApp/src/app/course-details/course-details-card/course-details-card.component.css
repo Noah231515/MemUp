@@ -21,6 +21,7 @@
 
 .manage-subscription-links {
     margin-left: auto;
+    margin-right: 25px;
 }
 
 .manage-link {
@@ -49,6 +50,16 @@
     border-radius: 100px;
     display: inline-block;
     margin: 0 10px -5px 10px;
+}
+
+.menu-btn {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+}
+
+.menu-btn .mat-icon {
+    font-size: 2.5em;
 }
 
 .mat-card-content {

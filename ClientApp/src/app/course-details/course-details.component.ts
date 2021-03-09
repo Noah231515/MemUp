@@ -19,6 +19,7 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
   public subscribed: string;
   public selectedWords: Word[];
   public selectedTableAction: string;
+  public editMode: string;
   private DATA_CHUNK_SIZE = 500;
 
   public constructor(private route: ActivatedRoute) { }
@@ -28,6 +29,9 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
     this.subscribed = this.route.snapshot.queryParams['subscribed'];
     this.dataSource = new MatTableDataSource<Word>(this.course.words.slice(0, this.DATA_CHUNK_SIZE));
     this.selectedWords = [];
+    this.route.queryParams.subscribe((params) => {
+      this.editMode = params.editMode;
+    });
   }
 
   public ngAfterViewInit() {

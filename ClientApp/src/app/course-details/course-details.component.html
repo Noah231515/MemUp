@@ -1,6 +1,6 @@
 <div class="course-details">
 <app-course-details-card [course]="course" [subscribed]="subscribed"></app-course-details-card>
-    <div class="table-container">
+    <div class="table-container" *ngIf="editMode != 'true'; else courseManager">
         <div class="mat-elevation-z8 table-control-container">
             <select class="table-control-select" (change)="changeSelectedTableAction($event)">
                 <option value="null">(Select Action)</option>
@@ -50,3 +50,9 @@
         </div>
     </div>
 </div>
+
+<ng-template #courseManager>
+    <div class="course-manager-container">
+        <app-course-manager [course]="course"></app-course-manager>
+    </div>
+</ng-template>

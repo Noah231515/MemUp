@@ -3,7 +3,7 @@
         <mat-card-title>
             <a 
             [routerLink]="['/course-details', course.id]"
-            [queryParams]="{subscribed: subscribedStatus}">{{ course.name }}</a>
+            [queryParams]="{subscribed: subscribedStatus, editMode: false}">{{ course.name }}</a>
         </mat-card-title>
         <p>{{ course.description }}</p>
         <button mat-icon-button class="menu-btn" [matMenuTriggerFor]="menu" aria-hidden="false" aria-label="course menu">
@@ -28,5 +28,11 @@
     (click)="unsubscribeFromCourse()">
       <mat-icon>clear</mat-icon>
       <span>Unsubscribe from course</span>
+    </button>
+    <button mat-menu-item 
+    [routerLink]="['/course-details', course.id]"
+    [queryParams]="{subscribed: subscribedStatus, editMode: true}">
+        <mat-icon>edit</mat-icon>
+        <span>Manage course</span>
     </button>
 </mat-menu>

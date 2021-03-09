@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Course } from '../models/course.model';
 import { UserCourse } from '../models/usercourse.model';
@@ -48,5 +48,17 @@ export class CourseService {
 
   public getNumberOfUsers(id: string): Observable<number> {
     return this.http.get<number>(`/courses/getnumberofusers/${id}`);
+  }
+
+  public updateCourse(course: Course): Observable<Course> {
+    return this.http.put<Course>(
+      `courses/updatecourse/`,
+      course,
+      {
+        headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        })
+      }
+      );
   }
 }

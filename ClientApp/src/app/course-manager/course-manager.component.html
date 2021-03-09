@@ -6,7 +6,7 @@
         class="edit-header-link inactive-link"
         (click)="changeEditSection('content')">Edit Course Content</h2>
     </div>
-    <form class="manage-form" [formGroup]="manageCourseForm">
+    <form class="manage-form" [formGroup]="manageCourseForm" (ngSubmit)="submitForm()">
         <mat-form-field>
             <mat-label>Course Name</mat-label>
             <input matInput
@@ -35,6 +35,8 @@
                 ></textarea>
             </mat-form-field>
         </div>
+        <button type="submit">Submit</button>
+        <button type="button">Clear</button>
     </form>
     <app-word-search [words]="course.words"></app-word-search>
 </div>
@@ -51,6 +53,8 @@
         </div>
         <form class="manage-form">
             <h1>COMING SOON</h1>
+            <button type="submit">Submit</button>
+            <button type="button">Clear</button>
         </form>
     </div>
 </ng-template>

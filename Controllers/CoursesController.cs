@@ -36,6 +36,13 @@ namespace MemUp.Controllers
             return Ok(coursesService.GetCourse(id));
         }
 
+        [HttpPut]
+        [Route("/courses/updatecourse")]
+        public IActionResult UpdateCourse([FromBody] Course course)
+        {
+            return Ok(coursesService.UpdateCourse(course));
+        }
+
         [HttpGet]
         public IActionResult GetAllCourses()
         {

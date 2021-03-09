@@ -57,6 +57,14 @@ namespace MemUp.Services
             return course;
         }
 
+        public Course UpdateCourse(Course updatedCourse) 
+        {
+            Course courseInDb = memUpDbContext.Courses.Find(updatedCourse.Id);
+            memUpDbContext.Entry(courseInDb).CurrentValues.SetValues(updatedCourse);
+            memUpDbContext.SaveChanges();
+            return courseInDb;
+        }
+
         public List<Course> GetAllCourses()
         {
             return memUpDbContext.Courses
@@ -129,12 +137,15 @@ namespace MemUp.Services
         {
             return memUpDbContext.UserCourse.Where(x => x.CourseId == courseId).Count();
         }
+
+        
     }
 
     public interface ICoursesService
     {
         List<Course> GetSubscribedCoursesForUsers(ApplicationUser user);
         Course GetCourse(Guid id);
+        Course UpdateCourse(Course course);
         List<Course> GetAllCourses();
         List<Course> GetNewCoursesForUsers(ApplicationUser user);
         UserCourse SubscribeToCourse(ApplicationUser user, Guid courseId);

@@ -8,6 +8,7 @@ import { DashboardAuthenticationResolver } from './user-dashboard/dashboard-auth
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CourseDetailsResolver } from './course-details/course-details.resolver';
 import { CoursesComponent } from './courses/courses.component';
+import { AllCoursesResolver } from './courses/all-courses.resolver';
 
 const routes: Routes = [
   {
@@ -40,7 +41,7 @@ const routes: Routes = [
     path: 'courses',
     component: CoursesComponent,
     resolve: {
-
+      allCourses: AllCoursesResolver,
     }
   }
 ];

@@ -40,6 +40,8 @@ import { NewCoursesCardComponent } from './user-dashboard/new-courses-card/new-c
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CourseDetailsCardComponent } from './course-details/course-details-card/course-details-card.component';
 import { CoursesComponent } from './courses/courses.component';
+import { CourseManagerComponent } from './course-manager/course-manager.component';
+import { WordSearchComponent } from './course-manager/word-search/word-search.component';
 
 
 @NgModule({
@@ -56,7 +58,9 @@ import { CoursesComponent } from './courses/courses.component';
     NewCoursesCardComponent,
     CourseDetailsComponent,
     CourseDetailsCardComponent,
-    CoursesComponent
+    CoursesComponent,
+    CourseManagerComponent,
+    WordSearchComponent
   ],
   imports: [
     AppRoutingModule,

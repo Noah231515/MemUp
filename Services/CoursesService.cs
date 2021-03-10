@@ -59,7 +59,11 @@ namespace MemUp.Services
 
         public Course UpdateCourse(Course updatedCourse) 
         {
-            Course courseInDb = memUpDbContext.Courses.Find(updatedCourse.Id);
+            Course courseInDb = memUpDbContext.Courses
+                .Include(c => c.Words)
+                .ThenInclude(w => w.Sentences)
+                .ThenInclude(s => s.SentenceType)
+                .SingleOrDefault(c => c.Id == updatedCourse.Id);
             memUpDbContext.Entry(courseInDb).CurrentValues.SetValues(updatedCourse);
             memUpDbContext.SaveChanges();
             return courseInDb;

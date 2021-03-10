@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Course } from '../models/course.model';
 import { CourseService } from '../services/course.service';
@@ -9,7 +10,8 @@ import { CourseService } from '../services/course.service';
   styleUrls: ['./course-manager.component.css']
 })
 export class CourseManagerComponent implements OnInit {
-   @Input() public course: Course;
+  @Input() public course: Course;
+  @Output() public updateCourse = new EventEmitter<Course>();
   public manageCourseForm: FormGroup;
   public contentToEdit = 'details';
 
@@ -41,7 +43,10 @@ export class CourseManagerComponent implements OnInit {
       descriptionFull: formValues.courseDescFull !== '' ? formValues.courseDescFull : this.course.descriptionFull,
       words: this.course.words
     };
-    this.courseService.updateCourse(course).subscribe(console.log);
+    this.courseService.updateCourse(course).subscribe((updatedCourse) => {
+      this.course = updatedCourse;
+      this.updateCourse.emit(updatedCourse);
+    });
   }
 
 }

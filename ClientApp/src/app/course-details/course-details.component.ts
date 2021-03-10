@@ -84,4 +84,8 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
         break;
     }
   }
+
+  public updateCourse(course: Course) {
+    this.course = course;
+  }
 }

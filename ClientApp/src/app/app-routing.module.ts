@@ -43,7 +43,7 @@ const routes: Routes = [
     resolve: {
       allCourses: AllCoursesResolver,
     }
-  }
+  },
 ];
 
 @NgModule({

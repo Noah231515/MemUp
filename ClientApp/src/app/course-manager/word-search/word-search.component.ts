@@ -54,7 +54,7 @@ export class WordSearchComponent implements OnInit, AfterViewInit {
           matches.slice(matches.findIndex(word => word === exactMatch), 1);
           matches.unshift(exactMatch);
         }
-        return of(matches.slice(0, 24));
+        return of(matches.slice(0, 11));
       })
     )
     .subscribe((results) => {

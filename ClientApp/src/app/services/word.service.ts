@@ -17,10 +17,10 @@ export class WordService {
     return this.http.get(`/words/getsentences/${id}`);
   }
 
-  public updateWords(modifiedWords: Word[]): Observable<Word[]> {
+  public updateWords(updatedWords: Word[]): Observable<Word[]> {
     return this.http.put<Word[]>(
       `words/updatewords`,
-      modifiedWords,
+      updatedWords,
       {
         headers: new HttpHeaders({
         'Content-Type': 'application/json',

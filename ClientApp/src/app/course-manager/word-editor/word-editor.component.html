@@ -1,0 +1,41 @@
+<form class="editor-form" [formGroup]="wordEditorForm" (ngSubmit)="submitForm()">
+    <div class="form-group">
+        <mat-form-field>
+            <mat-label>English</mat-label>
+            <input matInput
+                placeholder="{{word.englishVocab}}"
+                formControlName="englishVocab"
+            />
+        </mat-form-field>
+    </div>
+    <div class="form-group">
+        <mat-form-field>
+            <mat-label>Japanese</mat-label>
+            <input matInput
+                placeholder="{{word.japaneseVocab}}"
+                formControlName="japaneseVocab"
+            />
+        </mat-form-field>
+    </div>
+    <div class="form-group">
+        <mat-form-field>
+            <mat-label>Kana</mat-label>
+            <input matInput
+                placeholder="{{word.kanaVocab}}"
+                formControlName="kanaVocab"
+            />
+        </mat-form-field>
+    </div>
+    <div class="form-group">
+        <mat-form-field>
+            <mat-label>Part Of Speech</mat-label>
+            <input matInput
+                placeholder="{{word.partOfSpeech}}"
+                formControlName="partOfSpeech"
+            />
+        </mat-form-field>
+    </div>
+    <button type="submit">Save Changes</button>
+    <button type="button">Reset</button>
+    <button type="button">Cancel</button>
+</form>

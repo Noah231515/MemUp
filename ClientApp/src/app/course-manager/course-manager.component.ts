@@ -5,6 +5,7 @@ import { Course } from '../models/course.model';
 import { Word } from '../models/word.model';
 import { CourseService } from '../services/course.service';
 import { WordService } from '../services/word.service';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-course-manager',
@@ -17,7 +18,7 @@ export class CourseManagerComponent implements OnInit {
   public manageCourseForm: FormGroup;
   public contentToEdit = 'details';
   public wordToEdit: Word;
-  public modifiedWords: Word[] = [];
+  public updatedWords: Word[] = [];
 
 
   public constructor(
@@ -31,45 +32,53 @@ export class CourseManagerComponent implements OnInit {
 
   public initializeForm(): void {
     this.manageCourseForm = this.formBuilder.group({
-      courseName: '',
-      courseDescShort: '',
-      courseDescFull: '',
+      courseName: this.course.name,
+      courseDescShort: this.course.description,
+      courseDescFull: this.course.descriptionFull,
     });
   }
 
-  public changeEditSection(value: string) {
+  public changeEditSection(value: string): void {
       this.contentToEdit = value;
   }
 
-  public clearWordToEdit() {
+  public clearWordToEdit(): void {
     this.wordToEdit = undefined;
   }
 
   public submitForm(): void {
     const formValues = this.manageCourseForm.value;
-    if (this.modifiedWords.length > 0) {
-      this.wordSerrvice.updateWords(this.modifiedWords).subscribe();
+
+    // Submit the updated words to the database if there are any
+    if (this.updatedWords.length > 0) {
+      this.wordSerrvice.updateWords(this.updatedWords).subscribe();
     }
 
-    const course: Course = {
+    const updatedCourse: Course = {
       id: this.course.id,
-      name: formValues.courseName !== '' ? formValues.courseName : this.course.name,
-      description: formValues.courseDescShort !== '' ? formValues.courseDescShort : this.course.description,
-      descriptionFull: formValues.courseDescFull !== '' ? formValues.courseDescFull : this.course.descriptionFull,
+      name: formValues.courseName,
+      description: formValues.courseDescShort,
+      descriptionFull: formValues.courseDescFull,
       words: this.course.words
     };
-    this.courseService.updateCourse(course).subscribe((updatedCourse) => {
-      this.course = updatedCourse;
-      this.updateCourse.emit(updatedCourse);
+
+    this.courseService.updateCourse(updatedCourse).subscribe((_updatedCourse) => {
+      this.course = _updatedCourse;
+      this.updateCourse.emit(_updatedCourse);
     });
   }
 
-  public setWordToEdit(selectedWord: Word) {
+  public clearForm(): void {
+    this.manageCourseForm.reset();
+    this.wordToEdit = undefined;
+  }
+
+  public setWordToEdit(selectedWord: Word): void {
     this.wordToEdit = selectedWord;
   }
 
-  public addModifiedWord(word: Word) {
-    this.modifiedWords.push(word);
+  public addUpdatedWord(word: Word): void {
+    this.updatedWords.push(word);
   }
 
 }

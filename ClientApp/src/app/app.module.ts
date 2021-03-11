@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
@@ -42,6 +41,7 @@ import { CourseDetailsCardComponent } from './course-details/course-details-card
 import { CoursesComponent } from './courses/courses.component';
 import { CourseManagerComponent } from './course-manager/course-manager.component';
 import { WordSearchComponent } from './course-manager/word-search/word-search.component';
+import { WordEditorComponent } from './course-manager/word-editor/word-editor.component';
 
 
 @NgModule({
@@ -60,7 +60,8 @@ import { WordSearchComponent } from './course-manager/word-search/word-search.co
     CourseDetailsCardComponent,
     CoursesComponent,
     CourseManagerComponent,
-    WordSearchComponent
+    WordSearchComponent,
+    WordEditorComponent
   ],
   imports: [
     AppRoutingModule,

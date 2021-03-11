@@ -1,0 +1,47 @@
+.unsaved-changes-warning {
+    color: red;
+}
+
+.mat-raised-button {
+    margin: 5px;
+    font-weight: bolder;
+    font-size: 1.2em;
+    width: 100px;
+}
+
+.mat-raised-button.mat-primary {
+    background-color: orange;
+}
+
+
+.mat-form-field {
+    width: 500px;
+}
+
+:not(.mat-focused) .mat-form-field-label {
+    /*change color of label*/
+    color: black !important;
+    font-size: 16px;
+}
+
+.mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: black !important;
+    font-size: 20px;
+    font-weight: bolder;
+    letter-spacing: 1px;
+}
+
+.mat-form-field input, textarea {
+    color: black;
+    font-size: 1.3rem;
+    background-color: rgb(214, 212, 212);
+}
+
+.mat-form-field input {
+    height: 35px;
+}
+
+.mat-form-field textarea {
+    height: 125px;
+}

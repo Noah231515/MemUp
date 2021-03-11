@@ -1,0 +1,39 @@
+<form class="manage-course-form edit-details" [formGroup]="courseDetailsForm" (ngSubmit)="submitForm()">
+    <div class="form-group">
+        <mat-form-field>
+            <mat-label>Course Name</mat-label>
+            <input matInput
+                value="{{courseDetailsForm.name}}"
+                formControlName="name"
+            >
+        </mat-form-field>
+    </div>
+    <div class="form-group">
+        <mat-form-field>
+            <mat-label>Course Summary</mat-label>
+            <textarea matInput
+                value="{{courseDetailsForm.description}}"
+                formControlName="description"
+            ></textarea>
+        </mat-form-field>
+    </div>
+    <div class="form-group">
+        <mat-form-field>
+            <mat-label>Full Course Description</mat-label>
+            <textarea matInput
+                value="{{courseDetailsForm.descriptionFull}}"
+                formControlName="descriptionFull"
+            ></textarea>
+        </mat-form-field>
+    </div>
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+    <button 
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="resetForm()">Clear
+    </button>
+    <h2 
+    class="unsaved-changes-warning" 
+    *ngIf="formChanged == true;">Your changes have not been submitted.</h2>
+</form>

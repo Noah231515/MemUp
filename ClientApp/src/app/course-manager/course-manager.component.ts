@@ -48,7 +48,7 @@ export class CourseManagerComponent implements OnInit {
   public submitForm(): void {
     const formValues = this.manageCourseForm.value;
     if (this.modifiedWords.length > 0) {
-      this.wordSerrvice.updateWords(this.modifiedWords).subscribe()
+      this.wordSerrvice.updateWords(this.modifiedWords).subscribe();
     }
 
     const course: Course = {

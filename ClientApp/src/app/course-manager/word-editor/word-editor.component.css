@@ -33,3 +33,18 @@
 ::placeholder {
     color: rgb(92, 92, 92);
 }
+
+.mat-raised-button {
+    margin: 5px;
+    font-weight: bolder;
+    font-size: 1.2em;
+    width: 100px;
+}
+
+.mat-raised-button.mat-primary {
+    background-color: orange;
+}
+
+.mat-raised-button.mat-basic {
+    background-color:rgb(92, 92, 92);
+}

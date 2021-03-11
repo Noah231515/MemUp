@@ -35,7 +35,7 @@
             />
         </mat-form-field>
     </div>
-    <button type="submit">Save Changes</button>
-    <button type="button">Reset</button>
-    <button type="button">Cancel</button>
+    <button mat-raised-button color="primary" type="submit">Save</button>
+    <button mat-raised-button color="warn" type="button" (click)="clearForm()">Reset</button>
+    <button mat-raised-button color="basic" type="button" (click)="closeForm()">Cancel</button>
 </form>

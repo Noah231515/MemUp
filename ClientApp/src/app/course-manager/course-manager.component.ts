@@ -2,7 +2,9 @@ import { EventEmitter } from '@angular/core';
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Course } from '../models/course.model';
+import { Word } from '../models/word.model';
 import { CourseService } from '../services/course.service';
+import { WordService } from '../services/word.service';
 
 @Component({
   selector: 'app-course-manager',
@@ -14,9 +16,14 @@ export class CourseManagerComponent implements OnInit {
   @Output() public updateCourse = new EventEmitter<Course>();
   public manageCourseForm: FormGroup;
   public contentToEdit = 'details';
+  public wordToEdit: Word;
+  public modifiedWords: Word[] = [];
 
 
-  public constructor(private formBuilder: FormBuilder, private courseService: CourseService) { }
+  public constructor(
+    private formBuilder: FormBuilder,
+    private courseService: CourseService,
+    private wordSerrvice: WordService) { }
 
   public ngOnInit(): void {
     this.initializeForm();
@@ -31,11 +38,19 @@ export class CourseManagerComponent implements OnInit {
   }
 
   public changeEditSection(value: string) {
-    this.contentToEdit = value;
+      this.contentToEdit = value;
+  }
+
+  public clearWordToEdit() {
+    this.wordToEdit = undefined;
   }
 
   public submitForm(): void {
     const formValues = this.manageCourseForm.value;
+    if (this.modifiedWords.length > 0) {
+      this.wordSerrvice.updateWords(this.modifiedWords).subscribe()
+    }
+
     const course: Course = {
       id: this.course.id,
       name: formValues.courseName !== '' ? formValues.courseName : this.course.name,
@@ -47,6 +62,14 @@ export class CourseManagerComponent implements OnInit {
       this.course = updatedCourse;
       this.updateCourse.emit(updatedCourse);
     });
+  }
+
+  public setWordToEdit(selectedWord: Word) {
+    this.wordToEdit = selectedWord;
+  }
+
+  public addModifiedWord(word: Word) {
+    this.modifiedWords.push(word);
   }
 
 }

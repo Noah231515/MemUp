@@ -64,6 +64,7 @@ namespace MemUp.Services
                 .ThenInclude(w => w.Sentences)
                 .ThenInclude(s => s.SentenceType)
                 .SingleOrDefault(c => c.Id == updatedCourse.Id);
+            courseInDb.Words = courseInDb.Words.OrderBy(w => w.DifficultyIndex).ToList();
             memUpDbContext.Entry(courseInDb).CurrentValues.SetValues(updatedCourse);
             memUpDbContext.SaveChanges();
             return courseInDb;

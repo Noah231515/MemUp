@@ -11,7 +11,8 @@ import { Word } from 'src/app/models/word.model';
 export class WordEditorComponent implements OnInit, OnChanges {
   public wordEditorForm: FormGroup;
   @Input() public word: Word;
-  @Output() public wordModified = new EventEmitter<Word>();
+  @Output() public wordUpdated = new EventEmitter<Word>();
+  @Output() public formClosed = new EventEmitter<null>();
 
 
   public constructor(private formBuilder: FormBuilder) { }
@@ -36,16 +37,24 @@ export class WordEditorComponent implements OnInit, OnChanges {
   public submitForm(): void {
     const formValues = this.wordEditorForm.value;
 
-    const modifiedWord: Word = {
+    const updatedWord: Word = {
       id: this.word.id,
-      englishVocab: this.word.englishVocab === formValues.englishVocab ? this.word.englishVocab : formValues.englishVocab,
-      japaneseVocab: this.word.japaneseVocab === formValues.japaneseVocab ? this.word.japaneseVocab : formValues.japaneseVocab,
-      kanaVocab: this.word.kanaVocab === formValues.kanaVocab ? this.word.kanaVocab : formValues.kanaVocab,
-      partOfSpeech: this.word.partOfSpeech === formValues.partOfSpeech ? this.word.partOfSpeech : formValues.partOfSpeech,
+      englishVocab: formValues.englishVocab,
+      japaneseVocab: formValues.japaneseVocab,
+      kanaVocab: formValues.kanaVocab,
+      partOfSpeech: formValues.partOfSpeech,
       sentences: this.word.sentences
     };
 
-    this.wordModified.emit(modifiedWord);
+    this.wordUpdated.emit(updatedWord);
+  }
+
+  public clearForm(): void {
+    this.initializeForm();
+  }
+
+  public closeForm(): void {
+    this.formClosed.emit(null);
   }
 
 }

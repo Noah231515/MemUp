@@ -11,7 +11,6 @@
             <mat-form-field>
                 <mat-label>Course Name</mat-label>
                 <input matInput
-                    placeholder="{{course.name}}"
                     value="{{manageCourseForm.courseName}}"
                     formControlName="courseName"
                 >
@@ -20,8 +19,7 @@
         <div class="form-group">
             <mat-form-field>
                 <mat-label>Course Summary</mat-label>
-                <textarea matInput                    
-                    placeholder="{{course.description}}"
+                <textarea matInput
                     value="{{manageCourseForm.courseDescShort}}"
                     formControlName="courseDescShort"
                 ></textarea>
@@ -30,15 +28,19 @@
         <div class="form-group">
             <mat-form-field>
                 <mat-label>Full Course Description</mat-label>
-                <textarea matInput                    
-                    placeholder="{{course.descriptionFull}}"
+                <textarea matInput
                     value="{{manageCourseForm.courseDescFull}}"
                     formControlName="courseDescFull"
                 ></textarea>
             </mat-form-field>
         </div>
-        <button type="submit">Submit</button>
-        <button type="button">Clear</button>
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+        <button 
+            mat-raised-button
+            color="warn"
+            type="button"
+            (click)="clearForm()">Clear
+        </button>
     </form>
 </div>
 
@@ -54,11 +56,26 @@
         </div>
         <form class="manage-course-form edit-content" [formGroup]="manageCourseForm" (ngSubmit)="submitForm()">
             <div class="word-edit-container" fxLayout="row">
-                <app-word-search (wordSelected)="setWordToEdit($event)" [words]="course.words" fxFlex="50%"></app-word-search>
-                <app-word-editor (wordModified)="addModifiedWord($event) "*ngIf="wordToEdit !== undefined" [word]="wordToEdit" fxFlex="50%"></app-word-editor>
+                <app-word-search 
+                    (wordSelected)="setWordToEdit($event)"
+                    [words]="course.words"
+                    fxFlex="50%">
+                </app-word-search>
+                <app-word-editor 
+                    (wordUpdated)="addUpdatedWord($event)"
+                    (formClosed)="clearWordToEdit()"
+                    *ngIf="wordToEdit !== undefined" 
+                    [word]="wordToEdit" 
+                    fxFlex="50%">
+                </app-word-editor>
             </div>
-            <button type="submit">Submit</button>
-            <button type="button">Clear</button>
+            <button mat-raised-button color="primary" type="submit">Submit</button>
+            <button 
+                mat-raised-button
+                color="warn"
+                type="button"
+                (click)="clearForm()">Clear
+            </button>
         </form>
     </div>
 </ng-template>

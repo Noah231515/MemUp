@@ -61,3 +61,14 @@
     display: inline-block;
     margin: 0 10px -5px 10px;
 }
+
+.mat-raised-button {
+    margin: 5px;
+    font-weight: bolder;
+    font-size: 1.2em;
+    width: 100px;
+}
+
+.mat-raised-button.mat-primary {
+    background-color: orange;
+}

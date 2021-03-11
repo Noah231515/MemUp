@@ -53,6 +53,6 @@
 
 <ng-template #courseManager>
     <div class="course-manager-container">
-        <app-course-manager (updateCourse)="updateCourse($event)" [course]="course"></app-course-manager>
+        <app-course-manager (courseUpdated)="updateCourse($event)" [course]="course"></app-course-manager>
     </div>
 </ng-template>

@@ -1,0 +1,24 @@
+<form class="manage-course-form edit-content" (ngSubmit)="submitForm()">
+    <div class="word-edit-container" fxLayout="row">
+        <app-word-search 
+            (wordSelected)="setWordToEdit($event)"
+            [words]="course.words"
+            fxFlex="50%">
+        </app-word-search>
+        <app-word-editor 
+            (wordUpdated)="addUpdatedWord($event)"
+            (formClosed)="clearWordToEdit()"
+            *ngIf="wordToEdit !== undefined" 
+            [word]="wordToEdit" 
+            fxFlex="50%">
+        </app-word-editor>
+    </div>
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+    <div class="unsaved-changes-container" *ngIf="updatedWords.length > 0">
+        <h2 class="unsaved-changes-warning">Your changes have not been submitted.</h2>
+        <h3 class="unsaved-changes-warning">The following words have edits waiting to be submitted.</h3>
+        <ul class="updated-words">
+            <li *ngFor="let word of updatedWords">{{word.englishVocab}}</li>
+        </ul>
+    </div>
+</form>

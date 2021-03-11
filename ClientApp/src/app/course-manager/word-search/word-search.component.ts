@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { of } from 'rxjs';
 import { Observable, fromEvent } from 'rxjs';
 import { map, startWith, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { Word } from 'src/app/models/word.model';
 export class WordSearchComponent implements OnInit, AfterViewInit {
   public searchResults: Word[];
   @Input() public words: Word[];
+  @Output() public wordSelected = new EventEmitter<Word>();
   @ViewChild('searchInput') public searchInput: ElementRef;
 
 
@@ -59,6 +60,10 @@ export class WordSearchComponent implements OnInit, AfterViewInit {
     .subscribe((results) => {
       this.searchResults = results;
     });
+  }
+
+  public selectWord(word: Word) {
+    this.wordSelected.emit(word);
   }
 
 }

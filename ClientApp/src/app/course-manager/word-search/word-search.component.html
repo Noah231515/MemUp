@@ -1,7 +1,6 @@
-<p>word-search works!</p>
 <input #searchInput class="search-input" type="text" placeholder="Search">
 <div class="search-results" *ngIf="searchResults">
     <ul *ngFor="let result of searchResults">
-        <li >{{result.englishVocab}} | {{result.japaneseVocab}} | {{result.kanaVocab}}</li>
+        <li (click)="selectWord(result)">{{result.englishVocab}} | {{result.japaneseVocab}} | {{result.kanaVocab}}</li>
     </ul>
 </div>

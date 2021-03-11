@@ -6,76 +6,25 @@
         class="edit-header-link inactive-link"
         (click)="changeEditSection('content')">Edit Course Content</h2>
     </div>
-    <form class="manage-course-form edit-details" [formGroup]="manageCourseForm" (ngSubmit)="submitForm()">
-        <div class="form-group">
-            <mat-form-field>
-                <mat-label>Course Name</mat-label>
-                <input matInput
-                    value="{{manageCourseForm.courseName}}"
-                    formControlName="courseName"
-                >
-            </mat-form-field>
-        </div>
-        <div class="form-group">
-            <mat-form-field>
-                <mat-label>Course Summary</mat-label>
-                <textarea matInput
-                    value="{{manageCourseForm.courseDescShort}}"
-                    formControlName="courseDescShort"
-                ></textarea>
-            </mat-form-field>
-        </div>
-        <div class="form-group">
-            <mat-form-field>
-                <mat-label>Full Course Description</mat-label>
-                <textarea matInput
-                    value="{{manageCourseForm.courseDescFull}}"
-                    formControlName="courseDescFull"
-                ></textarea>
-            </mat-form-field>
-        </div>
-        <button mat-raised-button color="primary" type="submit">Submit</button>
-        <button 
-            mat-raised-button
-            color="warn"
-            type="button"
-            (click)="clearForm()">Clear
-        </button>
-    </form>
+    <app-course-details-editor 
+        (courseUpdated)="updateCourse($event)"
+        [course]="course">
+    </app-course-details-editor>
 </div>
-
 
 <ng-template #content>
     <div class="course-manager">
         <div class="manage-course-header">
             <h2 
             class="edit-header-link inactive-link"
-            (click)="changeEditSection('details'); clearWordToEdit()">Edit Course Details</h2>
+            (click)="changeEditSection('details')">Edit Course Details</h2>
             <span class="subscribe-divider"></span>
             <h2 class="edit-header-link">Edit Course Content</h2>
         </div>
-        <form class="manage-course-form edit-content" [formGroup]="manageCourseForm" (ngSubmit)="submitForm()">
-            <div class="word-edit-container" fxLayout="row">
-                <app-word-search 
-                    (wordSelected)="setWordToEdit($event)"
-                    [words]="course.words"
-                    fxFlex="50%">
-                </app-word-search>
-                <app-word-editor 
-                    (wordUpdated)="addUpdatedWord($event)"
-                    (formClosed)="clearWordToEdit()"
-                    *ngIf="wordToEdit !== undefined" 
-                    [word]="wordToEdit" 
-                    fxFlex="50%">
-                </app-word-editor>
-            </div>
-            <button mat-raised-button color="primary" type="submit">Submit</button>
-            <button 
-                mat-raised-button
-                color="warn"
-                type="button"
-                (click)="clearForm()">Clear
-            </button>
-        </form>
+        <app-course-content-editor
+            [course]="course"
+            (wordSelected)="setWordToEdit($event)"
+            [wordToEdit]="wordToEdit">
+        </app-course-content-editor>
     </div>
 </ng-template>

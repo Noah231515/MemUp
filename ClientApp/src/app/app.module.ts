@@ -42,6 +42,8 @@ import { CoursesComponent } from './courses/courses.component';
 import { CourseManagerComponent } from './course-manager/course-manager.component';
 import { WordSearchComponent } from './course-manager/word-search/word-search.component';
 import { WordEditorComponent } from './course-manager/word-editor/word-editor.component';
+import { CourseDetailsEditorComponent } from './course-manager/course-details-editor/course-details-editor.component';
+import { CourseContentEditorComponent } from './course-manager/course-content-editor/course-content-editor.component';
 
 
 @NgModule({
@@ -61,7 +63,9 @@ import { WordEditorComponent } from './course-manager/word-editor/word-editor.co
     CoursesComponent,
     CourseManagerComponent,
     WordSearchComponent,
-    WordEditorComponent
+    WordEditorComponent,
+    CourseDetailsEditorComponent,
+    CourseContentEditorComponent
   ],
   imports: [
     AppRoutingModule,

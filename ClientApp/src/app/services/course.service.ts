@@ -50,15 +50,28 @@ export class CourseService {
     return this.http.get<number>(`/courses/getnumberofusers/${id}`);
   }
 
-  public updateCourse(course: Course): Observable<Course> {
+  public updateCourse(updatedCourse: Course): Observable<Course> {
     return this.http.put<Course>(
       `courses/updatecourse/`,
-      course,
+      updatedCourse,
       {
         headers: new HttpHeaders({
         'Content-Type': 'application/json',
         })
       }
-      );
+    );
+  }
+
+  public createCourse(newCourse: Course): Observable<Course> {
+    console.log(newCourse);
+    return this.http.post<Course>(
+      `courses/createcourse/`,
+      newCourse,
+      {
+        headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        })
+      }
+    );
   }
 }

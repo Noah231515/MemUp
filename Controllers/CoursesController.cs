@@ -30,6 +30,14 @@ namespace MemUp.Controllers
             return Ok(coursesService.GetSubscribedCoursesForUsers(user));
         }
 
+        [HttpPost]
+        [Route("/courses/createcourse")]
+        public IActionResult CreateCourse([FromBody] Course newCourse)
+        {
+            Console.WriteLine(newCourse.Name);
+            return Ok(coursesService.CreateCourse(newCourse));
+        }
+
         [HttpGet]
         public IActionResult GetCourse(Guid id)
         {

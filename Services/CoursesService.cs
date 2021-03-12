@@ -45,6 +45,14 @@ namespace MemUp.Services
             return subscribedCourses;
         }
 
+        public Course CreateCourse(Course newCourse) 
+        {
+            newCourse.Id = new Guid();
+            memUpDbContext.Courses.Add(newCourse);
+            memUpDbContext.SaveChanges();
+            return newCourse;
+        }
+
         public Course GetCourse(Guid id)
         {
             Course course = memUpDbContext.Courses
@@ -149,6 +157,7 @@ namespace MemUp.Services
     public interface ICoursesService
     {
         List<Course> GetSubscribedCoursesForUsers(ApplicationUser user);
+        Course CreateCourse(Course newCourse);
         Course GetCourse(Guid id);
         Course UpdateCourse(Course course);
         List<Course> GetAllCourses();

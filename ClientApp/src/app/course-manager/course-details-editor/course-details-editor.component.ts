@@ -26,7 +26,11 @@ export class CourseDetailsEditorComponent implements OnInit {
     this.courseDetailsForm.valueChanges.subscribe((changes) => {
       let changesMade = false;
       for (const [key, value] of Object.entries(changes)) {
-        if (this.course[key] !== value) {
+        if (this.course === undefined) {
+          if (value) {
+            changesMade = true;
+          }
+        } else if (this.course[key] !== value) {
           changesMade = true;
         }
       }
@@ -34,11 +38,13 @@ export class CourseDetailsEditorComponent implements OnInit {
     });
   }
 
+  // Set the default values to empty strings if a course has not been provided (i.e we are creating a new course)
+  // or to the current values on the course object if we are editing a course
   public initializeForm(): void {
     this.courseDetailsForm = this.formBuilder.group({
-      name: this.course.name,
-      description: this.course.description,
-      descriptionFull: this.course.descriptionFull,
+      name: this.course === undefined ? '' : this.course.name,
+      description: this.course === undefined ? '' : this.course.description,
+      descriptionFull: this.course === undefined ? '' : this.course.descriptionFull,
     });
   }
 
@@ -46,18 +52,35 @@ export class CourseDetailsEditorComponent implements OnInit {
     this.formChanged = undefined;
     const formValues = this.courseDetailsForm.value;
 
-    const updatedCourse: Course = {
-      id: this.course.id,
-      name: formValues.name,
-      description: formValues.description,
-      descriptionFull: formValues.descriptionFull,
-      words: this.course.words
-    };
+    if (this.course) {
+      // Create an updated course object containing the changes we made and send it to the database
+      const updatedCourse: Course = {
+        id: this.course.id,
+        name: formValues.name,
+        description: formValues.description,
+        descriptionFull: formValues.descriptionFull,
+        words: this.course.words
+      };
 
-    this.courseService.updateCourse(updatedCourse).subscribe((_updatedCourse) => {
-      this.course = _updatedCourse;
-      this.courseUpdated.emit(_updatedCourse);
-    });
+      this.courseService.updateCourse(updatedCourse).subscribe((_updatedCourse) => {
+        this.course = _updatedCourse;
+        this.courseUpdated.emit(_updatedCourse);
+      });
+    } else {
+      // Create a new course object to add to the database
+      // For now we use an empty GUID so the backend accepts the data, and a new real GUID will be
+      // generated when the course is added to the database.
+      const newCourse: Course =   {
+        id: '00000000-0000-0000-0000-000000000000',
+        name: formValues.name,
+        description: formValues.description,
+        descriptionFull: formValues.descriptionFull,
+        words: []
+      };
+
+      this.courseService.createCourse(newCourse).subscribe((_newCourse) => console.log(_newCourse));
+    }
+
   }
 
   public resetForm(): void {

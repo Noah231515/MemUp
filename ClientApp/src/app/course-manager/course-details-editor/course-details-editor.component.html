@@ -3,7 +3,7 @@
         <mat-form-field>
             <mat-label>Course Name</mat-label>
             <input matInput
-                value="{{courseDetailsForm.name}}"
+                value="{{courseDetailsForm.get('name')}}"
                 formControlName="name"
             >
         </mat-form-field>
@@ -12,7 +12,7 @@
         <mat-form-field>
             <mat-label>Course Summary</mat-label>
             <textarea matInput
-                value="{{courseDetailsForm.description}}"
+                value="{{courseDetailsForm.get('description')}}"
                 formControlName="description"
             ></textarea>
         </mat-form-field>
@@ -21,7 +21,7 @@
         <mat-form-field>
             <mat-label>Full Course Description</mat-label>
             <textarea matInput
-                value="{{courseDetailsForm.descriptionFull}}"
+                value="{{courseDetailsForm.get('descriptionFull')}}"
                 formControlName="descriptionFull"
             ></textarea>
         </mat-form-field>
@@ -35,5 +35,5 @@
     </button>
     <h2 
     class="unsaved-changes-warning" 
-    *ngIf="formChanged == true;">Your changes have not been submitted.</h2>
+    *ngIf="formChanged == true">Your changes have not been submitted.</h2>
 </form>

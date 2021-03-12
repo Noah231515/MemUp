@@ -1,3 +1,18 @@
-<ul *ngFor="let course of courses">
-    <app-course-details-card [course]="course"></app-course-details-card>
-</ul>
+<div class="courses-container">
+    <h1>Courses</h1>
+    <button 
+        mat-raised-button
+        *ngIf="createMode == false"
+        color="primary"
+        (click)="changeToCreateMode()">
+            Create a new course
+    </button>
+    <div class="course-creator-container" *ngIf="createMode == true">
+        <app-course-creator></app-course-creator>
+    </div>
+    <ul>
+        <li *ngFor="let course of courses">
+            <app-course-details-card [course]="course"></app-course-details-card>
+        </li>
+    </ul>
+</div>

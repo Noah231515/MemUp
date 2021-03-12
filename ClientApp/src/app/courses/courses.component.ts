@@ -10,10 +10,14 @@ import { CourseService } from '../services/course.service';
 })
 export class CoursesComponent implements OnInit {
   public courses: Course[];
+  public createMode = false;
   public constructor(private route: ActivatedRoute) { }
 
   public ngOnInit(): void {
     this.courses = this.route.snapshot.data['allCourses'];
   }
 
+  public changeToCreateMode(): void {
+    this.createMode = true;
+  }
 }

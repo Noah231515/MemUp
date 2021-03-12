@@ -1,0 +1,23 @@
+.courses-container {
+    width: 1300px;
+    position: relative;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 32px;
+}
+
+.mat-raised-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: darkorange;
+    font-weight: 550;
+    font-size: 1.1em;
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+}

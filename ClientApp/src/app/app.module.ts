@@ -39,6 +39,7 @@ import { CourseSummaryCardComponent } from './user-dashboard/course-summary-card
 import { NewCoursesCardComponent } from './user-dashboard/new-courses-card/new-courses-card.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CourseDetailsCardComponent } from './course-details/course-details-card/course-details-card.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { AdminComponent } from './admin/admin.component';
 
 
@@ -82,6 +83,7 @@ import { AdminComponent } from './admin/admin.component';
     MatGridListModule,
     MatDatepickerModule,
     MatMenuModule,
+    MatSidenavModule,
     FlexLayoutModule,
     ApiAuthorizationModule,
   ],

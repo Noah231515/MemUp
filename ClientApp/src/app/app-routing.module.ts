@@ -8,6 +8,7 @@ import { DashboardAuthenticationResolver } from './user-dashboard/dashboard-auth
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CourseDetailsResolver } from './course-details/course-details.resolver';
 import { AdminComponent } from './admin/admin.component';
+import { UserResolver } from "./admin/user.resolver";
 
 const routes: Routes = [
   {
@@ -40,6 +41,7 @@ const routes: Routes = [
     path: 'admin',
     component: AdminComponent,
     resolve: {
+      users: UserResolver
     }
   }
 ];

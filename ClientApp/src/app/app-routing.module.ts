@@ -7,6 +7,7 @@ import { NewCoursesResolver } from './user-dashboard/new-courses.resolver';
 import { DashboardAuthenticationResolver } from './user-dashboard/dashboard-authentication.resolver';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CourseDetailsResolver } from './course-details/course-details.resolver';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,12 @@ const routes: Routes = [
     component: CourseDetailsComponent,
     resolve: {
       course: CourseDetailsResolver
+    }
+  },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    resolve: {
     }
   }
 ];

@@ -13,7 +13,7 @@ export class SnackBarService {
 
   constructor(private snackBar: MatSnackBar) { }
 
-  public openSnackBar(message) {
+  public openSnackBar(message: string) {
     this.snackBar.open(message, undefined, this.config);
   }
 

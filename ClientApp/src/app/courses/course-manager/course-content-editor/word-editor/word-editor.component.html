@@ -35,7 +35,17 @@
             />
         </mat-form-field>
     </div>
-    <button mat-raised-button color="primary" type="submit">Save</button>
-    <button mat-raised-button color="warn" type="button" (click)="clearForm()">Reset</button>
-    <button mat-raised-button color="basic" type="button" (click)="closeForm()">Cancel</button>
+    <div class="buttons-container" *ngIf="creatingNewWord === false; else newWordButtons">
+        <button mat-raised-button color="primary" type="submit">Save</button>
+        <button mat-raised-button color="warn" type="button" (click)="clearForm()">Reset</button>
+        <button mat-raised-button color="basic" type="button" (click)="closeForm()">Cancel</button>
+    </div>
 </form>
+
+<ng-template #newWordButtons>
+    <div class="buttons-container">
+        <button mat-raised-button color="primary" type="submit">Save</button>
+        <button mat-raised-button color="warn" type="button" (click)="clearForm()">Reset</button>
+        <button mat-raised-button color="basic" type="button" (click)="closeForm()">Cancel</button>
+    </div>
+</ng-template>

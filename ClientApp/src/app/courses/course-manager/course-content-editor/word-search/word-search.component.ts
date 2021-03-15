@@ -3,6 +3,7 @@ import { of } from 'rxjs';
 import { Observable, fromEvent } from 'rxjs';
 import { map, startWith, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Word } from 'src/app/models/word.model';
+import { WordService } from 'src/app/services/word.service';
 
 @Component({
   selector: 'app-word-search',
@@ -12,13 +13,20 @@ import { Word } from 'src/app/models/word.model';
 export class WordSearchComponent implements OnInit, AfterViewInit {
   public searchResults: Word[];
   @Input() public words: Word[];
+  @Input() public mode: string;
   @Output() public wordSelected = new EventEmitter<Word>();
   @ViewChild('searchInput') public searchInput: ElementRef;
 
 
-  public constructor() { }
+  public constructor(private wordService: WordService) { }
 
   public ngOnInit(): void {
+    if (this.mode === 'create') {
+     // this.wordService.getAllWords().subscribe((wordList) => {
+     //  this.words = wordList;
+     // });
+     this.words = [];
+    }
   }
 
   public ngAfterViewInit() {

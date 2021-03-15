@@ -13,7 +13,9 @@ import { WordService } from 'src/app/services/word.service';
 })
 export class CourseContentEditorComponent implements OnInit {
   @Input() public course: Course;
+  @Input() public mode: string;
   public wordToEdit: Word;
+  public newWord: Word = new Word();
   public updatedWords: Word[] = [];
 
   public constructor(private wordService: WordService, private courseService: CourseService) { }
@@ -26,9 +28,7 @@ export class CourseContentEditorComponent implements OnInit {
       this.wordService.updateWords(this.updatedWords).subscribe((result) => {
          // Reset the course to the ensure that updated word entries are retrieved if the user searches again
         this.courseService.getCourse(this.course.id).subscribe(course => this.course = course);
-
         this.updatedWords.splice(0);
-        console.log(this.updatedWords);
       });
     }
   }
@@ -38,6 +38,7 @@ export class CourseContentEditorComponent implements OnInit {
   }
 
   public addUpdatedWord(updatedWord: Word): void {
+    this.wordToEdit = undefined;
     this.updatedWords.push(updatedWord);
   }
 

@@ -1,6 +1,7 @@
 import { EventEmitter } from '@angular/core';
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { Course } from '../models/course.model';
+import { ActivatedRoute } from '@angular/router';
+import { Course } from '../../models/course.model';
 
 @Component({
   selector: 'app-course-manager',
@@ -10,12 +11,15 @@ import { Course } from '../models/course.model';
 export class CourseManagerComponent implements OnInit {
   @Input() public course: Course;
   @Output() public courseUpdated = new EventEmitter<Course>();
-  public contentToEdit = 'details';
+  public contentToEdit: string;
 
 
-  public constructor() { }
+  public constructor(private route: ActivatedRoute) { }
 
   public ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.contentToEdit = params.contentToEdit ? params.contentToEdit : 'details';
+    });
   }
 
   public changeEditSection(value: string): void {

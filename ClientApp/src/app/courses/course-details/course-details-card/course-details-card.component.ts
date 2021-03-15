@@ -27,7 +27,7 @@ export class CourseDetailsCardComponent implements OnInit {
 
   public subscribeToCourse() {
     this.courseService.subscribeToCourse(this.course.id).pipe(
-      catchError((err) => of(this.handleError(err))))
+      catchError((err) => of(this.snackBarService.handleError(err))))
         .subscribe(() => {
           this.snackBarService.openSnackBar(`Subscribed to ${this.course.name}.`);
           this.subscribed = 'true';
@@ -36,16 +36,12 @@ export class CourseDetailsCardComponent implements OnInit {
 
   public unsubscribeFromCourse() {
     this.courseService.unsubscribeFromcourse(this.course.id).pipe(
-      catchError((err) => of(this.handleError(err))))
+      catchError((err) => of(this.snackBarService.handleError(err))))
         .subscribe((res) => {
           if (res) {
             this.snackBarService.openSnackBar(`Successfully unsubscribed from ${this.course.name}.`);
             this.subscribed = 'false';
           }
         });
-  }
-
-  public handleError(err) {
-    this.snackBarService.openSnackBar(`An error occurred. (Error Code ${err.status})`);
   }
 }

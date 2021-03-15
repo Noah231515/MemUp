@@ -9,6 +9,14 @@
     background-color: orange;
 }
 
+.new-word-btn {
+    width: 200px;
+    height: 40px;
+    margin-top: -1px;
+    position: absolute;
+    right: 32%;
+}
+
 .mat-form-field {
     width: 500px;
 }
@@ -33,6 +41,19 @@
 
 .mat-form-field textarea {
     height: 125px;
+}
+
+.word-edit-container {
+    position: relative;
+}
+
+.word-editor {
+    margin-top: 45px;
+}
+
+.course-editor {
+    height: 500px;
+    position: relative;;
 }
 
 .unsaved-changes-warning {

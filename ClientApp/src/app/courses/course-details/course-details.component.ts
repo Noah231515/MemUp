@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { Course } from '../models/course.model';
-import { Word } from '../models/word.model';
+import { Course } from '../../models/course.model';
+import { Word } from '../../models/word.model';
 
 @Component({
   selector: 'app-course-details',

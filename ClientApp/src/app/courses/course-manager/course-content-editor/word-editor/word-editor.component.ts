@@ -2,6 +2,7 @@ import { OnChanges } from '@angular/core';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Word } from 'src/app/models/word.model';
+import { WordService } from 'src/app/services/word.service';
 
 @Component({
   selector: 'app-word-editor',
@@ -9,15 +10,17 @@ import { Word } from 'src/app/models/word.model';
   styleUrls: ['./word-editor.component.css']
 })
 export class WordEditorComponent implements OnInit, OnChanges {
-  public wordEditorForm: FormGroup;
   @Input() public word: Word;
   @Output() public wordUpdated = new EventEmitter<Word>();
   @Output() public formClosed = new EventEmitter<null>();
+  public wordEditorForm: FormGroup;
+  public creatingNewWord: boolean;
 
 
-  public constructor(private formBuilder: FormBuilder) { }
+  public constructor(private formBuilder: FormBuilder, private wordService: WordService) { }
 
   public ngOnInit(): void {
+    this.creatingNewWord = this.word.id ? false : true;
     this.initializeForm();
   }
 
@@ -37,16 +40,27 @@ export class WordEditorComponent implements OnInit, OnChanges {
   public submitForm(): void {
     const formValues = this.wordEditorForm.value;
 
-    const updatedWord: Word = {
-      id: this.word.id,
-      englishVocab: formValues.englishVocab,
-      japaneseVocab: formValues.japaneseVocab,
-      kanaVocab: formValues.kanaVocab,
-      partOfSpeech: formValues.partOfSpeech,
-      sentences: this.word.sentences
-    };
-
-    this.wordUpdated.emit(updatedWord);
+    if (this.creatingNewWord) {
+      const newWord: Word = {
+        id: '00000000-0000-0000-0000-000000000000',
+        englishVocab: formValues.englishVocab,
+        japaneseVocab: formValues.japaneseVocab,
+        kanaVocab: formValues.kanaVocab,
+        partOfSpeech: formValues.partOfSpeech,
+        sentences: []
+      };
+      this.wordService.createWord(newWord).subscribe();
+    } else {
+      const updatedWord: Word = {
+        id: this.word.id,
+        englishVocab: formValues.englishVocab,
+        japaneseVocab: formValues.japaneseVocab,
+        kanaVocab: formValues.kanaVocab,
+        partOfSpeech: formValues.partOfSpeech,
+        sentences: this.word.sentences
+      };
+      this.wordUpdated.emit(updatedWord);
+    }
   }
 
   public clearForm(): void {

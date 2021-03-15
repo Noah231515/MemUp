@@ -5,8 +5,8 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 import { SubscribedCoursesResolver } from './user-dashboard/subscribed-courses.resolver';
 import { NewCoursesResolver } from './user-dashboard/new-courses.resolver';
 import { DashboardAuthenticationResolver } from './user-dashboard/dashboard-authentication.resolver';
-import { CourseDetailsComponent } from './course-details/course-details.component';
-import { CourseDetailsResolver } from './course-details/course-details.resolver';
+import { CourseDetailsComponent } from './courses/course-details/course-details.component';
+import { CourseDetailsResolver } from './courses/course-details/course-details.resolver';
 import { CoursesComponent } from './courses/courses.component';
 import { AllCoursesResolver } from './courses/all-courses.resolver';
 

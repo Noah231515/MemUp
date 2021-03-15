@@ -1,4 +1,4 @@
 <div class="course-container">
     <h2>Create a new course</h2>
-    <app-course-details-editor></app-course-details-editor>
+    <app-course-details-editor (courseCreated)="emitNewCourse($event)"></app-course-details-editor>
 </div>

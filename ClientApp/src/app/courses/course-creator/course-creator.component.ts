@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { EventEmitter } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { Course } from 'src/app/models/course.model';
 
 @Component({
   selector: 'app-course-creator',
@@ -7,10 +8,15 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./course-creator.component.css']
 })
 export class CourseCreatorComponent implements OnInit {
+  @Output() public courseCreated = new EventEmitter<Course>();
 
-  public constructor(private formBuilder: FormBuilder) { }
+  public constructor() { }
 
   public ngOnInit(): void {
+  }
+
+  public emitNewCourse(newCourse: Course): void {
+    this.courseCreated.emit(newCourse);
   }
 
 }

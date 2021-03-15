@@ -20,4 +20,8 @@ export class CoursesComponent implements OnInit {
   public changeToCreateMode(): void {
     this.createMode = true;
   }
+
+  public addNewCourse(newCourse: Course) {
+    this.courses.push(newCourse);
+  }
 }

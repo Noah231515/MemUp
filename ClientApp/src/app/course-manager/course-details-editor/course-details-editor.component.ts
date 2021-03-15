@@ -72,9 +72,12 @@ export class CourseDetailsEditorComponent implements OnInit {
         words: this.course.words
       };
 
-      this.courseService.updateCourse(updatedCourse).subscribe((_updatedCourse) => {
-        this.course = _updatedCourse;
-        this.courseUpdated.emit(_updatedCourse);
+      this.courseService.updateCourse(updatedCourse).pipe(
+          catchError((err) => of (this.snackBarService.handleError(err))))
+            .subscribe((_updatedCourse: Course) => {
+              this.course = _updatedCourse;
+              this.courseUpdated.emit(_updatedCourse);
+              this.snackBarService.openSnackBar('Course updated successfully');
       });
     } else {
       // Create a new course object to add to the database

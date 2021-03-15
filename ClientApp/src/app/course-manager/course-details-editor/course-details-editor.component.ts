@@ -1,7 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Course } from 'src/app/models/course.model';
 import { CourseService } from 'src/app/services/course.service';
+import { SnackBarService } from 'src/app/services/snack-bar.service';
 
 @Component({
   selector: 'app-course-details-editor',
@@ -11,10 +15,16 @@ import { CourseService } from 'src/app/services/course.service';
 export class CourseDetailsEditorComponent implements OnInit {
   @Input() public course: Course;
   @Output() public courseUpdated = new EventEmitter<Course>();
+  @Output() public courseCreated = new EventEmitter<Course>();
   public courseDetailsForm: FormGroup;
   public formChanged: boolean;
 
-  public constructor(private formBuilder: FormBuilder, private courseService: CourseService) { }
+  public constructor(
+    private formBuilder: FormBuilder,
+    private courseService: CourseService,
+    private snackBarService: SnackBarService,
+    private router: Router,
+  ) { }
 
   public ngOnInit(): void {
     this.initializeForm();
@@ -78,9 +88,23 @@ export class CourseDetailsEditorComponent implements OnInit {
         words: []
       };
 
-      this.courseService.createCourse(newCourse).subscribe((_newCourse) => console.log(_newCourse));
+      this.courseService.createCourse(newCourse).pipe(
+        catchError((err) => of(this.snackBarService.handleError(err))))
+          .subscribe((_newCourse: Course) => {
+            this.courseCreated.emit(_newCourse);
+            this.snackBarService.openSnackBar('Course added successfully. Redirecting to course page.');
+            setTimeout(() => {
+              this.router.navigate(
+                ['/course-details/', _newCourse.id], {
+                  queryParams: {
+                    subscribed: false,
+                    editMode: true,
+                    contentToEdit: 'content',
+                  }
+                });
+            }, 3000);
+          });
     }
-
   }
 
   public resetForm(): void {

@@ -3,7 +3,7 @@
         <mat-form-field>
             <mat-label>Course Name</mat-label>
             <input matInput
-                value="{{courseDetailsForm.get('name')}}"
+                value="{{courseDetailsForm['name']}}"
                 formControlName="name"
             >
         </mat-form-field>
@@ -12,7 +12,7 @@
         <mat-form-field>
             <mat-label>Course Summary</mat-label>
             <textarea matInput
-                value="{{courseDetailsForm.get('description')}}"
+                value="{{courseDetailsForm['description']}}"
                 formControlName="description"
             ></textarea>
         </mat-form-field>
@@ -21,7 +21,7 @@
         <mat-form-field>
             <mat-label>Full Course Description</mat-label>
             <textarea matInput
-                value="{{courseDetailsForm.get('descriptionFull')}}"
+                value="{{courseDetailsForm['descriptionFull']}}"
                 formControlName="descriptionFull"
             ></textarea>
         </mat-form-field>

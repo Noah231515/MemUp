@@ -17,6 +17,18 @@ export class WordService {
     return this.http.get(`/words/getsentences/${id}`);
   }
 
+  public createWord(newWord: Word): Observable<Word> {
+    return this.http.post<Word>(
+      `words/createword`,
+      newWord,
+      {
+        headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        })
+      }
+    );
+  }
+
   public updateWords(updatedWords: Word[]): Observable<Word[]> {
     return this.http.put<Word[]>(
       `words/updatewords`,

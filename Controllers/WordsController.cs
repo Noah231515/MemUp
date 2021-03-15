@@ -21,6 +21,13 @@ namespace MemUp.Controllers
             this.wordsService = wordsService;
         }
 
+        [HttpPost]
+        [Route("/words/createword")]
+        public IActionResult CreateWord([FromBody] Word newWord)
+        {
+            return Ok(wordsService.CreateWord(newWord));
+        }
+
         [HttpPut]
         [Route("/words/updatewords")]
         public IActionResult UpdateWords([FromBody] List<Word> words)

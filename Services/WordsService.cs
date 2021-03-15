@@ -14,9 +14,25 @@ namespace MemUp.Services
         {
             this.memUpDbContext = memUpDbContext;
         }
+
+        public Word CreateWord(Word newWord)
+        {
+            try
+            {
+                newWord.Id = new Guid();
+                newWord.DifficultyIndex = memUpDbContext.Word.Count() + 1;
+                memUpDbContext.Word.Add(newWord);
+                memUpDbContext.SaveChanges();
+                return newWord;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
         
-       public List<Word> UpdateWords(List<Word> updatedWords)
-       {
+        public List<Word> UpdateWords(List<Word> updatedWords)
+        {
             try 
             {
                 foreach (var word in updatedWords) 
@@ -34,11 +50,12 @@ namespace MemUp.Services
             {
                 throw e;
             }
-       } 
+        } 
     }
 
     public interface IWordsService
     {
+        Word CreateWord(Word newWord);
         List<Word> UpdateWords(List<Word> updatedWords);
     }
 }

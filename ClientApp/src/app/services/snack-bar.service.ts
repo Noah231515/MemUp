@@ -16,4 +16,8 @@ export class SnackBarService {
   public openSnackBar(message) {
     this.snackBar.open(message, undefined, this.config);
   }
+
+  public handleError(err) {
+    this.openSnackBar(`An error occurred. (Error Code ${err.status})`);
+  }
 }

@@ -63,7 +63,6 @@ export class CourseService {
   }
 
   public createCourse(newCourse: Course): Observable<Course> {
-    console.log(newCourse);
     return this.http.post<Course>(
       `courses/createcourse/`,
       newCourse,

@@ -1,7 +1,7 @@
 <input #searchInput 
     class="search-input" 
     type="text" 
-    placeholder="Search for a word to {{mode}}">
+    placeholder="Search for a word">
 <div class="search-results" *ngIf="searchResults">
     <ul *ngFor="let result of searchResults">
         <li (click)="selectWord(result)">{{result.englishVocab}} | {{result.japaneseVocab}} | {{result.kanaVocab}}</li>

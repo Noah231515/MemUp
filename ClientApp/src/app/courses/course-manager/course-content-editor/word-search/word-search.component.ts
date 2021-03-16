@@ -11,22 +11,24 @@ import { WordService } from 'src/app/services/word.service';
   styleUrls: ['./word-search.component.css']
 })
 export class WordSearchComponent implements OnInit, AfterViewInit {
-  public searchResults: Word[];
   @Input() public words: Word[];
   @Input() public mode: string;
   @Output() public wordSelected = new EventEmitter<Word>();
   @ViewChild('searchInput') public searchInput: ElementRef;
+  public searchResults: Word[];
 
 
   public constructor(private wordService: WordService) { }
 
   public ngOnInit(): void {
-    if (this.mode === 'create') {
-     // this.wordService.getAllWords().subscribe((wordList) => {
-     //  this.words = wordList;
-     // });
-     this.words = [];
+    if (this.mode === 'addExisting') {
+      this.wordService.getAllWords().subscribe((wordList) => {
+        this.words = wordList;
+        console.log('all words');
+        console.log(this.words);
+      });
     }
+    console.log(this.words);
   }
 
   public ngAfterViewInit() {

@@ -29,6 +29,18 @@ export class WordService {
     );
   }
 
+  public addExistingWordToCourse(word: Word): Observable<Word> {
+    return this.http.post<Word>(
+      `words/addexistingwordtocourse`,
+      word,
+      {
+        headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        })
+      }
+    )
+  }
+
   public updateWords(updatedWords: Word[]): Observable<Word[]> {
     return this.http.put<Word[]>(
       `words/updatewords`,
@@ -39,5 +51,9 @@ export class WordService {
         })
       }
       );
+  }
+
+  public getAllWords(): Observable<Word[]> {
+    return this.http.get<Word[]>('/words/getallwords');
   }
 }

@@ -29,16 +29,16 @@ export class WordService {
     );
   }
 
-  public addExistingWordToCourse(word: Word): Observable<Word> {
+  public addExistingWordToCourse(word: Word, courseId: string): Observable<Word> {
     return this.http.post<Word>(
-      `words/addexistingwordtocourse`,
+      `words/addexistingwordtocourse/${courseId}`,
       word,
       {
         headers: new HttpHeaders({
         'Content-Type': 'application/json',
         })
       }
-    )
+    );
   }
 
   public updateWords(updatedWords: Word[]): Observable<Word[]> {

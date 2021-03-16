@@ -50,12 +50,53 @@ namespace MemUp.Services
             {
                 throw e;
             }
-        } 
+        }
+
+        public Word AddExistingWordToCourse(Word word, Guid courseId)
+        {
+            try
+            {
+                
+                word.Id = new Guid();
+                word.CourseId = courseId;
+                foreach (Sentence sentence in word.Sentences)
+                {
+                    sentence.Id = new Guid();
+                    sentence.WordId = word.Id;
+                    sentence.SentenceType = memUpDbContext.SentenceType.SingleOrDefault(s => s.Id == sentence.SentenceType.Id);
+                }
+                memUpDbContext.Word.Add(word);
+                memUpDbContext.SaveChanges();
+
+                return word;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public List<Word> GetAllWords()
+        {
+            try
+            {
+                return memUpDbContext.Word
+                .Include(w => w.Sentences)
+                .ThenInclude(s => s.SentenceType)
+                .ToList();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 
     public interface IWordsService
     {
         Word CreateWord(Word newWord);
+        Word AddExistingWordToCourse(Word word, Guid courseId);
         List<Word> UpdateWords(List<Word> updatedWords);
+        List<Word> GetAllWords();
     }
 }

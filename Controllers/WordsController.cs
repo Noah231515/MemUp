@@ -28,11 +28,26 @@ namespace MemUp.Controllers
             return Ok(wordsService.CreateWord(newWord));
         }
 
+        [HttpPost]
+        [Route("words/addexistingwordtocourse/{courseId}")]
+        public IActionResult AddExistingWordToCourse([FromBody] Word word, Guid courseId)
+        {
+            Console.WriteLine("hello");
+            return Ok(wordsService.AddExistingWordToCourse(word, courseId));
+        }
+
         [HttpPut]
         [Route("/words/updatewords")]
         public IActionResult UpdateWords([FromBody] List<Word> words)
         {
             return Ok(wordsService.UpdateWords(words));
+        }
+
+        [HttpGet]
+        [Route("/words/getallwords")]
+        public IActionResult GetAllWords()
+        {
+            return Ok(wordsService.GetAllWords());
         }
     }
 }

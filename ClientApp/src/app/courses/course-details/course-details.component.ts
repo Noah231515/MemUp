@@ -88,4 +88,8 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
   public updateCourse(course: Course) {
     this.course = course;
   }
+
+  public toggleEditMode() {
+    this.editMode = this.editMode === 'true' ? 'false' : 'true';
+  }
 }

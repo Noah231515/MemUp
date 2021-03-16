@@ -1,5 +1,10 @@
 .table-container {
     padding-bottom: 10px;
+    margin-top: 50px;
+}
+
+.content-title {
+    font-size: 36px;
 }
 
 .table-control-container {
@@ -66,4 +71,18 @@ td {
 
 .word-checkbox {
     margin-right: 10px;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 24px;
+}
+
+h3 a {
+    cursor: pointer;
+    font-weight: 550;
+    text-decoration: underline;
 }

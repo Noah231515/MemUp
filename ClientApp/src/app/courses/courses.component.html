@@ -8,7 +8,7 @@
             Create a new course
     </button>
     <div class="course-creator-container" *ngIf="createMode == true">
-        <app-course-creator (courseCreated)="addNewCourse($event)"></app-course-creator>
+        <app-course-details-editor (courseCreated)="addNewCourse($event)"></app-course-details-editor>
     </div>
     <ul>
         <li *ngFor="let course of courses">

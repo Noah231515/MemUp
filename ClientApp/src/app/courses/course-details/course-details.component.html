@@ -2,7 +2,7 @@
 <app-course-details-card [course]="course" [subscribed]="subscribed"></app-course-details-card>
     <div class="table-container" *ngIf="editMode != 'true'; else courseManager">
         <h1 class="content-title">Course Content</h1>
-        <div class="mat-elevation-z8 table-control-container"  *ngIf="dataSource.length > 0; else addContentPrompt">
+        <div class="mat-elevation-z8 table-control-container"  *ngIf="course.words.length > 0; else addContentPrompt">
             <select class="table-control-select" (change)="changeSelectedTableAction($event)">
                 <option value="null">(Select Action)</option>
                 <option value="suspend">Suspend Word(s)</option>
@@ -12,7 +12,7 @@
             </select>
             <button type="button" class="table-control-submit" (click)="executeTableAction()">Submit</button>
         </div>
-        <div class="mat-elevation-z8 word-table" *ngIf="dataSource.length > 0;">
+        <div class="mat-elevation-z8 word-table" *ngIf="course.words.length > 0;">
             <table mat-table [dataSource]="dataSource">
         
                 <!-- Japanese Vocab Column -->

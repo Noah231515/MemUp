@@ -1,9 +1,12 @@
-import { Input } from '@angular/core';
+import { Input, Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { of } from 'rxjs';
+import { catchError } from 'rxjs/internal/operators/catchError';
 import { Course } from 'src/app/models/course.model';
 import { Word } from 'src/app/models/word.model';
 import { CourseService } from 'src/app/services/course.service';
+import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { WordService } from 'src/app/services/word.service';
 
 @Component({
@@ -13,24 +16,40 @@ import { WordService } from 'src/app/services/word.service';
 })
 export class CourseContentEditorComponent implements OnInit {
   @Input() public course: Course;
-  @Input() public mode: string;
+  @Output() public courseUpdated = new EventEmitter<null>();
+  @Output() public unsavedChangesAdded = new EventEmitter<boolean>();
+  public editMode: string;
   public wordToEdit: Word;
   public newWord: Word = new Word();
   public updatedWords: Word[] = [];
 
-  public constructor(private wordService: WordService, private courseService: CourseService) { }
+  public constructor(
+    private wordService: WordService,
+    private courseService: CourseService,
+    private snackBarService: SnackBarService
+  ) { }
 
   public ngOnInit(): void {
   }
 
   public submitForm(): void {
      if (this.updatedWords.length > 0) {
-      this.wordService.updateWords(this.updatedWords).subscribe((result) => {
-         // Reset the course to the ensure that updated word entries are retrieved if the user searches again
-        this.courseService.getCourse(this.course.id).subscribe(course => this.course = course);
-        this.updatedWords.splice(0);
-      });
+      if (confirm('Are you sure you would like to submit your changes?')) {
+        this.wordService.updateWords(this.updatedWords).pipe(
+          catchError((err) => of(this.snackBarService.handleError(err))))
+            .subscribe(() => {
+              this.snackBarService.openSnackBar('Your changes were submitted successfully.');
+              // Reset the course to the ensure that updated word entries are retrieved if the user searches again
+              this.courseUpdated.emit();
+              this.updatedWords.splice(0);
+              this.unsavedChangesAdded.emit(false);
+            });
+      }
     }
+  }
+
+  public setWordToEdit(selectedWord: Word): void {
+    this.wordToEdit = selectedWord;
   }
 
   public clearWordToEdit(): void {
@@ -40,10 +59,30 @@ export class CourseContentEditorComponent implements OnInit {
   public addUpdatedWord(updatedWord: Word): void {
     this.wordToEdit = undefined;
     this.updatedWords.push(updatedWord);
+    this.unsavedChangesAdded.emit(true);
   }
 
-  public setWordToEdit(selectedWord: Word): void {
-    this.wordToEdit = selectedWord;
+  public setEditMode(mode: string): void {
+    this.editMode = mode;
+  }
+
+  public handleWordSelection(selectedWord: Word): void {
+    if (this.editMode === 'addExisting') {
+      if (confirm(`Add "${selectedWord.englishVocab}" to ${this.course.name}?`)) {
+        this.wordService.addExistingWordToCourse(selectedWord, this.course.id).pipe(
+          catchError((err) => of(this.snackBarService.handleError(err))))
+            .subscribe((addedWord: Word) => {
+              this.snackBarService.openSnackBar(`Successfully added "${addedWord.englishVocab}" to ${this.course.name}`);
+              this.updateCourse();
+            });
+      }
+    } else {
+      this.setWordToEdit(selectedWord);
+    }
+  }
+
+  public updateCourse(): void {
+      this.courseUpdated.emit();
   }
 
 }

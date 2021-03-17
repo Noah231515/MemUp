@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { of } from 'rxjs';
 import { Observable, fromEvent } from 'rxjs';
 import { map, startWith, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Course } from 'src/app/models/course.model';
 import { Word } from 'src/app/models/word.model';
 import { WordService } from 'src/app/services/word.service';
 
@@ -10,25 +11,26 @@ import { WordService } from 'src/app/services/word.service';
   templateUrl: './word-search.component.html',
   styleUrls: ['./word-search.component.css']
 })
-export class WordSearchComponent implements OnInit, AfterViewInit {
-  @Input() public words: Word[];
+export class WordSearchComponent implements OnInit, AfterViewInit, OnChanges {
+  @Input() public course: Course;
   @Input() public mode: string;
   @Output() public wordSelected = new EventEmitter<Word>();
   @ViewChild('searchInput') public searchInput: ElementRef;
+  public words: Word[];
   public searchResults: Word[];
 
 
   public constructor(private wordService: WordService) { }
 
   public ngOnInit(): void {
-    if (this.mode === 'addExisting') {
-      this.wordService.getAllWords().subscribe((wordList) => {
-        this.words = wordList;
-        console.log('all words');
-        console.log(this.words);
-      });
+  }
+
+  public ngOnChanges(): void {
+    this.setWordList();
+    if (this.searchResults) {
+      this.searchInput.nativeElement.value = '';
+      this.searchResults = undefined;
     }
-    console.log(this.words);
   }
 
   public ngAfterViewInit() {
@@ -53,7 +55,7 @@ export class WordSearchComponent implements OnInit, AfterViewInit {
         const regex = new RegExp(`.*${escapedSearch}.*`, 'i');
 
         // Search for an exact match to the user's input
-        const exactMatch = this.words.find(word => word.englishVocab === search);
+        const exactMatch = this.words.find(word => word.englishVocab.toUpperCase() === search.toUpperCase());
 
         // Create an array of words that match the search regex
         const matches: Word[] = this.words.filter(word => word.englishVocab.match(regex));
@@ -61,7 +63,8 @@ export class WordSearchComponent implements OnInit, AfterViewInit {
         // If an exact match exists, look for it in the matches array and remove it, and place it at
         // the beginning of the array as it is most likely the most relevant result to the user's search
         if (exactMatch) {
-          matches.slice(matches.findIndex(word => word === exactMatch), 1);
+          const matchIndex = matches.findIndex(word => word.id === exactMatch.id);
+          matches.splice(matchIndex, 1);
           matches.unshift(exactMatch);
         }
         return of(matches.slice(0, 11));
@@ -74,6 +77,19 @@ export class WordSearchComponent implements OnInit, AfterViewInit {
 
   public selectWord(word: Word) {
     this.wordSelected.emit(word);
+  }
+
+  public setWordList(): void {
+    switch (this.mode) {
+      case 'addExisting':
+        this.wordService.getAllWords().subscribe((wordList) => {
+          this.words = wordList;
+        });
+        break;
+      case 'editExisting':
+        this.words = this.course.words;
+        break;
+    }
   }
 
 }

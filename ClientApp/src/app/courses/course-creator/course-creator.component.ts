@@ -8,15 +8,15 @@ import { Course } from 'src/app/models/course.model';
   styleUrls: ['./course-creator.component.css']
 })
 export class CourseCreatorComponent implements OnInit {
-  @Output() public courseCreated = new EventEmitter<Course>();
+  @Output() public courseCreated = new EventEmitter<null>();
 
   public constructor() { }
 
   public ngOnInit(): void {
   }
 
-  public emitNewCourse(newCourse: Course): void {
-    this.courseCreated.emit(newCourse);
+  public emitCourseCreated(): void {
+    this.courseCreated.emit(null);
   }
 
 }

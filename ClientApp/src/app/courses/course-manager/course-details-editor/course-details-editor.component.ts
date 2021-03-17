@@ -14,8 +14,9 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
 })
 export class CourseDetailsEditorComponent implements OnInit {
   @Input() public course: Course;
-  @Output() public courseUpdated = new EventEmitter<Course>();
-  @Output() public courseCreated = new EventEmitter<Course>();
+  @Output() public courseUpdated = new EventEmitter<null>();
+  @Output() public courseCreated = new EventEmitter<null>();
+  @Output() public unsavedChangesAdded = new EventEmitter<boolean>();
   public courseDetailsForm: FormGroup;
   public formChanged: boolean;
 
@@ -39,9 +40,11 @@ export class CourseDetailsEditorComponent implements OnInit {
         if (this.course === undefined) {
           if (value) {
             changesMade = true;
+            this.unsavedChangesAdded.emit(true);
           }
         } else if (this.course[key] !== value) {
           changesMade = true;
+          this.unsavedChangesAdded.emit(true);
         }
       }
       this.formChanged = changesMade;
@@ -76,7 +79,7 @@ export class CourseDetailsEditorComponent implements OnInit {
           catchError((err) => of (this.snackBarService.handleError(err))))
             .subscribe((_updatedCourse: Course) => {
               this.course = _updatedCourse;
-              this.courseUpdated.emit(_updatedCourse);
+              this.courseUpdated.emit();
               this.snackBarService.openSnackBar('Course updated successfully');
       });
     } else {
@@ -94,7 +97,7 @@ export class CourseDetailsEditorComponent implements OnInit {
       this.courseService.createCourse(newCourse).pipe(
         catchError((err) => of(this.snackBarService.handleError(err))))
           .subscribe((_newCourse: Course) => {
-            this.courseCreated.emit(_newCourse);
+            this.courseCreated.emit();
             this.snackBarService.openSnackBar('Course added successfully. Redirecting to course page.');
             setTimeout(() => {
               this.router.navigate(

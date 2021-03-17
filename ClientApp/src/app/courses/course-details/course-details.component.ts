@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
+import { CourseService } from 'src/app/services/course.service';
 import { Course } from '../../models/course.model';
 import { Word } from '../../models/word.model';
 
@@ -22,7 +23,7 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
   public editMode: string;
   private DATA_CHUNK_SIZE = 500;
 
-  public constructor(private route: ActivatedRoute) { }
+  public constructor(private route: ActivatedRoute, private courseService: CourseService) { }
 
   public ngOnInit(): void {
     this.course = this.route.snapshot.data['course'];
@@ -85,8 +86,10 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public updateCourse(course: Course) {
-    this.course = course;
+  public updateCourse(): void {
+    this.courseService.getCourse(this.course.id).subscribe((updatedCourse) => {
+      this.course = updatedCourse;
+    });
   }
 
   public toggleEditMode() {

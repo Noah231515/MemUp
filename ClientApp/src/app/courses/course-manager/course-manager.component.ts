@@ -10,7 +10,8 @@ import { Course } from '../../models/course.model';
 })
 export class CourseManagerComponent implements OnInit {
   @Input() public course: Course;
-  @Output() public courseUpdated = new EventEmitter<Course>();
+  @Output() public courseUpdated = new EventEmitter<null>();
+  public unsavedChanges: boolean;
   public contentToEdit: string;
 
 
@@ -23,11 +24,21 @@ export class CourseManagerComponent implements OnInit {
   }
 
   public changeEditSection(value: string): void {
-      this.contentToEdit = value;
+      if (this.unsavedChanges) {
+        if (confirm('The changes you have made have not been saved and will be lost. Would you like to continue?')) {
+          this.contentToEdit = value;
+          this.unsavedChanges = false;
+        }
+      } else {
+        this.contentToEdit = value;
+      }
   }
 
-  public updateCourse(updatedCourse: Course) {
-    this.courseUpdated.emit(updatedCourse);
+  public updateCourse(): void {
+    this.courseUpdated.emit();
   }
 
+  public setUnsavedChanges(status: boolean): void {
+    this.unsavedChanges = status;
+  }
 }

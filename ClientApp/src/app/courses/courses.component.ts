@@ -11,7 +11,7 @@ import { CourseService } from '../services/course.service';
 export class CoursesComponent implements OnInit {
   public courses: Course[];
   public createMode = false;
-  public constructor(private route: ActivatedRoute) { }
+  public constructor(private route: ActivatedRoute, private courseService: CourseService) { }
 
   public ngOnInit(): void {
     this.courses = this.route.snapshot.data['allCourses'];
@@ -21,7 +21,9 @@ export class CoursesComponent implements OnInit {
     this.createMode = true;
   }
 
-  public addNewCourse(newCourse: Course) {
-    this.courses.push(newCourse);
+  public addNewCourse() {
+    this.courseService.getAllCourses().subscribe((courses) => {
+      this.courses = courses;
+    });
   }
 }

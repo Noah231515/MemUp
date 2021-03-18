@@ -35,6 +35,15 @@
             />
         </mat-form-field>
     </div>
+    <div class="form-group" *ngFor="let sentence of wordToEdit.sentences">
+        <mat-form-field>
+            <mat-label>{{sentence.sentenceType.type}} Sentence</mat-label>
+            <input matInput
+                placeholder="{{sentence.sentenceText}}"
+                formControlName="sentence{{sentence.sentenceType.type}}"
+            />
+        </mat-form-field>
+    </div>
     <div class="buttons-container">
         <button mat-raised-button color="primary" type="submit">Save</button>
         <button mat-raised-button color="warn" type="button" (click)="clearForm()">Reset</button>

@@ -28,9 +28,11 @@ export class CourseDetailsCardComponent implements OnInit {
   public subscribeToCourse() {
     this.courseService.subscribeToCourse(this.course.id).pipe(
       catchError((err) => of(this.snackBarService.handleError(err))))
-        .subscribe(() => {
-          this.snackBarService.openSnackBar(`Subscribed to ${this.course.name}.`);
-          this.subscribed = 'true';
+        .subscribe((res) => {
+          if (res) {
+            this.snackBarService.openSnackBar(`Subscribed to ${this.course.name}.`);
+            this.subscribed = 'true';
+          }
         });
   }
 

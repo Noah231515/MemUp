@@ -5,7 +5,6 @@ import { of } from 'rxjs';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { Course } from 'src/app/models/course.model';
 import { Word } from 'src/app/models/word.model';
-import { CourseService } from 'src/app/services/course.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { WordService } from 'src/app/services/word.service';
 
@@ -25,7 +24,6 @@ export class CourseContentEditorComponent implements OnInit {
 
   public constructor(
     private wordService: WordService,
-    private courseService: CourseService,
     private snackBarService: SnackBarService
   ) { }
 
@@ -37,12 +35,14 @@ export class CourseContentEditorComponent implements OnInit {
       if (confirm('Are you sure you would like to submit your changes?')) {
         this.wordService.updateWords(this.updatedWords).pipe(
           catchError((err) => of(this.snackBarService.handleError(err))))
-            .subscribe(() => {
-              this.snackBarService.openSnackBar('Your changes were submitted successfully.');
-              // Reset the course to the ensure that updated word entries are retrieved if the user searches again
-              this.courseUpdated.emit();
-              this.updatedWords.splice(0);
-              this.unsavedChangesAdded.emit(false);
+            .subscribe((res) => {
+              if (res) {
+                this.snackBarService.openSnackBar('Your changes were submitted successfully.');
+                // Reset the course to the ensure that updated word entries are retrieved if the user searches again
+                this.courseUpdated.emit();
+                this.updatedWords.splice(0);
+                this.unsavedChangesAdded.emit(false);
+              }
             });
       }
     }
@@ -72,8 +72,10 @@ export class CourseContentEditorComponent implements OnInit {
         this.wordService.addExistingWordToCourse(selectedWord, this.course.id).pipe(
           catchError((err) => of(this.snackBarService.handleError(err))))
             .subscribe((addedWord: Word) => {
-              this.snackBarService.openSnackBar(`Successfully added "${addedWord.englishVocab}" to ${this.course.name}`);
-              this.updateCourse();
+              if (addedWord) {
+                  this.snackBarService.openSnackBar(`Successfully added "${addedWord.englishVocab}" to ${this.course.name}`);
+                  this.updateCourse();
+              }
             });
       }
     } else {

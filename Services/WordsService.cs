@@ -38,10 +38,12 @@ namespace MemUp.Services
                 foreach (var word in updatedWords) 
                 {
                     var wordInDb = memUpDbContext.Word
+                    .AsNoTracking()
                     .Include(w => w.Sentences)
                     .ThenInclude(s => s.SentenceType)
                     .SingleOrDefault(w => w.Id == word.Id);
-                    memUpDbContext.Entry(wordInDb).CurrentValues.SetValues(word);             
+                    wordInDb = word;
+                    memUpDbContext.Update(wordInDb); 
                 }
                 memUpDbContext.SaveChanges();
                 return updatedWords;
@@ -80,10 +82,15 @@ namespace MemUp.Services
         {
             try
             {
-                return memUpDbContext.Word
-                .Include(w => w.Sentences)
-                .ThenInclude(s => s.SentenceType)
-                .ToList();
+                var wordList = memUpDbContext.Word
+                    .Include(w => w.Sentences)
+                    .ThenInclude(s => s.SentenceType);
+                foreach (Word word in wordList)
+                {
+                    word.Sentences = word.Sentences.OrderBy(s => s.SentenceType.Id).ToList();
+                }
+                
+                return wordList.ToList();
             }
             catch (Exception e)
             {

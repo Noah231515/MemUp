@@ -2,6 +2,7 @@ import { OnChanges } from '@angular/core';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Course } from 'src/app/models/course.model';
+import { Sentence } from 'src/app/models/sentence.model';
 import { Word } from 'src/app/models/word.model';
 import { CourseService } from 'src/app/services/course.service';
 import { WordService } from 'src/app/services/word.service';
@@ -42,7 +43,23 @@ export class WordEditorComponent implements OnInit, OnChanges {
       japaneseVocab: this.wordToEdit.japaneseVocab,
       kanaVocab: this.wordToEdit.kanaVocab,
       partOfSpeech: this.wordToEdit.partOfSpeech,
+      sentenceEnglish: this.wordToEdit.sentences[0].sentenceText,
+      sentenceJapanese: this.wordToEdit.sentences[1].sentenceText,
+      sentenceFurigana: this.wordToEdit.sentences[2].sentenceText,
     });
+  }
+
+  public getUpdatedSentences(): Sentence[] {
+    const updatedSentences = this.wordToEdit.sentences.slice();
+
+    const formValues = [
+      this.wordEditorForm.value.sentenceEnglish, this.wordEditorForm.value.sentenceJapanese, this.wordEditorForm.value.sentenceFurigana
+    ];
+    for (let i = 0; i < 3; i++) {
+      updatedSentences[i].sentenceText = formValues[i];
+    }
+
+    return updatedSentences;
   }
 
   public submitForm(): void {
@@ -71,7 +88,7 @@ export class WordEditorComponent implements OnInit, OnChanges {
         japaneseVocab: formValues.japaneseVocab,
         kanaVocab: formValues.kanaVocab,
         partOfSpeech: formValues.partOfSpeech,
-        sentences: this.wordToEdit.sentences
+        sentences: this.getUpdatedSentences(),
       };
       for (const [key, value] of Object.entries(updatedWord)) {
         if (this.wordToEdit[key] !== value) {

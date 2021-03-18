@@ -78,9 +78,11 @@ export class CourseDetailsEditorComponent implements OnInit {
       this.courseService.updateCourse(updatedCourse).pipe(
           catchError((err) => of (this.snackBarService.handleError(err))))
             .subscribe((_updatedCourse: Course) => {
-              this.course = _updatedCourse;
-              this.courseUpdated.emit();
-              this.snackBarService.openSnackBar('Course updated successfully');
+              if (_updatedCourse) {
+                this.course = _updatedCourse;
+                this.courseUpdated.emit();
+                this.snackBarService.openSnackBar('Course updated successfully');
+              }
       });
     } else {
       // Create a new course object to add to the database
@@ -97,7 +99,8 @@ export class CourseDetailsEditorComponent implements OnInit {
       this.courseService.createCourse(newCourse).pipe(
         catchError((err) => of(this.snackBarService.handleError(err))))
           .subscribe((_newCourse: Course) => {
-            this.courseCreated.emit();
+            if (_newCourse) {
+              this.courseCreated.emit();
             this.snackBarService.openSnackBar('Course added successfully. Redirecting to course page.');
             setTimeout(() => {
               this.router.navigate(
@@ -108,7 +111,8 @@ export class CourseDetailsEditorComponent implements OnInit {
                     contentToEdit: 'content',
                   }
                 });
-            }, 3000);
+            }, 4000);
+            }
           });
     }
   }

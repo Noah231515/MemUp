@@ -27,7 +27,7 @@ export class CourseSummaryCardComponent implements OnInit {
 
   public subscribeToCourse() {
     this.courseService.subscribeToCourse(this.course.id).pipe(
-      catchError((err) => of(this.handleError(err))))
+      catchError((err) => of(this.snackBarService.handleError(err))))
         .subscribe(() => {
           this.subscribe.emit(this.index);
           this.snackBarService.openSnackBar(`Subscribed to ${this.course.name}.`);
@@ -36,7 +36,7 @@ export class CourseSummaryCardComponent implements OnInit {
 
   public unsubscribeFromCourse() {
     this.courseService.unsubscribeFromcourse(this.course.id).pipe(
-      catchError((err) => of(this.handleError(err))))
+      catchError((err) => of(this.snackBarService.handleError(err))))
         .subscribe((res) => {
           if (res) {
             this.unsubscribe.emit(this.index);
@@ -47,9 +47,5 @@ export class CourseSummaryCardComponent implements OnInit {
 
   public toggleMenu() {
     this.trigger.toggleMenu();
-  }
-
-  public handleError(err) {
-    this.snackBarService.openSnackBar(`An error occurred. (Error Code ${err.status})`);
   }
 }

@@ -25,6 +25,21 @@ namespace MemUp.Services
         {
             return memUpDbContext.UserCourse.SingleOrDefault(uc => uc.UserId == userId && uc.CourseId == courseId);
         }
+
+        private List<Word> SortSentenceTypes(List<Word> wordList)
+        {
+            foreach (Word word in wordList)
+            {
+                word.Sentences = word.Sentences.OrderBy(s => s.SentenceType.Id).ToList();
+            }
+            return wordList;
+        }
+
+        private List<Word> SortWordsByDifficultyIndex(List<Word> wordList)
+        {
+            wordList = wordList.OrderBy(w => w.DifficultyIndex).ToList();
+            return wordList;
+        }
         public List<Course> GetSubscribedCoursesForUsers(ApplicationUser user)
         {
             List<Course> subscribedCourses = new List<Course>();
@@ -38,11 +53,9 @@ namespace MemUp.Services
                         .ThenInclude(w => w.Sentences)
                         .ThenInclude(s => s.SentenceType)
                         .SingleOrDefault(c => c.Id == userCourse.CourseId);
-                    course.Words = course.Words.OrderBy(w => w.DifficultyIndex).ToList();
-                    foreach (Word word in course.Words)
-                    {
-                        word.Sentences = word.Sentences.OrderBy(s => s.SentenceType.Id).ToList();
-                    }
+                    // course.Words = course.Words.OrderBy(w => w.DifficultyIndex).ToList();
+                    course.Words = SortWordsByDifficultyIndex(course.Words.ToList());
+                    course.Words = SortSentenceTypes(course.Words.ToList());
                     subscribedCourses.Add(course);
                 }
             }
@@ -81,8 +94,8 @@ namespace MemUp.Services
                 .ThenInclude(w => w.Sentences)
                 .ThenInclude(s => s.SentenceType)
                 .SingleOrDefault(c => c.Id == id);
-            
-            course.Words = course.Words.OrderBy(w => w.DifficultyIndex).ToList();
+            course.Words = SortWordsByDifficultyIndex(course.Words.ToList());
+            course.Words = SortSentenceTypes(course.Words.ToList());
             return course;
         }
 
@@ -93,7 +106,7 @@ namespace MemUp.Services
                 .ThenInclude(w => w.Sentences)
                 .ThenInclude(s => s.SentenceType)
                 .SingleOrDefault(c => c.Id == updatedCourse.Id);
-            courseInDb.Words = courseInDb.Words.OrderBy(w => w.DifficultyIndex).ToList();
+            courseInDb.Words = SortWordsByDifficultyIndex(courseInDb.Words.ToList());
             memUpDbContext.Entry(courseInDb).CurrentValues.SetValues(updatedCourse);
             memUpDbContext.SaveChanges();
             return courseInDb;
@@ -101,11 +114,18 @@ namespace MemUp.Services
 
         public List<Course> GetAllCourses()
         {
-            return memUpDbContext.Courses
+            List<Course> courseList = memUpDbContext.Courses
                 .Include(c => c.Words)
                 .ThenInclude(w => w.Sentences)
                 .ThenInclude(s => s.SentenceType)
                 .ToList();
+            foreach (Course course in courseList)
+            {
+                course.Words = SortWordsByDifficultyIndex(course.Words.ToList());
+                course.Words = SortSentenceTypes(course.Words.ToList());
+            }
+
+            return courseList;
         }
         
         public List<Course> GetNewCoursesForUsers(ApplicationUser user)
@@ -125,6 +145,12 @@ namespace MemUp.Services
                 .ThenInclude(x => x.SentenceType)
                 .Where(x => !subscribedCourses.Contains(x.Id))
                 .ToList(); 
+
+                foreach (Course course in newCourses)
+                {
+                    course.Words = SortWordsByDifficultyIndex(course.Words.ToList());
+                    course.Words = SortSentenceTypes(course.Words.ToList());
+                }
             }
             return newCourses;
         }

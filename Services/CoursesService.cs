@@ -53,7 +53,6 @@ namespace MemUp.Services
                         .ThenInclude(w => w.Sentences)
                         .ThenInclude(s => s.SentenceType)
                         .SingleOrDefault(c => c.Id == userCourse.CourseId);
-                    // course.Words = course.Words.OrderBy(w => w.DifficultyIndex).ToList();
                     course.Words = SortWordsByDifficultyIndex(course.Words.ToList());
                     course.Words = SortSentenceTypes(course.Words.ToList());
                     subscribedCourses.Add(course);

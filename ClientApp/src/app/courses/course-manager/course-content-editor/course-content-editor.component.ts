@@ -30,8 +30,14 @@ export class CourseContentEditorComponent implements OnInit {
   public ngOnInit(): void {
   }
 
+
+  /**
+   * After the user confirms their changes, submit them to the database and emit that our course was updated,
+   * as well as reset the unsavedChanges property of the Course Manager to false since our changes are no
+   * longer pending.
+   */
   public submitForm(): void {
-     if (this.updatedWords.length > 0) {
+    if (this.updatedWords.length > 0) {
       if (confirm('Are you sure you would like to submit your changes?')) {
         this.wordService.updateWords(this.updatedWords).pipe(
           catchError((err) => of(this.snackBarService.handleError(err))))
@@ -39,8 +45,8 @@ export class CourseContentEditorComponent implements OnInit {
               if (res) {
                 this.snackBarService.openSnackBar('Your changes were submitted successfully.');
                 // Reset the course to the ensure that updated word entries are retrieved if the user searches again
-                this.courseUpdated.emit();
                 this.updatedWords.splice(0);
+                this.courseUpdated.emit();
                 this.unsavedChangesAdded.emit(false);
               }
             });
@@ -56,6 +62,11 @@ export class CourseContentEditorComponent implements OnInit {
     this.wordToEdit = undefined;
   }
 
+
+  /**
+   * Adds the updated word to our updatedWords array and emits that we have changes waiting to be submitted
+   * @param {Word} updatedWord
+   */
   public addUpdatedWord(updatedWord: Word): void {
     this.wordToEdit = undefined;
     this.updatedWords.push(updatedWord);
@@ -66,6 +77,13 @@ export class CourseContentEditorComponent implements OnInit {
     this.editMode = mode;
   }
 
+
+  /**
+   * When a word is selected, check if we are adding an existing word or if we want to edit the selected word.
+   * If adding a word, prompt the user for confirmation and submit it to the database when confirmation is received.
+   * If editing a word, set the "wordToEdit" property to the selected word to open the word editor.
+   * @param {Word} selectedWord
+   */
   public handleWordSelection(selectedWord: Word): void {
     if (this.editMode === 'addExisting') {
       if (confirm(`Add "${selectedWord.englishVocab}" to ${this.course.name}?`)) {

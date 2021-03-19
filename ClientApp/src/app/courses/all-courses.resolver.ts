@@ -13,7 +13,7 @@ export class AllCoursesResolver implements Resolve<Course[]> {
   public constructor(private courseService: CourseService) { }
 
   /**
-   * Gets the user's subscribed courses
+   * Gets all of the courses currently in the database
    * @param route
    * @param state
    */

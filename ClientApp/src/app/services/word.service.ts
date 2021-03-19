@@ -18,6 +18,12 @@ export class WordService {
     return this.http.get(`/words/getsentences/${id}`);
   }
 
+
+  /**
+   * Creates a word in the database using the newWord parameter
+   * @param {Word} newWord
+   * @return {*}  {Observable<Word>}
+   */
   public createWord(newWord: Word): Observable<Word> {
     return this.http.post<Word>(
       `words/createword`,
@@ -30,6 +36,12 @@ export class WordService {
     );
   }
 
+  /**
+   * Ads the provided word to the provided course
+   * @param {Word} word
+   * @param {string} courseId
+   * @return {*}  {Observable<Word>}
+   */
   public addExistingWordToCourse(word: Word, courseId: string): Observable<Word> {
     return this.http.post<Word>(
       `words/addexistingwordtocourse/${courseId}`,
@@ -42,6 +54,11 @@ export class WordService {
     );
   }
 
+  /**
+   * Submits a list of words that have had edits made and updates their entries in the database
+   * @param {string} id
+   * @return {*}  {Observable<UserCourse>}
+   */
   public updateWords(updatedWords: Word[]): Observable<Word[]> {
     return this.http.put<Word[]>(
       `words/updatewords`,
@@ -54,6 +71,11 @@ export class WordService {
       );
   }
 
+
+  /**
+   * Gets all word entries from the database
+   * @return {*}  {Observable<Word[]>}
+   */
   public getAllWords(): Observable<Word[]> {
     return this.http.get<Word[]>('/words/getallwords');
   }
@@ -63,7 +85,6 @@ export class WordService {
    * @param {string} sentenceType
    * @param {Word} word
    * @return {*}  {Sentence}
-   * @memberof WordService
    */
   public createBlankSentence(sentenceType: string, word: Word): Sentence {
     const blankSentence: Sentence = {

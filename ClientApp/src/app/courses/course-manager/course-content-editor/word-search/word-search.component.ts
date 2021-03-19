@@ -26,6 +26,7 @@ export class WordSearchComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   public ngOnChanges(): void {
+    // Reset the search component when the editing mode is changed
     this.setWordList();
     if (this.searchResults) {
       this.searchInput.nativeElement.value = '';
@@ -79,6 +80,11 @@ export class WordSearchComponent implements OnInit, AfterViewInit, OnChanges {
     this.wordSelected.emit(word);
   }
 
+  /**
+   * Sets the word list based on what action is being done. Fetch all words from the database if we are adding a word
+   * that exists in another course to the current course, or only fetch the words in the current course if trying to
+   * make edits.
+   */
   public setWordList(): void {
     switch (this.mode) {
       case 'addExisting':

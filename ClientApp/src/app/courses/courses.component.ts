@@ -21,7 +21,7 @@ export class CoursesComponent implements OnInit {
     this.createMode = true;
   }
 
-  public addNewCourse() {
+  public updateCourseList() {
     this.courseService.getAllCourses().subscribe((courses) => {
       this.courses = courses;
     });

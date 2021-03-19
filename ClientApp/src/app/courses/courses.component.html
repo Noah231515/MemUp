@@ -4,11 +4,12 @@
         mat-raised-button
         *ngIf="createMode == false"
         color="primary"
-        (click)="changeToCreateMode()">
-            Create a new course
+        (click)="changeToCreateMode()"
+    >
+        Create a new course
     </button>
     <div class="course-creator-container" *ngIf="createMode == true">
-        <app-course-details-editor (courseCreated)="addNewCourse()"></app-course-details-editor>
+        <app-course-details-editor (courseCreated)="updateCourseList()"></app-course-details-editor>
     </div>
     <ul>
         <li *ngFor="let course of courses">

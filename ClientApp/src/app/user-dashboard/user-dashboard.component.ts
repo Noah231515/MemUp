@@ -31,6 +31,11 @@ export class UserDashboardComponent implements OnInit {
     this.newCourses.splice(courseIndex, 1);
   }
 
+  /**
+   * Updates the relevant course list when a course is deleted from the database.
+   * @param {string} updatedList
+   * @memberof UserDashboardComponent
+   */
   public updateCourseList(updatedList: string): void {
     if (updatedList === 'new') {
       this.courseService.getNewCourses().subscribe((updatedCourseList) => {

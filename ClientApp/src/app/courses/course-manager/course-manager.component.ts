@@ -25,7 +25,7 @@ export class CourseManagerComponent implements OnInit {
 
   public changeEditSection(value: string): void {
       if (this.unsavedChanges) {
-        if (confirm('The changes you have made have not been saved and will be lost. Would you like to continue?')) {
+        if (confirm('The changes you have made have not been saved and will be lost. Continue anyway?')) {
           this.contentToEdit = value;
           this.unsavedChanges = false;
         }

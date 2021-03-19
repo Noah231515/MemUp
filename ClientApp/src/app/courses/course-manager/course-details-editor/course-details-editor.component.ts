@@ -32,7 +32,9 @@ export class CourseDetailsEditorComponent implements OnInit {
     this.onValueChanges();
   }
 
-  // Listen for value changes and warn the user if there are changes made that have not been submitted
+  /**
+   * Listen for value changes and warn the user if there are changes made that have not been submitted
+   */
   public onValueChanges(): void {
     this.courseDetailsForm.valueChanges.subscribe((changes) => {
       let changesMade = false;
@@ -51,8 +53,12 @@ export class CourseDetailsEditorComponent implements OnInit {
     });
   }
 
-  // Set the default values to empty strings if a course has not been provided (i.e we are creating a new course)
-  // or to the current values on the course object if we are editing a course
+
+
+  /**
+   * Set the default values to empty strings if a course has not been provided (i.e we are creating a new course)
+   * or to the current values on the course object if we are editing a course
+   */
   public initializeForm(): void {
     this.courseDetailsForm = this.formBuilder.group({
       name: this.course === undefined ? '' : this.course.name,

@@ -18,7 +18,8 @@
         class="header-btn create-word-btn"
         (click)="setWordToEdit(newWord); setEditMode('submitNew')">Submit a new word
     </button>
-    
+
+    <!-- Use ngIf to display the word search component along with the word editor when a word is selected, or only the word editor when creating a new word -->
     <div class="word-edit-container" fxLayout="row" *ngIf="editMode && editMode !== 'submitNew'; else submitNew">
         <app-word-search
             class="word-search"

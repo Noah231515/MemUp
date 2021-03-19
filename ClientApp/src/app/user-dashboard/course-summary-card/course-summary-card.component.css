@@ -1,6 +1,8 @@
 .course-summary{
     background-color: lightgrey;
     color: black;
+    width: 90%;
+    margin-left: 10px;
 }
 
 .menu-btn{

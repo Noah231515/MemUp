@@ -91,6 +91,7 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
   public updateCourse(): void {
     this.courseService.getCourse(this.course.id).subscribe((updatedCourse) => {
       this.course = updatedCourse;
+      this.dataSource = new MatTableDataSource<Word>(this.course.words.slice(0, this.DATA_CHUNK_SIZE));
     });
   }
 

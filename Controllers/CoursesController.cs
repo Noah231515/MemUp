@@ -38,6 +38,13 @@ namespace MemUp.Controllers
             return Ok(coursesService.CreateCourse(newCourse));
         }
 
+        [HttpDelete]
+        [Route("/courses/deletecourse/{id}")]
+        public IActionResult DeleteCourse(Guid id)
+        {
+            return Ok(this.coursesService.DeleteCourse(id));
+        }
+
         [HttpGet]
         public IActionResult GetCourse(Guid id)
         {

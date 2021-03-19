@@ -46,4 +46,8 @@ export class CourseDetailsCardComponent implements OnInit {
           }
         });
   }
+
+  public deleteCourse(): void {
+    this.courseService.deleteCourse(this.course).subscribe();
+  }
 }

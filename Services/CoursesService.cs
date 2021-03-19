@@ -57,6 +57,23 @@ namespace MemUp.Services
             return newCourse;
         }
 
+        public Course DeleteCourse(Guid id)
+        {
+            Course course = memUpDbContext.Courses
+                .Include(c => c.Words)
+                .ThenInclude(w => w.Sentences)
+                .ThenInclude(s => s.SentenceType)
+                .SingleOrDefault(c => c.Id == id);
+            List<UserCourse> userCourseEntries = memUpDbContext.UserCourse.Where(uc => uc.CourseId == id).ToList();
+            memUpDbContext.Courses.Remove(course);
+            foreach (var userCourse in userCourseEntries)
+            {
+                memUpDbContext.UserCourse.Remove(userCourse);
+            }
+            memUpDbContext.SaveChanges();
+            return course;
+        }
+
         public Course GetCourse(Guid id)
         {
             Course course = memUpDbContext.Courses
@@ -162,6 +179,7 @@ namespace MemUp.Services
     {
         List<Course> GetSubscribedCoursesForUsers(ApplicationUser user);
         Course CreateCourse(Course newCourse);
+        Course DeleteCourse(Guid id);
         Course GetCourse(Guid id);
         Course UpdateCourse(Course course);
         List<Course> GetAllCourses();

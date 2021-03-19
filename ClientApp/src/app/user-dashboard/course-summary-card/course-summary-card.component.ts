@@ -19,6 +19,7 @@ export class CourseSummaryCardComponent implements OnInit {
   @Input() public subscribedStatus: boolean;
   @Output() public unsubscribe = new EventEmitter<number>();
   @Output() public subscribe = new EventEmitter<number>();
+  @Output() public courseDeleted = new EventEmitter<null>();
 
   public constructor(private courseService: CourseService, private snackBarService: SnackBarService) { }
 
@@ -43,6 +44,12 @@ export class CourseSummaryCardComponent implements OnInit {
             this.snackBarService.openSnackBar(`Successfully unsubscribed from ${this.course.name}.`);
           }
         });
+  }
+
+  public deleteCourse(): void {
+    this.courseService.deleteCourse(this.course).subscribe(() => {
+      this.courseDeleted.emit();
+    });
   }
 
   public toggleMenu() {

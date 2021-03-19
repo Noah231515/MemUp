@@ -3,13 +3,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Course } from '../models/course.model';
 import { UserCourse } from '../models/usercourse.model';
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { SnackBarService } from './snack-bar.service';
+import { of } from 'rxjs/internal/observable/of';
+import { map } from 'rxjs/internal/operators/map';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
 
-  public constructor(private http: HttpClient) { }
+  public constructor(private http: HttpClient, private snackBarService: SnackBarService) { }
 
   /**
    * Get subscribed courses for currently logged in user
@@ -72,5 +76,21 @@ export class CourseService {
         })
       }
     );
+  }
+
+  public deleteCourse(course: Course): Observable<Course> {
+    if (prompt(`This will delete this course and all words associated with it permanantly. If you wish to continue please type "${course.name}"`) === course.name) {
+      return this.http.delete<Course>(`/courses/deletecourse/${course.id}`).pipe(
+        catchError((err) => of(this.snackBarService.handleError(err))))
+          .pipe(map((deletedCourse: Course) => {
+            if (deletedCourse) {
+              this.snackBarService.openSnackBar(`Successfully deleted "${course.name}"`);
+              return deletedCourse;
+            }
+          }));
+    } else {
+      this.snackBarService.openSnackBar(`Input did not match the course name. The course "${course.name}" has not been deleted.`);
+      return null;
+    }
   }
 }

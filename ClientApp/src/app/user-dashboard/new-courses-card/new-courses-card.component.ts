@@ -9,6 +9,7 @@ import { Course } from 'src/app/models/course.model';
 export class NewCoursesCardComponent implements OnInit {
   @Input() public newCourses: Course[];
   @Output() public subscribe = new EventEmitter<number>();
+  @Output() public courseDeleted = new EventEmitter<null>();
   constructor() { }
 
   public ngOnInit(): void {
@@ -16,5 +17,9 @@ export class NewCoursesCardComponent implements OnInit {
 
   public emitSubscribe(index) {
     this.subscribe.emit(index);
+  }
+
+  public emitCourseDeleted() {
+    this.courseDeleted.emit();
   }
 }

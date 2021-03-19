@@ -30,7 +30,7 @@ export class WordEditorComponent implements OnInit, OnChanges {
 
   public ngOnInit(): void {
     this.creatingNewWord = this.wordToEdit.id ? false : true;
-    this.setBlankWordToEditFields();
+    this.instantiateEmptyWordProperties();
     this.initializeForm();
   }
 
@@ -43,9 +43,10 @@ export class WordEditorComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Sets any blank field on the wordToEdit property to an empty string to ensure that the component initializes properly
+   * Instantiates any property of the wordToEdit that is undefined, including sentences to ensure that the
+   * word editor functions properly
    */
-  public setBlankWordToEditFields() {
+  public instantiateEmptyWordProperties() {
     for (let property of [
       this.wordToEdit.englishVocab,
       this.wordToEdit.japaneseVocab,

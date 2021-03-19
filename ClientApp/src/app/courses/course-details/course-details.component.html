@@ -1,7 +1,10 @@
 <div class="course-details">
 <app-course-details-card [course]="course" [subscribed]="subscribed"></app-course-details-card>
+<div class="header-container">
+    <span class="content-title">Course Content</span>
+    <span class="manage-content-link"(click)="toggleEditMode()">{{manageContentText}}</span>
+</div>
     <div class="table-container" *ngIf="editMode != 'true'; else courseManager">
-        <h1 class="content-title">Course Content</h1>
         <div class="mat-elevation-z8 table-control-container"  *ngIf="course.words.length > 0; else addContentPrompt">
             <select class="table-control-select" (change)="changeSelectedTableAction($event)">
                 <option value="null">(Select Action)</option>

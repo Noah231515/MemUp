@@ -2,7 +2,7 @@ import { AfterViewInit, ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from 'src/app/services/course.service';
 import { Course } from '../../models/course.model';
 import { Word } from '../../models/word.model';
@@ -21,9 +21,10 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
   public selectedWords: Word[];
   public selectedTableAction: string;
   public editMode: string;
+  public manageContentText: string;
   private DATA_CHUNK_SIZE = 500;
 
-  public constructor(private route: ActivatedRoute, private courseService: CourseService) { }
+  public constructor(private route: ActivatedRoute, private router: Router, private courseService: CourseService) { }
 
   public ngOnInit(): void {
     this.course = this.route.snapshot.data['course'];
@@ -32,6 +33,7 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
     this.selectedWords = [];
     this.route.queryParams.subscribe((params) => {
       this.editMode = params.editMode;
+      this.manageContentText = this.editMode === 'true' ? 'Display course content' : 'Edit course content';
     });
   }
 
@@ -94,5 +96,11 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
 
   public toggleEditMode() {
     this.editMode = this.editMode === 'true' ? 'false' : 'true';
+    this.router.navigate(['/course-details', this.course.id], {
+      queryParams: {
+        subscribed: this.subscribed,
+        editMode: this.editMode,
+      }
+    });
   }
 }

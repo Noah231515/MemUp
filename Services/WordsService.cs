@@ -58,7 +58,6 @@ namespace MemUp.Services
         {
             try
             {
-                
                 word.Id = new Guid();
                 word.CourseId = courseId;
                 foreach (Sentence sentence in word.Sentences)

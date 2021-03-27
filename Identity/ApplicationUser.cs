@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace MemUp.Models
 {
     public class ApplicationUser : IdentityUser
-    {  
+    {
+        public ICollection<ApplicationUserRole> UserRoles { get; set; }
     }
 }

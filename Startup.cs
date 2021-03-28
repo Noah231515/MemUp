@@ -39,6 +39,7 @@ namespace MemUp
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<ApplicationRole>()
                 .AddEntityFrameworkStores<MemUpIdentityDbContext>();
 
             services.AddIdentityServer()

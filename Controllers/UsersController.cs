@@ -6,28 +6,30 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using MemUp.Services;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace MemUp.Controllers
+namespace MemUp.Controllers 
 {
     public class UsersController : Controller
     {
         private readonly ILogger<UsersController> logger;
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IUsersService usersService;
         
         public UsersController(
             MemUpDbContext memUpDbContext,
             ILogger<UsersController> logger,
-            UserManager<ApplicationUser> userManager
+            IUsersService usersService
         )
         {
             this.logger = logger;
-            this.userManager = userManager;
+            this.usersService = usersService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
-            return Ok(userManager.Users);
+            return Ok(usersService.GetAllUsers());
         }
     }
 }

@@ -26,4 +26,9 @@ export class CoursesComponent implements OnInit {
       this.courses = courses;
     });
   }
+
+  public handleCourseDeletion(deletedCourse: Course) {
+    const deletedCourseIndex = this.courses.findIndex(element => element.id = deletedCourse.id);
+    this.courses.splice(deletedCourseIndex, 1);
+  }
 }

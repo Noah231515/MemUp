@@ -7,13 +7,18 @@ import { catchError } from 'rxjs/internal/operators/catchError';
 import { SnackBarService } from './snack-bar.service';
 import { of } from 'rxjs/internal/observable/of';
 import { map } from 'rxjs/internal/operators/map';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
 
-  public constructor(private http: HttpClient, private snackBarService: SnackBarService) { }
+  public constructor(
+    private http: HttpClient,
+    private snackBarService: SnackBarService,
+    private router: Router
+  ) { }
 
   /**
    * Get subscribed courses for currently logged in user
@@ -133,6 +138,9 @@ export class CourseService {
           .pipe(map((deletedCourse: Course) => {
             if (deletedCourse) {
               this.snackBarService.openSnackBar(`Successfully deleted "${course.name}"`);
+              if (this.router.url !== '/courses') {
+                this.router.navigate(['/courses']);
+              }
               return deletedCourse;
             }
           }));

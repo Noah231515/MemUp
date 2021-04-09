@@ -13,7 +13,7 @@
     </div>
     <ul>
         <li *ngFor="let course of courses">
-            <app-course-details-card [course]="course"></app-course-details-card>
+            <app-course-details-card [course]="course" (courseDeleted)="handleCourseDeletion($event)"></app-course-details-card>
         </li>
     </ul>
 </div>

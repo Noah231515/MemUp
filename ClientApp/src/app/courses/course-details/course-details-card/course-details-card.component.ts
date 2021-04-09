@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Course } from 'src/app/models/course.model';
 import { CourseService } from 'src/app/services/course.service';
 import { catchError } from 'rxjs/internal/operators/catchError';
@@ -13,10 +13,14 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
 export class CourseDetailsCardComponent implements OnInit {
   @Input() public course: Course;
   @Input() public subscribed: string;
+  @Output() public courseDeleted = new EventEmitter<Course>();
   public numberOfSentences: number;
   public numberOfUsers: number;
 
-  public constructor(private courseService: CourseService, private snackBarService: SnackBarService) { }
+  public constructor(
+    private courseService: CourseService, 
+    private snackBarService: SnackBarService,
+    ) { }
 
   public ngOnInit(): void {
     this.numberOfSentences = this.courseService.getNumberOfSentences(this.course);
@@ -54,5 +58,6 @@ export class CourseDetailsCardComponent implements OnInit {
 
   public deleteCourse(): void {
     this.courseService.deleteCourse(this.course).subscribe();
+    this.courseDeleted.emit(this.course);
   }
 }

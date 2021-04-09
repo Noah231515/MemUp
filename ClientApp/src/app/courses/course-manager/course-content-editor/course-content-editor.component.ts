@@ -56,7 +56,6 @@ export class CourseContentEditorComponent implements OnInit {
                 // Reset the course to the ensure that updated word entries are retrieved if the user searches again
                 this.updatedWords.splice(0);
                 this.courseUpdated.emit();
-                this.unsavedChangesAdded.emit(false);
               }
             });
       }

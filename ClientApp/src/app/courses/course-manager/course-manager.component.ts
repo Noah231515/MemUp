@@ -36,6 +36,7 @@ export class CourseManagerComponent implements OnInit {
 
   public updateCourse(): void {
     this.courseUpdated.emit();
+    this.setUnsavedChanges(false);
   }
 
   public setUnsavedChanges(status: boolean): void {

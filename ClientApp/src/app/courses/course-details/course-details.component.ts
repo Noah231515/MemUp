@@ -24,7 +24,11 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
   public manageContentText: string;
   private DATA_CHUNK_SIZE = 500;
 
-  public constructor(private route: ActivatedRoute, private router: Router, private courseService: CourseService) { }
+  public constructor(
+  private route: ActivatedRoute, 
+  private router: Router,
+  private courseService: CourseService
+  ) { }
 
   public ngOnInit(): void {
     this.course = this.route.snapshot.data['course'];

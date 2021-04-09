@@ -3,27 +3,28 @@
         mat-raised-button
         color="primary"
         class="header-btn add-word-btn"
-        (click)="setWordToEdit(undefined); setEditMode('addExisting')">Add an existing word
+        (click)="setWordToEdit(undefined); changeToAddExistingMode()">Add an existing word
     </button>
     <button 
         mat-raised-button
         color="warn"
         class="header-btn edit-word-btn"
         [disabled]="course.words.length === 0"
-        (click)="setWordToEdit(undefined); setEditMode('editExisting')">Edit an existing word
+        (click)="setWordToEdit(undefined); changeToEditMode()">Edit an existing word
     </button>
     <button 
         mat-raised-button
         color="accent"
         class="header-btn create-word-btn"
-        (click)="setWordToEdit(newWord); setEditMode('submitNew')">Submit a new word
+        (click)="setWordToEdit(newWord); changeToSubmitNewMode()">Submit a new word
     </button>
 
     <!-- Use ngIf to display the word search component along with the word editor when a word is selected, or only the word editor when creating a new word -->
-    <div class="word-edit-container" fxLayout="row" *ngIf="editMode && editMode !== 'submitNew'; else submitNew">
+    <div class="word-edit-container" fxLayout="row" *ngIf="isEditMode || isAddExistingMode; else submitNew">
         <app-word-search
             class="word-search"
-            [mode]="editMode"
+            [isEditMode]="isEditMode"
+            [isAddExistingMode]="isAddExistingMode"
             [course]="course"
             (wordSelected)="handleWordSelection($event)"
             fxFlex="50%">
@@ -51,7 +52,7 @@
 </form>
 
 <ng-template #submitNew>
-    <div class="word-edit-container" fxLayout="row" *ngIf="editMode == 'submitNew'; else createWord">
+    <div class="word-edit-container" fxLayout="row" *ngIf="isSubmitNewMode">
         <app-word-editor
             class="word-editor" 
             *ngIf="wordToEdit !== undefined" 

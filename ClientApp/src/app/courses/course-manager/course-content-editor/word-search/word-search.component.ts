@@ -13,7 +13,8 @@ import { WordService } from 'src/app/services/word.service';
 })
 export class WordSearchComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public course: Course;
-  @Input() public mode: string;
+  @Input() public isEditMode: boolean;
+  @Input() public isAddExistingMode: boolean;
   @Output() public wordSelected = new EventEmitter<Word>();
   @ViewChild('searchInput') public searchInput: ElementRef;
   public words: Word[];
@@ -86,16 +87,12 @@ export class WordSearchComponent implements OnInit, AfterViewInit, OnChanges {
    * make edits.
    */
   public setWordList(): void {
-    switch (this.mode) {
-      case 'addExisting':
-        this.wordService.getAllWords().subscribe((wordList) => {
+    if (this.isAddExistingMode) {
+      this.wordService.getAllWords().subscribe((wordList) => {
           this.words = wordList;
-        });
-        break;
-      case 'editExisting':
-        this.words = this.course.words;
-        break;
+      });
+    } else if(this.isEditMode) {
+        this.words = this.course.words
     }
   }
-
 }

@@ -17,7 +17,9 @@ export class CourseContentEditorComponent implements OnInit {
   @Input() public course: Course;
   @Output() public courseUpdated = new EventEmitter<null>();
   @Output() public unsavedChangesAdded = new EventEmitter<boolean>();
-  public editMode: string;
+  public isEditMode: boolean;
+  public isSubmitNewMode: boolean;
+  public isAddExistingMode: boolean;
   public wordToEdit: Word;
   public newWord: Word = new Word();
   public updatedWords: Word[] = [];
@@ -87,10 +89,23 @@ export class CourseContentEditorComponent implements OnInit {
     this.unsavedChangesAdded.emit(true);
   }
 
-  public setEditMode(mode: string): void {
-    this.editMode = mode;
+  public changeToEditMode(): void {
+    this.isEditMode = true;
+    this.isSubmitNewMode = false;
+    this.isAddExistingMode = false;
   }
 
+  public changeToSubmitNewMode(): void {
+    this.isSubmitNewMode = true;
+    this.isAddExistingMode = false;
+    this.isEditMode = false;
+  }
+
+  public changeToAddExistingMode(): void {
+    this.isAddExistingMode = true;
+    this.isEditMode = false;
+    this.isSubmitNewMode = false;
+  }
 
   /**
    * When a word is selected, check if we are adding an existing word or if we want to edit the selected word.
@@ -99,7 +114,7 @@ export class CourseContentEditorComponent implements OnInit {
    * @param {Word} selectedWord
    */
   public handleWordSelection(selectedWord: Word): void {
-    if (this.editMode === 'addExisting') {
+    if (this.isAddExistingMode) {
       if (confirm(`Add "${selectedWord.englishVocab}" to ${this.course.name}?`)) {
         this.wordService.addExistingWordToCourse(selectedWord, this.course.id).pipe(
           catchError((err) => of(this.snackBarService.handleError(err))))

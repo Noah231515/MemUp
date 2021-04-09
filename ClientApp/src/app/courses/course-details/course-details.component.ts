@@ -28,7 +28,13 @@ export class CourseDetailsComponent implements OnInit, AfterViewInit {
 
   public ngOnInit(): void {
     this.course = this.route.snapshot.data['course'];
-    this.subscribed = this.route.snapshot.queryParams['subscribed'];
+    if (this.route.snapshot.queryParams['subscribed']) {
+      this.subscribed = this.route.snapshot.queryParams['subscribed'];
+    } else {
+      this.courseService.getSubscribedCourses().subscribe((subscribedCourses) => {
+        this.subscribed = subscribedCourses.find(element => element.id === this.course.id) ? 'true' : 'false';
+      });
+    }
     this.dataSource = new MatTableDataSource<Word>(this.course.words.slice(0, this.DATA_CHUNK_SIZE));
     this.selectedWords = [];
     this.route.queryParams.subscribe((params) => {

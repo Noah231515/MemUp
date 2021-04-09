@@ -29,7 +29,7 @@
 </mat-card>
 
 <ng-template #notSubscribed>
-    <div fxFlexAlign="center" class="manage-subscription-links">
+    <div fxFlexAlign="center" class="manage-subscription-links" *ngIf="subscribed">
         <span class="manage-link" (click)="subscribeToCourse()">Subscribe to Course</span>
         <span class="subscribe-divider"></span>
         <span class="manage-link inactive-link">Unsubscribe from Course</span>

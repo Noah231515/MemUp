@@ -23,6 +23,11 @@ export class CourseDetailsCardComponent implements OnInit {
     this.courseService.getNumberOfUsers(this.course.id).subscribe((res) => {
       this.numberOfUsers = res;
     });
+    if (!this.subscribed) {
+      this.courseService.getSubscribedCourses().subscribe((subscribedCourses) => {
+        this.subscribed = subscribedCourses.find(element => element.id === this.course.id) ? 'true' : 'false';
+      });
+    }
   }
 
   public subscribeToCourse() {

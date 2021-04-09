@@ -67,7 +67,7 @@ export class CourseContentEditorComponent implements OnInit {
   }
 
   public clearWordToEdit(): void {
-    this.wordToEdit = undefined;
+    this.wordToEdit = null;
   }
 
 
@@ -76,7 +76,7 @@ export class CourseContentEditorComponent implements OnInit {
    * @param {Word} updatedWord
    */
   public addUpdatedWord(updatedWord: Word): void {
-    this.wordToEdit = undefined;
+    this.wordToEdit = null;
     this.updatedWords.push(updatedWord);
     this.unsavedChangesAdded.emit(true);
   }

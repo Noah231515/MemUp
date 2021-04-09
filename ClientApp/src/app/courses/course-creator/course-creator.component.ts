@@ -8,7 +8,7 @@ import { Course } from 'src/app/models/course.model';
   styleUrls: ['./course-creator.component.css']
 })
 export class CourseCreatorComponent implements OnInit {
-  @Output() public courseCreated = new EventEmitter<null>();
+  @Output() public courseCreated = new EventEmitter<void>();
 
   public constructor() { }
 
@@ -16,7 +16,7 @@ export class CourseCreatorComponent implements OnInit {
   }
 
   public emitCourseCreated(): void {
-    this.courseCreated.emit(null);
+    this.courseCreated.emit();
   }
 
 }

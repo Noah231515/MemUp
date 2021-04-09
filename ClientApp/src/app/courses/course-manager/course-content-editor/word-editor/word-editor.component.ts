@@ -1,4 +1,3 @@
-import { OnChanges } from '@angular/core';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Course } from 'src/app/models/course.model';
@@ -12,7 +11,7 @@ import { WordService } from 'src/app/services/word.service';
   templateUrl: './word-editor.component.html',
   styleUrls: ['./word-editor.component.css']
 })
-export class WordEditorComponent implements OnInit, OnChanges {
+export class WordEditorComponent implements OnInit {
   @Input() public wordToEdit: Word;
   @Input() public course: Course;
   @Output() public wordUpdated = new EventEmitter<Word>();
@@ -32,14 +31,6 @@ export class WordEditorComponent implements OnInit, OnChanges {
     this.creatingNewWord = this.wordToEdit.id ? false : true;
     this.instantiateEmptyWordProperties();
     this.initializeForm();
-  }
-
-  public ngOnChanges() {
-    try {
-      this.initializeForm();
-    } catch (error) {
-      console.log(error);
-    }
   }
 
   /**

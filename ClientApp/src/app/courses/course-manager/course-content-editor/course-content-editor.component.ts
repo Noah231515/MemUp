@@ -31,19 +31,12 @@ export class CourseContentEditorComponent implements OnInit {
 
   public ngOnInit(): void {
     // Create a blank word to be passed along to the word editor when submitting a new word
-    this.newWord = {
-      id: undefined,
-      courseId: this.course.id,
-      englishVocab: '',
-      japaneseVocab: '',
-      kanaVocab: '',
-      partOfSpeech: '',
-      sentences: [
+    this.newWord = new Word();
+    this.newWord.sentences = [
         this.wordService.createBlankSentence('English', this.newWord),
         this.wordService.createBlankSentence('Japanese', this.newWord),
         this.wordService.createBlankSentence('Furigana', this.newWord),
-      ]
-    };
+    ]
   }
 
 

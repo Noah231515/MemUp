@@ -34,9 +34,9 @@ namespace MemUp.Services
         {
             
             return users.Select(x => new UserDto() {
-                UserId = new Guid(x.Id),
+                UserId = x.Id,
                 UserName = x.UserName,
-                Roles = x.UserRoles.ToList()
+                Roles = userManager.GetRolesAsync(x).GetAwaiter().GetResult()
             })
             .ToList();
         }

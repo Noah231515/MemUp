@@ -57,6 +57,7 @@ namespace MemUp
             });
 
             services.AddScoped<ICoursesService, CoursesService>();
+            services.AddScoped<IWordsService, WordsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

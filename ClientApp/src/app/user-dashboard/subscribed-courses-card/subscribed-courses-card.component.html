@@ -5,5 +5,6 @@
     [course]="course"
     [index]="index"
     [subscribedStatus]="true"
-    (unsubscribe)="emitUnsubscribe($event)"></app-course-summary-card>
+    (unsubscribe)="emitUnsubscribe($event)"
+    (courseDeleted)="emitCourseDeleted()"></app-course-summary-card>
 </div>

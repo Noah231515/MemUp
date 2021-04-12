@@ -1,0 +1,39 @@
+<div class="course-manager">
+    <!-- Switch the header active/inactive links using templates and ngIf -->
+    <div class="manage-course-header" *ngIf="contentToEdit === 'details'; else contentHeader">
+        <h2 class="edit-header-link">Edit Course Details</h2>
+        <span class="link-divider"></span>
+        <h2 
+        class="edit-header-link inactive-link"
+        (click)="changeEditSection('content')">Edit Course Content</h2>
+    </div>
+    <!-- Set the mode to "edit" on the editor components if a course was passed in through @Input -->
+    <div class="editor-container">
+        <app-course-details-editor 
+            *ngIf="contentToEdit === 'details'"
+            (courseUpdated)="updateCourse()"
+            (unsavedChangesAdded)="setUnsavedChanges($event)"
+            [course]="course">
+        </app-course-details-editor>
+        <app-course-content-editor
+                *ngIf="contentToEdit === 'content'"
+                [course]="course"
+                (wordSelected)="setWordToEdit($event)"
+                (courseUpdated)="updateCourse()"
+                (unsavedChangesAdded)="setUnsavedChanges($event)"
+                [wordToEdit]="wordToEdit">
+        </app-course-content-editor>
+    </div>
+</div>
+
+<ng-template #contentHeader>
+    <div class="manage-course-header">
+        <h2 
+        class="edit-header-link inactive-link"
+        (click)="changeEditSection('details')">Edit Course Details</h2>
+        <span class="link-divider"></span>
+        <h2 class="edit-header-link">Edit Course Content</h2>
+    </div>
+</ng-template>
+
+

@@ -1,0 +1,72 @@
+.mat-raised-button {
+    margin: 5px;
+    font-weight: bold;
+    font-size: 1.2em;
+    width: 100px;
+}
+
+.header-btn {
+    width: 220px;
+    padding: 3px;
+    height: 40px;
+    margin-top: -1px;
+    color: white !important;
+}
+
+.mat-raised-button.mat-primary {
+    background-color: darkorange;
+}
+
+.mat-raised-button.mat-accent {
+    background-color: navy;
+}
+
+
+.mat-raised-button.mat-warn.mat-button-disabled {
+    background-color: grey !important;
+    opacity: 0.7 !important;
+}
+
+.mat-form-field {
+    width: 500px;
+}
+
+:not(.mat-focused) .mat-form-field-label {
+    /*change color of label*/
+    color: black !important;
+    font-size: 16px;
+}
+
+.mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: black !important;
+    font-size: 20px;
+    font-weight: bolder;
+    letter-spacing: 1px;
+}
+
+.mat-form-field input {
+    height: 35px;
+}
+
+.mat-form-field textarea {
+    height: 125px;
+}
+
+.word-edit-container {
+    position: relative;
+}
+
+.word-editor {
+    margin-top: 45px;
+}
+
+.course-editor {
+    height: 500px;
+    position: relative;;
+}
+
+.unsaved-changes-warning {
+    color: red;
+    margin: 0;
+}

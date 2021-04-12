@@ -1,0 +1,28 @@
+.course-manager {
+    margin-top: 20px;
+}
+
+.manage-course-header {
+    width: 400px;
+    padding: 5px;
+    padding-left: 0;
+}
+
+.edit-header-link {
+    display: inline;
+    cursor: default;
+}
+
+.inactive-link {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.link-divider {
+    background-color: grey;
+    width: 2px;
+    height: 20px;
+    border-radius: 100px;
+    display: inline-block;
+    margin: 0 10px -5px 10px;
+}

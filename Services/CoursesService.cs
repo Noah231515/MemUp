@@ -25,6 +25,21 @@ namespace MemUp.Services
         {
             return memUpDbContext.UserCourse.SingleOrDefault(uc => uc.UserId == userId && uc.CourseId == courseId);
         }
+
+        private List<Word> SortSentenceTypes(List<Word> wordList)
+        {
+            foreach (Word word in wordList)
+            {
+                word.Sentences = word.Sentences.OrderBy(s => s.SentenceType.Id).ToList();
+            }
+            return wordList;
+        }
+
+        private List<Word> SortWordsByDifficultyIndex(List<Word> wordList)
+        {
+            wordList = wordList.OrderBy(w => w.DifficultyIndex).ToList();
+            return wordList;
+        }
         public List<Course> GetSubscribedCoursesForUsers(ApplicationUser user)
         {
             List<Course> subscribedCourses = new List<Course>();
@@ -38,11 +53,37 @@ namespace MemUp.Services
                         .ThenInclude(w => w.Sentences)
                         .ThenInclude(s => s.SentenceType)
                         .SingleOrDefault(c => c.Id == userCourse.CourseId);
-                    course.Words = course.Words.OrderBy(w => w.DifficultyIndex).ToList();
+                    course.Words = SortWordsByDifficultyIndex(course.Words.ToList());
+                    course.Words = SortSentenceTypes(course.Words.ToList());
                     subscribedCourses.Add(course);
                 }
             }
             return subscribedCourses;
+        }
+
+        public Course CreateCourse(Course newCourse) 
+        {
+            newCourse.Id = new Guid();
+            memUpDbContext.Courses.Add(newCourse);
+            memUpDbContext.SaveChanges();
+            return newCourse;
+        }
+
+        public Course DeleteCourse(Guid id)
+        {
+            Course course = memUpDbContext.Courses
+                .Include(c => c.Words)
+                .ThenInclude(w => w.Sentences)
+                .ThenInclude(s => s.SentenceType)
+                .SingleOrDefault(c => c.Id == id);
+            List<UserCourse> userCourseEntries = memUpDbContext.UserCourse.Where(uc => uc.CourseId == id).ToList();
+            memUpDbContext.Courses.Remove(course);
+            foreach (var userCourse in userCourseEntries)
+            {
+                memUpDbContext.UserCourse.Remove(userCourse);
+            }
+            memUpDbContext.SaveChanges();
+            return course;
         }
 
         public Course GetCourse(Guid id)
@@ -52,9 +93,38 @@ namespace MemUp.Services
                 .ThenInclude(w => w.Sentences)
                 .ThenInclude(s => s.SentenceType)
                 .SingleOrDefault(c => c.Id == id);
-            
-            course.Words = course.Words.OrderBy(w => w.DifficultyIndex).ToList();
+            course.Words = SortWordsByDifficultyIndex(course.Words.ToList());
+            course.Words = SortSentenceTypes(course.Words.ToList());
             return course;
+        }
+
+        public Course UpdateCourse(Course updatedCourse) 
+        {
+            Course courseInDb = memUpDbContext.Courses
+                .Include(c => c.Words)
+                .ThenInclude(w => w.Sentences)
+                .ThenInclude(s => s.SentenceType)
+                .SingleOrDefault(c => c.Id == updatedCourse.Id);
+            courseInDb.Words = SortWordsByDifficultyIndex(courseInDb.Words.ToList());
+            memUpDbContext.Entry(courseInDb).CurrentValues.SetValues(updatedCourse);
+            memUpDbContext.SaveChanges();
+            return courseInDb;
+        }
+
+        public List<Course> GetAllCourses()
+        {
+            List<Course> courseList = memUpDbContext.Courses
+                .Include(c => c.Words)
+                .ThenInclude(w => w.Sentences)
+                .ThenInclude(s => s.SentenceType)
+                .ToList();
+            foreach (Course course in courseList)
+            {
+                course.Words = SortWordsByDifficultyIndex(course.Words.ToList());
+                course.Words = SortSentenceTypes(course.Words.ToList());
+            }
+
+            return courseList;
         }
         
         public List<Course> GetNewCoursesForUsers(ApplicationUser user)
@@ -74,6 +144,12 @@ namespace MemUp.Services
                 .ThenInclude(x => x.SentenceType)
                 .Where(x => !subscribedCourses.Contains(x.Id))
                 .ToList(); 
+
+                foreach (Course course in newCourses)
+                {
+                    course.Words = SortWordsByDifficultyIndex(course.Words.ToList());
+                    course.Words = SortSentenceTypes(course.Words.ToList());
+                }
             }
             return newCourses;
         }
@@ -120,12 +196,18 @@ namespace MemUp.Services
         {
             return memUpDbContext.UserCourse.Where(x => x.CourseId == courseId).Count();
         }
+
+        
     }
 
     public interface ICoursesService
     {
         List<Course> GetSubscribedCoursesForUsers(ApplicationUser user);
+        Course CreateCourse(Course newCourse);
+        Course DeleteCourse(Guid id);
         Course GetCourse(Guid id);
+        Course UpdateCourse(Course course);
+        List<Course> GetAllCourses();
         List<Course> GetNewCoursesForUsers(ApplicationUser user);
         UserCourse SubscribeToCourse(ApplicationUser user, Guid courseId);
         UserCourse UnsubscribeFromCourse(ApplicationUser user, Guid courseId);

@@ -1,0 +1,66 @@
+<form class="course-editor" (ngSubmit)="submitForm()">
+    <button 
+        mat-raised-button
+        color="primary"
+        class="header-btn add-word-btn"
+        (click)="setWordToEdit(undefined); changeToAddExistingMode()">Add an existing word
+    </button>
+    <button 
+        mat-raised-button
+        color="warn"
+        class="header-btn edit-word-btn"
+        [disabled]="course.words.length === 0"
+        (click)="setWordToEdit(undefined); changeToEditMode()">Edit an existing word
+    </button>
+    <button 
+        mat-raised-button
+        color="accent"
+        class="header-btn create-word-btn"
+        (click)="setWordToEdit(newWord); changeToSubmitNewMode()">Submit a new word
+    </button>
+
+    <!-- Use ngIf to display the word search component along with the word editor when a word is selected, or only the word editor when creating a new word -->
+    <div class="word-edit-container" fxLayout="row" *ngIf="isEditMode || isAddExistingMode; else submitNew">
+        <app-word-search
+            class="word-search"
+            [isEditMode]="isEditMode"
+            [isAddExistingMode]="isAddExistingMode"
+            [course]="course"
+            (wordSelected)="handleWordSelection($event)"
+            fxFlex="50%">
+        </app-word-search>
+        <app-word-editor
+            class="word-editor" 
+            *ngIf="wordToEdit !== undefined" 
+            (wordUpdated)="addUpdatedWord($event)"
+            (formClosed)="clearWordToEdit()"
+            [wordToEdit]="wordToEdit" 
+            [course]="course"
+            fxFlex="50%">
+        </app-word-editor>
+    </div>
+    <div class="submit-container" *ngIf="updatedWords.length > 0">
+        <button mat-raised-button color="primary" class="submit-btn" type="submit">Submit</button>
+    <div class="unsaved-changes-container">
+        <h2 class="unsaved-changes-warning">Your changes have not been submitted.</h2>
+        <h3 class="unsaved-changes-warning">The following words have edits waiting to be submitted.</h3>
+        <ul class="updated-words">
+            <li *ngFor="let word of updatedWords">{{word.englishVocab}}</li>
+        </ul>
+    </div>
+    </div>
+</form>
+
+<ng-template #submitNew>
+    <div class="word-edit-container" fxLayout="row" *ngIf="isSubmitNewMode">
+        <app-word-editor
+            class="word-editor" 
+            *ngIf="wordToEdit !== undefined" 
+            (wordUpdated)="addUpdatedWord($event)"
+            (wordCreated)="updateCourse($event)"
+            (formClosed)="clearWordToEdit()"
+            [wordToEdit]="wordToEdit" 
+            [course]="course">
+        </app-word-editor>
+    </div>
+</ng-template>

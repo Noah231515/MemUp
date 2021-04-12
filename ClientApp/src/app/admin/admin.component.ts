@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { UserDto } from '../models/user-dto';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -8,9 +10,16 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+  public users: UserDto[];
+  public displayedColumns: string[] = ["userName", "roles"]
+  constructor(
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    this.route.data.subscribe(data => {
+      this.users = data.users;
+    });
   }
 
 }

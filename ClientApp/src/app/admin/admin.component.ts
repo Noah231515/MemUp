@@ -11,7 +11,7 @@ import { UserDto } from '../models/user-dto';
 export class AdminComponent implements OnInit {
 
   public users: UserDto[];
-  public displayedColumns: string[] = ["userName", "roles"]
+  public displayedColumns: string[] = ['userName', 'roles'];
   constructor(
     private route: ActivatedRoute
   ) { }

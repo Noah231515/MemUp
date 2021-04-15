@@ -41,6 +41,7 @@ import { CourseDetailsComponent } from './course-details/course-details.componen
 import { CourseDetailsCardComponent } from './course-details/course-details-card/course-details-card.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { AdminComponent } from './admin/admin.component';
+import { UserListComponent } from './admin/user-list/user-list.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { AdminComponent } from './admin/admin.component';
     NewCoursesCardComponent,
     CourseDetailsComponent,
     CourseDetailsCardComponent,
-    AdminComponent
+    AdminComponent,
+    UserListComponent
   ],
   imports: [
     AppRoutingModule,

@@ -10,16 +10,10 @@ import { UserDto } from '../models/user-dto';
 })
 export class AdminComponent implements OnInit {
 
-  public users: UserDto[];
-  public displayedColumns: string[] = ['userName', 'roles'];
   constructor(
-    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.route.data.subscribe(data => {
-      this.users = data.users;
-    });
   }
 
 }

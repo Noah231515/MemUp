@@ -30,10 +30,38 @@ namespace MemUp.Controllers
             return Ok(coursesService.GetSubscribedCoursesForUsers(user));
         }
 
+        [HttpPost]
+        [Route("/courses/createcourse")]
+        public IActionResult CreateCourse([FromBody] Course newCourse)
+        {
+            Console.WriteLine(newCourse.Name);
+            return Ok(coursesService.CreateCourse(newCourse));
+        }
+
+        [HttpDelete]
+        [Route("/courses/deletecourse/{id}")]
+        public IActionResult DeleteCourse(Guid id)
+        {
+            return Ok(this.coursesService.DeleteCourse(id));
+        }
+
         [HttpGet]
         public IActionResult GetCourse(Guid id)
         {
             return Ok(coursesService.GetCourse(id));
+        }
+
+        [HttpPut]
+        [Route("/courses/updatecourse")]
+        public IActionResult UpdateCourse([FromBody] Course course)
+        {
+            return Ok(coursesService.UpdateCourse(course));
+        }
+
+        [HttpGet]
+        public IActionResult GetAllCourses()
+        {
+            return Ok(coursesService.GetAllCourses());
         }
         
         public async Task<IActionResult> GetNewCoursesForUsers()

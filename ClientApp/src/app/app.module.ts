@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
@@ -37,11 +36,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { SubscribedCoursesResolver } from './user-dashboard/subscribed-courses.resolver';
 import { CourseSummaryCardComponent } from './user-dashboard/course-summary-card/course-summary-card.component';
 import { NewCoursesCardComponent } from './user-dashboard/new-courses-card/new-courses-card.component';
-import { CourseDetailsComponent } from './course-details/course-details.component';
-import { CourseDetailsCardComponent } from './course-details/course-details-card/course-details-card.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { AdminComponent } from './admin/admin.component';
 import { UserListComponent } from './admin/user-list/user-list.component';
+import { CoursesComponent } from './courses/courses.component';
+import { CourseManagerComponent } from './courses/course-manager/course-manager.component';
+import { WordSearchComponent } from './courses/course-manager/course-content-editor/word-search/word-search.component';
+import { WordEditorComponent } from './courses/course-manager/course-content-editor/word-editor/word-editor.component';
+import { CourseDetailsEditorComponent } from './courses/course-manager/course-details-editor/course-details-editor.component';
+import { CourseContentEditorComponent } from './courses/course-manager/course-content-editor/course-content-editor.component';
+import { CourseCreatorComponent } from './courses/course-creator/course-creator.component';
+import { CourseDetailsCardComponent } from './courses/course-details/course-details-card/course-details-card.component';
+import { CourseDetailsComponent } from './courses/course-details/course-details.component';
 
 
 @NgModule({
@@ -59,7 +65,14 @@ import { UserListComponent } from './admin/user-list/user-list.component';
     CourseDetailsComponent,
     CourseDetailsCardComponent,
     AdminComponent,
-    UserListComponent
+    UserListComponent,
+    CoursesComponent,
+    CourseManagerComponent,
+    WordSearchComponent,
+    WordEditorComponent,
+    CourseDetailsEditorComponent,
+    CourseContentEditorComponent,
+    CourseCreatorComponent
   ],
   imports: [
     AppRoutingModule,

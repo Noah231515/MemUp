@@ -1,0 +1,21 @@
+input {
+    height: 35px;
+    width: 400px;
+    font-size: 1.5em;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    cursor: pointer;
+    font-size: 1.33em;
+    font-weight: 550;
+    opacity: 0.85;
+}
+
+li:hover {
+    opacity: 1;
+    font-weight: 700;
+}

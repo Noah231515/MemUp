@@ -1,0 +1,52 @@
+<form class="editor-form" [formGroup]="wordEditorForm" (ngSubmit)="submitForm()">
+    <div class="form-group">
+        <mat-form-field>
+            <mat-label>English</mat-label>
+            <input matInput
+                placeholder="{{wordToEdit.englishVocab}}"
+                formControlName="englishVocab"
+            />
+        </mat-form-field>
+    </div>
+    <div class="form-group">
+        <mat-form-field>
+            <mat-label>Japanese</mat-label>
+            <input matInput
+                placeholder="{{wordToEdit.japaneseVocab}}"
+                formControlName="japaneseVocab"
+            />
+        </mat-form-field>
+    </div>
+    <div class="form-group">
+        <mat-form-field>
+            <mat-label>Kana</mat-label>
+            <input matInput
+                placeholder="{{wordToEdit.kanaVocab}}"
+                formControlName="kanaVocab"
+            />
+        </mat-form-field>
+    </div>
+    <div class="form-group">
+        <mat-form-field>
+            <mat-label>Part Of Speech</mat-label>
+            <input matInput
+                placeholder="{{wordToEdit.partOfSpeech}}"
+                formControlName="partOfSpeech"
+            />
+        </mat-form-field>
+    </div>
+    <div class="form-group" *ngFor="let sentence of wordToEdit.sentences">
+        <mat-form-field>
+            <mat-label>{{sentence.sentenceType.type}} Sentence</mat-label>
+            <input matInput
+                placeholder="{{sentence.sentenceText}}"
+                formControlName="sentence{{sentence.sentenceType.type}}"
+            />
+        </mat-form-field>
+    </div>
+    <div>
+        <button mat-raised-button color="primary" type="submit">Save</button>
+        <button mat-raised-button color="warn" type="button" (click)="clearForm()">Reset</button>
+        <button mat-raised-button color="basic" type="button" (click)="closeForm()">Cancel</button>
+    </div>
+</form>

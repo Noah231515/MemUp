@@ -1,0 +1,50 @@
+<mat-card class="course-details">
+    <div fxLayout="row" class="card-header">
+        <mat-card-title fxFlexAlign="center">
+            <a 
+            [routerLink]="['/course-details', course.id]"
+            [queryParams]="{subscribed: subscribed, editMode: false}">{{ course.name }}</a>
+        </mat-card-title>
+        <div fxFlexAlign="center" class="manage-subscription-links" *ngIf="subscribed == 'true'; else notSubscribed">
+            <span class="manage-link inactive-link">Subscribe to Course</span>
+            <span class="subscribe-divider"></span>
+            <span class="manage-link" (click)="unsubscribeFromCourse()">Unsubscribe from Course</span>
+        </div>
+        <button mat-icon-button class="menu-btn" [matMenuTriggerFor]="menu" aria-hidden="false" aria-label="course menu">
+            <mat-icon>more_horiz</mat-icon>
+        </button>
+    </div>
+    <hr/>
+    <mat-card-content>
+        <p class="course-description">{{ course.descriptionFull }}</p>
+        <p class="course-statistic">Words: <span class="stat-count">{{ course.words.length }}</span></p>
+        <p class="course-statistic">Sentences: <span class="stat-count">{{ numberOfSentences }}</span></p>
+        <p class="course-statistic">Users: <span class="stat-count">{{ numberOfUsers }}</span></p>
+        <button class="study-button">Study Now</button>
+        <div class="study-statistics">
+            <hr>
+            <p>STUDY PROGRESS COMING SOON</p>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<ng-template #notSubscribed>
+    <div fxFlexAlign="center" class="manage-subscription-links" *ngIf="subscribed">
+        <span class="manage-link" (click)="subscribeToCourse()">Subscribe to Course</span>
+        <span class="subscribe-divider"></span>
+        <span class="manage-link inactive-link">Unsubscribe from Course</span>
+    </div>
+</ng-template>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item 
+    [routerLink]="['/course-details', course.id]"
+    [queryParams]="{subscribed: subscribed, editMode: true}">
+      <mat-icon>edit</mat-icon>
+      <span>Manage course</span>
+    </button>
+    <button mat-menu-item (click)="deleteCourse()">
+      <mat-icon>delete</mat-icon>
+      <span>Delete course</span>
+    </button>
+</mat-menu>

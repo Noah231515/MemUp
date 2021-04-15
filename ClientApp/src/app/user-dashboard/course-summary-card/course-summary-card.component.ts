@@ -19,6 +19,7 @@ export class CourseSummaryCardComponent implements OnInit {
   @Input() public subscribedStatus: boolean;
   @Output() public unsubscribe = new EventEmitter<number>();
   @Output() public subscribe = new EventEmitter<number>();
+  @Output() public courseDeleted = new EventEmitter<null>();
 
   public constructor(private courseService: CourseService, private snackBarService: SnackBarService) { }
 
@@ -27,7 +28,7 @@ export class CourseSummaryCardComponent implements OnInit {
 
   public subscribeToCourse() {
     this.courseService.subscribeToCourse(this.course.id).pipe(
-      catchError((err) => of(this.handleError(err))))
+      catchError((err) => of(this.snackBarService.handleError(err))))
         .subscribe(() => {
           this.subscribe.emit(this.index);
           this.snackBarService.openSnackBar(`Subscribed to ${this.course.name}.`);
@@ -36,7 +37,7 @@ export class CourseSummaryCardComponent implements OnInit {
 
   public unsubscribeFromCourse() {
     this.courseService.unsubscribeFromcourse(this.course.id).pipe(
-      catchError((err) => of(this.handleError(err))))
+      catchError((err) => of(this.snackBarService.handleError(err))))
         .subscribe((res) => {
           if (res) {
             this.unsubscribe.emit(this.index);
@@ -45,11 +46,13 @@ export class CourseSummaryCardComponent implements OnInit {
         });
   }
 
-  public toggleMenu() {
-    this.trigger.toggleMenu();
+  public deleteCourse(): void {
+    this.courseService.deleteCourse(this.course).subscribe(() => {
+      this.courseDeleted.emit();
+    });
   }
 
-  public handleError(err) {
-    this.snackBarService.openSnackBar(`An error occurred. (Error Code ${err.status})`);
+  public toggleMenu() {
+    this.trigger.toggleMenu();
   }
 }

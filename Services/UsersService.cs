@@ -32,7 +32,6 @@ namespace MemUp.Services
 
         public IList<UserDto> GetAllUsers()
         {
-            
             return users.Select(x => new UserDto() {
                 UserId = x.Id,
                 UserName = x.UserName,

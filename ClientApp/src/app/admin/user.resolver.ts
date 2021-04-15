@@ -8,7 +8,7 @@ import { Resolve } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class UserResolver implements Resolve<any> {
+export class UsersResolver implements Resolve<any> {
 
   public constructor(private http: HttpClient) { }
 

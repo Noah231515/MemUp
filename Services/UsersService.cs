@@ -30,6 +30,7 @@ namespace MemUp.Services
             this.userManager = userManager;
         }
 
+
         public IList<UserDto> GetAllUsers()
         {
             return users.Select(x => new UserDto() {
@@ -41,8 +42,13 @@ namespace MemUp.Services
         }
     }
 
+
     public interface IUsersService
     {
+        /// <summary>
+        /// Retrevies all users
+        /// </summary>
+        /// <returns>List of UserDtos</returns>
         IList<UserDto> GetAllUsers();
     }
 }

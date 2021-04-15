@@ -1,13 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿
+using System.Threading.Tasks;
 using MemUp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 using MemUp.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace MemUp.Controllers 
 {
@@ -26,6 +22,10 @@ namespace MemUp.Controllers
             this.usersService = usersService;
         }
 
+        /// <summary>
+        /// Retrevies all users
+        /// </summary>
+        /// <returns>List of UserDtos</returns>
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {

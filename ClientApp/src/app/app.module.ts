@@ -36,8 +36,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { SubscribedCoursesResolver } from './user-dashboard/subscribed-courses.resolver';
 import { CourseSummaryCardComponent } from './user-dashboard/course-summary-card/course-summary-card.component';
 import { NewCoursesCardComponent } from './user-dashboard/new-courses-card/new-courses-card.component';
-import { CourseDetailsComponent } from './courses/course-details/course-details.component';
-import { CourseDetailsCardComponent } from './courses/course-details/course-details-card/course-details-card.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { AdminComponent } from './admin/admin.component';
+import { UserListComponent } from './admin/user-list/user-list.component';
 import { CoursesComponent } from './courses/courses.component';
 import { CourseManagerComponent } from './courses/course-manager/course-manager.component';
 import { WordSearchComponent } from './courses/course-manager/course-content-editor/word-search/word-search.component';
@@ -45,6 +46,8 @@ import { WordEditorComponent } from './courses/course-manager/course-content-edi
 import { CourseDetailsEditorComponent } from './courses/course-manager/course-details-editor/course-details-editor.component';
 import { CourseContentEditorComponent } from './courses/course-manager/course-content-editor/course-content-editor.component';
 import { CourseCreatorComponent } from './courses/course-creator/course-creator.component';
+import { CourseDetailsCardComponent } from './courses/course-details/course-details-card/course-details-card.component';
+import { CourseDetailsComponent } from './courses/course-details/course-details.component';
 
 
 @NgModule({
@@ -61,6 +64,8 @@ import { CourseCreatorComponent } from './courses/course-creator/course-creator.
     NewCoursesCardComponent,
     CourseDetailsComponent,
     CourseDetailsCardComponent,
+    AdminComponent,
+    UserListComponent,
     CoursesComponent,
     CourseManagerComponent,
     WordSearchComponent,
@@ -93,6 +98,7 @@ import { CourseCreatorComponent } from './courses/course-creator/course-creator.
     MatGridListModule,
     MatDatepickerModule,
     MatMenuModule,
+    MatSidenavModule,
     FlexLayoutModule,
     ApiAuthorizationModule,
   ],

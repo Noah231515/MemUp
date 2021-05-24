@@ -51,6 +51,7 @@ import { CourseDetailsComponent } from './courses/course-details/course-details.
 import { StudyComponent } from './study/study.component';
 import { PreStudyComponent } from './study/pre-study/pre-study.component';
 import { StudyGameComponent } from './study/study-game/study-game.component';
+import { WordTableComponent } from './courses/word-table/word-table.component';
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import { StudyGameComponent } from './study/study-game/study-game.component';
     CourseCreatorComponent,
     StudyComponent,
     PreStudyComponent,
-    StudyGameComponent
+    StudyGameComponent,
+    WordTableComponent
   ],
   imports: [
     AppRoutingModule,

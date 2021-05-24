@@ -48,6 +48,7 @@ import { CourseContentEditorComponent } from './courses/course-manager/course-co
 import { CourseCreatorComponent } from './courses/course-creator/course-creator.component';
 import { CourseDetailsCardComponent } from './courses/course-details/course-details-card/course-details-card.component';
 import { CourseDetailsComponent } from './courses/course-details/course-details.component';
+import { StudyComponent } from './study/study.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { CourseDetailsComponent } from './courses/course-details/course-details.
     WordEditorComponent,
     CourseDetailsEditorComponent,
     CourseContentEditorComponent,
-    CourseCreatorComponent
+    CourseCreatorComponent,
+    StudyComponent
   ],
   imports: [
     AppRoutingModule,

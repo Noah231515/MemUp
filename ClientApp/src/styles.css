@@ -17,3 +17,16 @@ code {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.study-button {
+  background-color: darkorange;
+  color: white;
+  border: solid 2px black;
+  border-radius: 10px;
+  margin: 0 auto;
+  width: 40%;
+  grid-row: 1;
+  grid-column: 3;
+  font-weight: bold;
+  font-size: 1.2em;
+}

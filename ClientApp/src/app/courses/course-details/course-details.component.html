@@ -5,7 +5,12 @@
     <span class="manage-content-link"(click)="toggleEditMode()">{{manageContentText}}</span>
 </div>
     <div class="table-container" *ngIf="editMode != 'true'; else courseManager">
-        <app-word-table [course]="course" *ngIf="this.course.words.length > 0; else addContentPrompt"></app-word-table>
+        <app-word-table 
+            [course]="course"
+            [dataSource]="course.words"
+            [displayHeader]="true"
+            *ngIf="this.course.words.length > 0; else addContentPrompt"
+        ></app-word-table>
     </div>
 </div>
 

@@ -8,26 +8,25 @@
     <div class="study-options-container" fxLayout="row" fxLayoutGap="10px">
         <span class="study-options-select" fxFlexAlign="center">
             Course: 
-            <select>
-                <option>{{course.name}}</option>
-                <option *ngFor="let course of allCourses">{{course.name}}</option>
+            <select #courseSelect (change)="updateOptions('course', courseSelect.value)">
+                <option *ngFor="let course of allCourses" [value]="course.name">{{course.name}}</option>
             </select>
         </span>
         <span class="study-options-select" fxFlexAlign="center">
             Session Size: 
-            <select>
-                <option>10</option>
-                <option>25</option>
-                <option>50</option>
-                <option>100</option>
+            <select #sizeSelect (change)="updateOptions('size', sizeSelect.value)">
+                <option [value]="10">10</option>
+                <option [value]="25">25</option>
+                <option [value]="50">50</option>
+                <option [value]="100">100</option>
             </select>
         </span>
         <span class="study-options-select" fxFlexAlign="center">
             Session Type: 
-            <select>
-                <option>Multiple Choice</option>
-                <option>Typing Challenge</option>
-                <option>Mixed</option>
+            <select #typeSelect (change)="updateOptions('type', typeSelect.value)">
+                <option value="multipleChoice">Multiple Choice</option>
+                <option value="typingChallenge">Typing Challenge</option>
+                <option value="mixed">Mixed</option>
             </select>
         </span>
         <button class="study-button" fxFlex="20%">Start Session</button>

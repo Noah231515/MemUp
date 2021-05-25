@@ -11,8 +11,10 @@ import { Word } from 'src/app/models/word.model';
 })
 export class WordTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) public paginator: MatPaginator;
-  @Input() course: Course;
-  public dataSource: MatTableDataSource<Word>;
+  @Input() public course: Course;
+  @Input() public dataSource: Word[];
+  @Input() public displayHeader: boolean;
+  public tableData: MatTableDataSource<Word>;
   public displayedColumns: string[] = ['Japanese', 'English', 'Sentence'];
   public selectedWords: Word[];
   public selectedTableAction: string;
@@ -20,12 +22,12 @@ export class WordTableComponent implements OnInit, AfterViewInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<Word>(this.course.words.slice(0, this.DATA_CHUNK_SIZE));
+    this.tableData = new MatTableDataSource<Word>(this.dataSource.slice(0, this.DATA_CHUNK_SIZE));
     this.selectedWords = [];
   }
 
   public ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    this.tableData.paginator = this.paginator;
   }
 
   public checkForAdditionalTableData(pageEvent: PageEvent) {
@@ -33,11 +35,11 @@ export class WordTableComponent implements OnInit, AfterViewInit {
       // Check if we have reached the end of our word list, expand by the data chunk size if not
       // or expand until the end of the word list if so.
       if (pageEvent.length + this.DATA_CHUNK_SIZE < this.course.words.length) {
-        this.dataSource = new MatTableDataSource<Word>(this.course.words.slice(0, pageEvent.length + this.DATA_CHUNK_SIZE));
+        this.tableData = new MatTableDataSource<Word>(this.course.words.slice(0, pageEvent.length + this.DATA_CHUNK_SIZE));
       } else {
-        this.dataSource = new MatTableDataSource<Word>(this.course.words);
+        this.tableData = new MatTableDataSource<Word>(this.course.words);
       }
-      this.dataSource.paginator = this.paginator;
+      this.tableData.paginator = this.paginator;
     }
   }
 

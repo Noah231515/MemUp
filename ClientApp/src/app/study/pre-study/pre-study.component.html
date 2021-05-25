@@ -1,1 +1,35 @@
-<p>pre-study works!</p>
+<div class="pre-study">
+    <h1>Study Session Preview</h1>
+    <app-word-table 
+        [dataSource]="selectedWords"
+        [course]="course"
+        [displayHeader]="false"
+    ></app-word-table>
+    <div class="study-options-container" fxLayout="row" fxLayoutGap="10px">
+        <span class="study-options-select" fxFlexAlign="center">
+            Course: 
+            <select>
+                <option>{{course.name}}</option>
+                <option *ngFor="let course of allCourses">{{course.name}}</option>
+            </select>
+        </span>
+        <span class="study-options-select" fxFlexAlign="center">
+            Session Size: 
+            <select>
+                <option>10</option>
+                <option>25</option>
+                <option>50</option>
+                <option>100</option>
+            </select>
+        </span>
+        <span class="study-options-select" fxFlexAlign="center">
+            Session Type: 
+            <select>
+                <option>Multiple Choice</option>
+                <option>Typing Challenge</option>
+                <option>Mixed</option>
+            </select>
+        </span>
+        <button class="study-button" fxFlex="20%">Start Session</button>
+    </div>
+</div>

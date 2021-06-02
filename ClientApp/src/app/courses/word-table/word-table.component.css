@@ -60,6 +60,27 @@ td {
     width: 275px;
 }
 
+.mat-cell {
+    position: relative;
+}
+
+.visibility-icon {
+    font-size: 1.2rem;
+    position: absolute;
+    right: 15px;
+    bottom: 55px;
+    cursor: pointer;
+}
+
+.answer {
+    transition: all 0.5s;
+}
+
+.answer.hidden {
+    filter: blur(5px);
+    user-select: none;
+}
+
 .word-checkbox {
     margin-right: 10px;
 }

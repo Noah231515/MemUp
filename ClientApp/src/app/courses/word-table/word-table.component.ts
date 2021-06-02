@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Course } from 'src/app/models/course.model';
@@ -11,9 +11,14 @@ import { Word } from 'src/app/models/word.model';
 })
 export class WordTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) public paginator: MatPaginator;
+  @ViewChildren('wordAnswer') public wordAnswerChildren: QueryList<any>;
+  @ViewChildren('sentenceAnswer') public sentenceAnswerChildren: QueryList<any>;
   @Input() public course: Course;
   @Input() public dataSource: Word[];
   @Input() public displayHeader: boolean;
+  @Input() public displayAnswers: boolean;
+  public wordAnswers;
+  public sentenceAnswers;
   public tableData: MatTableDataSource<Word>;
   public displayedColumns: string[] = ['Japanese', 'English', 'Sentence'];
   public selectedWords: Word[];
@@ -28,6 +33,13 @@ export class WordTableComponent implements OnInit, AfterViewInit {
 
   public ngAfterViewInit() {
     this.tableData.paginator = this.paginator;
+    this.wordAnswerChildren.changes.subscribe((changes) => {
+      this.wordAnswers = changes;
+    })
+    this.sentenceAnswerChildren.changes.subscribe((changes) => {
+      this.sentenceAnswers = changes;
+    })
+
   }
 
   public checkForAdditionalTableData(pageEvent: PageEvent) {
@@ -35,9 +47,9 @@ export class WordTableComponent implements OnInit, AfterViewInit {
       // Check if we have reached the end of our word list, expand by the data chunk size if not
       // or expand until the end of the word list if so.
       if (pageEvent.length + this.DATA_CHUNK_SIZE < this.course.words.length) {
-        this.tableData = new MatTableDataSource<Word>(this.course.words.slice(0, pageEvent.length + this.DATA_CHUNK_SIZE));
+        this.tableData = new MatTableDataSource<Word>(this.dataSource.slice(0, pageEvent.length + this.DATA_CHUNK_SIZE));
       } else {
-        this.tableData = new MatTableDataSource<Word>(this.course.words);
+        this.tableData = new MatTableDataSource<Word>(this.dataSource);
       }
       this.tableData.paginator = this.paginator;
     }
@@ -54,6 +66,43 @@ export class WordTableComponent implements OnInit, AfterViewInit {
 
   public changeSelectedTableAction(event: any) {
     this.selectedTableAction = event.target.value;
+  }
+
+  public toggleVisibility(word: Word, targetArrayType: string) {
+    let targetArray = [];
+    switch (targetArrayType) {
+      case 'word':
+        targetArray = this.wordAnswers.toArray();
+        break;
+      case 'sentence':
+        targetArray = this.sentenceAnswers.toArray();
+        break;
+      default:
+        break;
+    }
+    
+    targetArray.forEach((elementRef: ElementRef) => {
+      if (elementRef.nativeElement.id === word.id) {
+        this.changeVisibilityStatus(elementRef);
+      }
+    })
+  }
+
+  public changeVisibilityStatus(elementRef: ElementRef) {
+    const className = elementRef.nativeElement.className;
+      const currentStatus = className.search('visible') !== -1 ? 'visible' : 'hidden';
+      let newStatus: string;
+      switch (currentStatus) {
+        case 'visible':
+          newStatus = 'hidden';
+          break;
+        case 'hidden':
+          newStatus = 'visible';
+          break;
+        default:
+          break;
+      }
+      elementRef.nativeElement.className =  elementRef.nativeElement.className.replace(currentStatus, newStatus);
   }
 
   public executeTableAction() {

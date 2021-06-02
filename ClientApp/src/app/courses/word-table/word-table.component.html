@@ -16,7 +16,7 @@
         <ng-container matColumnDef="Japanese">
             <th mat-header-cell *matHeaderCellDef> Japanese Vocab </th>
             <td mat-cell *matCellDef="let word">
-                <input class="word-checkbox" type="checkbox" (change)="toggleWordStatus(word)">
+                <input *ngIf="displayHeader" class="word-checkbox" type="checkbox" (change)="toggleWordStatus(word)">
                 {{word.japaneseVocab}}
                 [{{word.kanaVocab}}]
             </td>
@@ -25,18 +25,47 @@
         <!-- English Vocab Column -->
         <ng-container matColumnDef="English">
             <th mat-header-cell *matHeaderCellDef> English </th>
-            <td mat-cell *matCellDef="let word"> {{word.englishVocab}} </td>
+            <td mat-cell *matCellDef="let word">
+                <ng-container *ngIf="displayAnswers; else hideWordAnswers">
+                    <span class="answer visible" id={{word.id}} #wordAnswer *ngIf="displayAnswers">{{word.englishVocab}}</span>
+                    <mat-icon class="visibility-icon" (click)="toggleVisibility(word, 'word')">visibility_on</mat-icon>
+                </ng-container> 
+
+                <ng-template #hideWordAnswers>
+                    <span class="answer hidden" id={{word.id}} #wordAnswer>{{word.englishVocab}}</span>
+                    <mat-icon class="visibility-icon" (click)="toggleVisibility(word, 'word')">visibility_off</mat-icon>
+                </ng-template>
+            </td>
+
+
         </ng-container>
     
         <!-- Sentence Column -->
         <ng-container matColumnDef="Sentence">
             <th mat-header-cell *matHeaderCellDef> Sentence </th>
             <td mat-cell *matCellDef="let word">
-                <p *ngFor="let sentence of word.sentences">
-                    <span
-                    *ngIf="sentence.sentenceText != null &&
-                    sentence.sentenceType.type != 'Furigana'">{{sentence.sentenceText}}</span>
-                </p>
+                <ng-container *ngIf="displayAnswers; else hideSentenceAnswers">
+                    <p *ngFor="let sentence of word.sentences" class="answer visible" id={{word.id}} #sentenceAnswer>
+                        <span
+                        *ngIf="sentence.sentenceText != null &&
+                        sentence.sentenceType.type != 'Furigana'"
+                        >
+                            {{sentence.sentenceText}}
+                        </span>
+                    </p>
+                    <mat-icon class="visibility-icon" (click)="toggleVisibility(word, 'sentence')">visibility_on</mat-icon>
+                </ng-container>
+                <ng-template #hideSentenceAnswers>
+                    <p *ngFor="let sentence of word.sentences" class="answer hidden" id={{word.id}} #sentenceAnswer>
+                        <span
+                        *ngIf="sentence.sentenceText != null &&
+                        sentence.sentenceType.type != 'Furigana'"
+                    >
+                        {{sentence.sentenceText}}
+                    </span>
+                    </p>
+                    <mat-icon class="visibility-icon" (click)="toggleVisibility(word, 'sentence')">visibility_off</mat-icon>
+                </ng-template>
             </td>
         </ng-container>
     

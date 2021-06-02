@@ -1,9 +1,10 @@
 <div class="pre-study">
-    <h1>Study Session Preview</h1>
+    <h1>Study Session Preview for <span class="course-link" [routerLink]="['/course-details', course.id]">{{course.name}}</span></h1>
     <app-word-table 
         [dataSource]="selectedWords"
         [course]="course"
         [displayHeader]="false"
+        [displayAnswers]="false"
     ></app-word-table>
     <div class="study-options-container" fxLayout="row" fxLayoutGap="10px">
         <span class="study-options-select" fxFlexAlign="center">

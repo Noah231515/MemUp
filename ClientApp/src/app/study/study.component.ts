@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from '../models/course.model';
+import { StudyOptions } from '../models/study-options.model';
 import { SnackBarService } from '../services/snack-bar.service';
+
 
 @Component({
   selector: 'app-study',
@@ -9,14 +11,11 @@ import { SnackBarService } from '../services/snack-bar.service';
   styleUrls: ['./study.component.css']
 })
 export class StudyComponent implements OnInit {
-  public courseList: Course[];
-  public selectedCourse: Course;
   public isPreStudy: boolean;
   public isStudyGame: boolean;
-  public selectedOptions: StudyOptions = {
-    sessionSize: 10,
-    sessionType: 'multipleChoice'
-  };
+  public courseList: Course[];
+  public selectedCourse: Course;
+  public selectedOptions: StudyOptions; 
   
   constructor(
     private route: ActivatedRoute,
@@ -27,6 +26,11 @@ export class StudyComponent implements OnInit {
     this.isPreStudy = true;
     this.courseList = this.route.snapshot.data['courseList'];
     this.selectedCourse = this.route.snapshot.data['selectedCourse'];
+    this.selectedOptions = {
+      sessionSize: 10,
+      sessionType: 'multipleChoice',
+      course: this.selectedCourse,
+    };
   }
 
   public changeSessionMode() {
@@ -54,10 +58,4 @@ export class StudyComponent implements OnInit {
       this.snackBarService.openSnackBar(error)
     }
   }
-
-}
-
-interface StudyOptions {
-  sessionSize: number,
-  sessionType: string,
 }

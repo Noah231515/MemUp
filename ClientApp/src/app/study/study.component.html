@@ -1,7 +1,7 @@
 <p>study works!</p>
 <app-pre-study 
-    [course]="selectedCourse"
     [allCourses]="courseList"
+    [studyOptions]="selectedOptions"
     (updateCourse)="updateCourse($event)"
     (updateSize)="updateSessionSize($event)"
     (updateType)="updateSessionType($event)"

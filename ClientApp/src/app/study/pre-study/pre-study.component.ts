@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Course } from 'src/app/models/course.model';
+import { StudyOptions } from 'src/app/models/study-options.model';
 import { Word } from 'src/app/models/word.model';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 
@@ -9,19 +10,18 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
   styleUrls: ['./pre-study.component.css']
 })
 export class PreStudyComponent implements OnInit {
-  @Input() course: Course;
+  @Input() studyOptions: StudyOptions;
   @Input() allCourses: Course[];
   @Output() public updateSize = new EventEmitter<number>();
   @Output() public updateType = new EventEmitter<string>();
   @Output() public updateCourse= new EventEmitter<string>();
-  public sessionSize: number;
   public selectedWords: Word[];
   
 
   constructor(private snackBarService: SnackBarService) { }
 
   ngOnInit(): void {
-    this.selectedWords = this.course.words.slice(0, 25);
+    this.selectedWords = this.studyOptions.course.words.slice(0, this.studyOptions.sessionSize);
   }
 
   updateOptions(updatedOption: string, updatedValue: any) {
@@ -30,9 +30,9 @@ export class PreStudyComponent implements OnInit {
     try{
       switch (updatedOption) {
         case 'size':
-          console.log(typeof(updatedValue))
             if (parseInt(updatedValue) !== NaN) {
               this.updateSize.emit(updatedValue);
+              this.selectedWords = this.studyOptions.course.words.slice(0, updatedValue);
               break;
             } else {
               throw invalidValueErorr;

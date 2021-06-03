@@ -1,8 +1,8 @@
 <div class="pre-study">
-    <h1>Study Session Preview for <span class="course-link" [routerLink]="['/course-details', course.id]">{{course.name}}</span></h1>
+    <h1>Study Session Preview for <span class="course-link" [routerLink]="['/course-details', studyOptions.course.id]">{{studyOptions.course.name}}</span></h1>
     <app-word-table 
         [dataSource]="selectedWords"
-        [course]="course"
+        [course]="studyOptions.course"
         [displayHeader]="false"
         [displayAnswers]="false"
     ></app-word-table>

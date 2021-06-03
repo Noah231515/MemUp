@@ -68,7 +68,7 @@ export class WordTableComponent implements OnInit, AfterViewInit {
     this.selectedTableAction = event.target.value;
   }
 
-  public toggleVisibility(word: Word, targetArrayType: string) {
+  public toggleVisibility(word: Word, targetArrayType: string, iconRef: any) {
     let targetArray = [];
     switch (targetArrayType) {
       case 'word':
@@ -83,21 +83,24 @@ export class WordTableComponent implements OnInit, AfterViewInit {
     
     targetArray.forEach((elementRef: ElementRef) => {
       if (elementRef.nativeElement.id === word.id) {
-        this.changeVisibilityStatus(elementRef);
+        this.changeVisibilityStatus(elementRef, iconRef);
       }
     })
   }
 
-  public changeVisibilityStatus(elementRef: ElementRef) {
+  public changeVisibilityStatus(elementRef: ElementRef, iconRef: any) {
     const className = elementRef.nativeElement.className;
+    const icon = iconRef._elementRef.nativeElement;
       const currentStatus = className.search('visible') !== -1 ? 'visible' : 'hidden';
       let newStatus: string;
       switch (currentStatus) {
         case 'visible':
           newStatus = 'hidden';
+          icon.innerText = 'visibility_off';
           break;
         case 'hidden':
           newStatus = 'visible';
+          icon.innerText = 'visibility_on';
           break;
         default:
           break;

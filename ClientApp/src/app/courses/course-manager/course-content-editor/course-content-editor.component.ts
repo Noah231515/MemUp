@@ -36,7 +36,7 @@ export class CourseContentEditorComponent implements OnInit {
         this.wordService.createBlankSentence('English', this.newWord),
         this.wordService.createBlankSentence('Japanese', this.newWord),
         this.wordService.createBlankSentence('Furigana', this.newWord),
-    ]
+    ];
   }
 
 

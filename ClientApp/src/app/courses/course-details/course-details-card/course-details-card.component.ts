@@ -18,9 +18,9 @@ export class CourseDetailsCardComponent implements OnInit {
   public numberOfUsers: number;
 
   public constructor(
-    private courseService: CourseService, 
+    private courseService: CourseService,
     private snackBarService: SnackBarService,
-    ) { }
+  ) { }
 
   public ngOnInit(): void {
     this.numberOfSentences = this.courseService.getNumberOfSentences(this.course);

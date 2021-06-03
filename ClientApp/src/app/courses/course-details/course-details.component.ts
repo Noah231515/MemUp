@@ -15,7 +15,7 @@ export class CourseDetailsComponent implements OnInit {
   public manageContentText: string;
 
   public constructor(
-  private route: ActivatedRoute, 
+  private route: ActivatedRoute,
   private router: Router,
   private courseService: CourseService
   ) { }

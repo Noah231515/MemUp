@@ -15,14 +15,14 @@ export class StudyComponent implements OnInit {
   public isStudyGame: boolean;
   public courseList: Course[];
   public selectedCourse: Course;
-  public selectedOptions: StudyOptions; 
-  
+  public selectedOptions: StudyOptions;
+
   constructor(
     private route: ActivatedRoute,
     private snackBarService: SnackBarService,
   ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.isPreStudy = true;
     this.courseList = this.route.snapshot.data['courseList'];
     this.selectedCourse = this.route.snapshot.data['selectedCourse'];
@@ -52,10 +52,10 @@ export class StudyComponent implements OnInit {
       if (validSessionTypes.find(element => element === newType)) {
         this.selectedOptions.sessionType = newType;
       } else {
-        throw new Error('An invalid session type was provided.')
+        throw new Error('An invalid session type was provided.');
       }
-    } catch (error) { 
-      this.snackBarService.openSnackBar(error)
+    } catch (error) {
+      this.snackBarService.openSnackBar(error);
     }
   }
 }

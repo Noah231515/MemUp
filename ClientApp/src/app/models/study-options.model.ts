@@ -1,7 +1,7 @@
-import { Course } from "./course.model";
+import { Course } from './course.model';
 
 export class StudyOptions {
-    sessionSize: number;
-    sessionType: string;
-    course: Course;
+    public sessionSize: number;
+    public sessionType: string;
+    public course: Course;
 }

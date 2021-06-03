@@ -26,7 +26,7 @@ export class WordTableComponent implements OnInit, AfterViewInit {
   private DATA_CHUNK_SIZE = 500;
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.tableData = new MatTableDataSource<Word>(this.dataSource.slice(0, this.DATA_CHUNK_SIZE));
     this.selectedWords = [];
   }
@@ -35,10 +35,10 @@ export class WordTableComponent implements OnInit, AfterViewInit {
     this.tableData.paginator = this.paginator;
     this.wordAnswerChildren.changes.subscribe((changes) => {
       this.wordAnswers = changes;
-    })
+    });
     this.sentenceAnswerChildren.changes.subscribe((changes) => {
       this.sentenceAnswers = changes;
-    })
+    });
 
   }
 
@@ -80,12 +80,12 @@ export class WordTableComponent implements OnInit, AfterViewInit {
       default:
         break;
     }
-    
+
     targetArray.forEach((elementRef: ElementRef) => {
       if (elementRef.nativeElement.id === word.id) {
         this.changeVisibilityStatus(elementRef, iconRef);
       }
-    })
+    });
   }
 
   public changeVisibilityStatus(elementRef: ElementRef, iconRef: any) {

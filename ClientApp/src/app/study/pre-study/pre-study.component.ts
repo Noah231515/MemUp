@@ -10,27 +10,26 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
   styleUrls: ['./pre-study.component.css']
 })
 export class PreStudyComponent implements OnInit {
-  @Input() studyOptions: StudyOptions;
-  @Input() allCourses: Course[];
+  @Input() public studyOptions: StudyOptions;
+  @Input() public allCourses: Course[];
   @Output() public updateSize = new EventEmitter<number>();
   @Output() public updateType = new EventEmitter<string>();
-  @Output() public updateCourse= new EventEmitter<string>();
+  @Output() public updateCourse = new EventEmitter<string>();
   public selectedWords: Word[];
-  
 
   constructor(private snackBarService: SnackBarService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.selectedWords = this.studyOptions.course.words.slice(0, this.studyOptions.sessionSize);
   }
 
-  updateOptions(updatedOption: string, updatedValue: any) {
-    const invalidValueErorr = new Error("Invalid value provided.");
+  public updateOptions(updatedOption: string, updatedValue: any) {
+    const invalidValueErorr = new Error('Invalid value provided.');
 
-    try{
+    try {
       switch (updatedOption) {
         case 'size':
-            if (parseInt(updatedValue) !== NaN) {
+            if (parseInt(updatedValue, 10) !== NaN) {
               this.updateSize.emit(updatedValue);
               this.selectedWords = this.studyOptions.course.words.slice(0, updatedValue);
               break;
@@ -38,14 +37,14 @@ export class PreStudyComponent implements OnInit {
               throw invalidValueErorr;
             }
         case 'type':
-          if(typeof(updatedValue) === "string") {
+          if (typeof(updatedValue) === 'string') {
             this.updateType.emit(updatedValue);
             break;
           } else {
             throw invalidValueErorr;
           }
         case 'course':
-          if(typeof(updatedValue) === 'string') {
+          if (typeof(updatedValue) === 'string') {
             this.updateCourse.emit(updatedValue);
             break;
           } else {

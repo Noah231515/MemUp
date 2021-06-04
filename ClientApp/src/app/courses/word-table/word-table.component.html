@@ -47,8 +47,8 @@
                 <ng-container *ngIf="displayAnswers; else hideSentenceAnswers">
                     <p *ngFor="let sentence of word.sentences" class="answer visible" id={{word.id}} #sentenceAnswer>
                         <span
-                        *ngIf="sentence.sentenceText != null &&
-                        sentence.sentenceType.type != 'Furigana'"
+                            *ngIf="sentence.sentenceText != null
+                            && sentence.sentenceType.type != SENTENCE_TYPES.furigana"
                         >
                             {{sentence.sentenceText}}
                         </span>
@@ -58,11 +58,11 @@
                 <ng-template #hideSentenceAnswers>
                     <p *ngFor="let sentence of word.sentences" class="answer hidden" id={{word.id}} #sentenceAnswer>
                         <span
-                        *ngIf="sentence.sentenceText != null &&
-                        sentence.sentenceType.type != 'Furigana'"
-                    >
-                        {{sentence.sentenceText}}
-                    </span>
+                            *ngIf="sentence.sentenceText != null
+                            && sentence.sentenceType.type != SENTENCE_TYPES.furigana"
+                        >
+                            {{sentence.sentenceText}}
+                        </span>
                     </p>
                     <mat-icon class="visibility-icon" #visibilityIcon (click)="toggleVisibility(word, 'sentence', visibilityIcon)">visibility_off</mat-icon>
                 </ng-template>

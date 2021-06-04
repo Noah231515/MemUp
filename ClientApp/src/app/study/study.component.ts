@@ -47,15 +47,6 @@ export class StudyComponent implements OnInit {
   }
 
   public updateSessionType(newType: string) {
-    const validSessionTypes = ['multipleChoice', 'typingChallenge', 'mixed'];
-    try {
-      if (validSessionTypes.find(element => element === newType)) {
-        this.selectedOptions.sessionType = newType;
-      } else {
-        throw new Error('An invalid session type was provided.');
-      }
-    } catch (error) {
-      this.snackBarService.openSnackBar(error);
-    }
+    this.selectedOptions.sessionType = newType;
   }
 }

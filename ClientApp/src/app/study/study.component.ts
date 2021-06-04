@@ -33,19 +33,42 @@ export class StudyComponent implements OnInit {
     };
   }
 
+  /**
+   * Switches between the pre study and study game modes
+   *
+   * @memberof StudyComponent
+   */
   public changeSessionMode() {
     this.isPreStudy = !this.isPreStudy;
     this.isStudyGame = !this.isStudyGame;
   }
 
+  /**
+   * Sets the selected course to the updated value emitted by the pre-study component
+   *
+   * @param {string} newCourseName
+   * @memberof StudyComponent
+   */
   public updateCourse(newCourseName: string) {
     this.selectedCourse = this.courseList.find(element => element.name === newCourseName);
   }
 
+  /**
+   * Sets the session size option to the updated value emitted by the pre-study component
+   *
+   * @param {number} newSize
+   * @memberof StudyComponent
+   */
   public updateSessionSize(newSize: number) {
     this.selectedOptions.sessionSize = newSize;
   }
 
+  /**
+   * Sets the session type option to the updated value emitted by the pre-study component
+   *
+   * @param {string} newType
+   * @memberof StudyComponent
+   */
   public updateSessionType(newType: string) {
     this.selectedOptions.sessionType = newType;
   }

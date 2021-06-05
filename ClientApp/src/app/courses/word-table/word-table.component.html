@@ -48,7 +48,7 @@
                     <p *ngFor="let sentence of word.sentences" class="answer visible" id={{word.id}} #sentenceAnswer>
                         <span
                             *ngIf="sentence.sentenceText != null
-                            && sentence.sentenceType.type != SENTENCE_TYPES.furigana"
+                            && sentence.sentenceType.type != SENTENCE_TYPES.FURIGANA"
                         >
                             {{sentence.sentenceText}}
                         </span>
@@ -59,7 +59,7 @@
                     <p *ngFor="let sentence of word.sentences" class="answer hidden" id={{word.id}} #sentenceAnswer>
                         <span
                             *ngIf="sentence.sentenceText != null
-                            && sentence.sentenceType.type != SENTENCE_TYPES.furigana"
+                            && sentence.sentenceType.type != SENTENCE_TYPES.FURIGANA"
                         >
                             {{sentence.sentenceText}}
                         </span>

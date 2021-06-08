@@ -1,0 +1,35 @@
+<div class="pre-study">
+    <h1>Study Session Preview for <span class="course-link" [routerLink]="['/course-details', studyOptions.course.id]">{{studyOptions.course.name}}</span></h1>
+    <app-word-table 
+        [wordDataSource]="selectedWords"
+        [course]="studyOptions.course"
+        [displayHeader]="false"
+        [displayAnswers]="false"
+    ></app-word-table>
+    <div class="study-options-container" fxLayout="row" fxLayoutGap="10px">
+        <span class="study-options-select" fxFlexAlign="center">
+            Course: 
+            <select #courseSelect (change)="updateCourse(courseSelect.value)">
+                <option *ngFor="let course of allCourses" [value]="course.name">{{course.name}}</option>
+            </select>
+        </span>
+        <span class="study-options-select" fxFlexAlign="center">
+            Session Size: 
+            <select #sizeSelect (change)="updateSize(sizeSelect.value)">
+                <option [value]="10">10</option>
+                <option [value]="25">25</option>
+                <option [value]="50">50</option>
+                <option [value]="100">100</option>
+            </select>
+        </span>
+        <span class="study-options-select" fxFlexAlign="center">
+            Session Type: 
+            <select #typeSelect (change)="updateType(typeSelect.value)">
+                <option [value]="SESSION_TYPES.multipleChoice">Multiple Choice</option>
+                <option [value]="SESSION_TYPES.typingChallenge">Typing Challenge</option>
+                <option [value]="SESSION_TYPES.mixed">Mixed</option>
+            </select>
+        </span>
+        <button class="study-button" fxFlex="20%">Start Session</button>
+    </div>
+</div>

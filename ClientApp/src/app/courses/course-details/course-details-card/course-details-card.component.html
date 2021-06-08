@@ -20,7 +20,7 @@
         <p class="course-statistic">Words: <span class="stat-count">{{ course.words.length }}</span></p>
         <p class="course-statistic">Sentences: <span class="stat-count">{{ numberOfSentences }}</span></p>
         <p class="course-statistic">Users: <span class="stat-count">{{ numberOfUsers }}</span></p>
-        <button class="study-button">Study Now</button>
+        <button class="study-button" [routerLink]="['/study', course.id]">Study Now</button>
         <div class="study-statistics">
             <hr>
             <p>STUDY PROGRESS COMING SOON</p>

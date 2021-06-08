@@ -1,0 +1,14 @@
+.pre-study {
+    padding: 3% 5%;
+    background-color: lightblue;
+    border-radius: 2%;
+}
+
+.course-link {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.study-options-container {
+    margin-top: 20px;
+}

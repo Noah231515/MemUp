@@ -1,5 +1,5 @@
 <mat-card class="course-summary">
-    <div>
+    <div class="card-top">
         <mat-card-title>
             <a 
             [routerLink]="['/course-details', course.id]"
@@ -9,6 +9,7 @@
         <button mat-icon-button class="menu-btn" [matMenuTriggerFor]="menu" aria-hidden="false" aria-label="course menu">
             <mat-icon>more_horiz</mat-icon>
         </button>
+        <button class="study-button" [routerLink]="['/study', course.id]" >Study Now</button>
         <hr/>
     </div>
     <mat-card-content>

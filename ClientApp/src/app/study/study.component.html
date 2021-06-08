@@ -1,0 +1,8 @@
+<app-pre-study 
+    [allCourses]="courseList"
+    [studyOptions]="selectedOptions"
+    (courseUpdated)="updateCourse($event)"
+    (sizeUpdated)="updateSessionSize($event)"
+    (typeUpdated)="updateSessionType($event)"
+    *ngIf="isPreStudy"></app-pre-study>
+<app-study-game [course]="selectedCourse" *ngIf="isStudyGame"></app-study-game>

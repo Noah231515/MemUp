@@ -11,6 +11,7 @@ import { CoursesComponent } from './courses/courses.component';
 import { AllCoursesResolver } from './courses/all-courses.resolver';
 import { CourseDetailsComponent } from './courses/course-details/course-details.component';
 import { CourseDetailsResolver } from './courses/course-details/course-details.resolver';
+import { StudyComponent } from './study/study.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,14 @@ const routes: Routes = [
     component: CoursesComponent,
     resolve: {
       allCourses: AllCoursesResolver,
+    }
+  },
+  {
+    path: 'study/:id',
+    component: StudyComponent,
+    resolve: {
+      courseList: AllCoursesResolver,
+      selectedCourse: CourseDetailsResolver,
     }
   },
 ];

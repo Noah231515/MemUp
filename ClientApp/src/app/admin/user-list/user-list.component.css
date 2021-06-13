@@ -3,7 +3,7 @@ table {
 }
 
 tr.user-detail-row {
-    height: 0!important;
+    height: 0;
 }
 
 tr.user-row:not(.expanded-row):hover {
